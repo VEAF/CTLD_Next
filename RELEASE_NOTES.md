@@ -1,4 +1,8 @@
-# CTLD 2.0.0-rc8 — release candidate
+# CTLD 2.0.0-rc9 — release candidate
+
+> **If you installed a mission with rc8, re-install it with this version.** rc8's engine does not
+> start: it fails while loading, and your mission ends up with no CTLD radio menu at all. Nothing in
+> your configuration is at fault and nothing needs changing — re-installing is the whole fix.
 
 ## Installation
 
@@ -12,58 +16,48 @@
 **Properties** → tick **Unblock** → **OK**.
 
 Prefer doing it by hand? The files are attached to this release too — see the
-[documentation](https://veaf.github.io/CTLD/2.0.0-rc8/mission-maker/).
+[documentation](https://veaf.github.io/CTLD/2.0.0-rc9/mission-maker/).
 
 ---
 
-**Already installed a mission with rc7?** Re-install it with this version. The fixes below travel
-inside the engine the tool writes into your `.miz` — a mission installed with rc7 keeps the old one
-until you install again.
+This release candidate exists for one reason: **rc8 does not load**. Everything rc8 brought is still
+here — it simply never got the chance to run.
 
-This release candidate closes two troop-pickup gaps reported by the community and a beacon frequency
-gap, and hardens the engine against a bad setup — a missing initialization step now tells you exactly
-what to fix instead of failing on an unrelated error.
+## What was broken in rc8
 
-## What's fixed in the mission
+The engine failed while loading, before it ever started. In game that looks like:
 
-- **Troops can now actually be picked up at a built FOB.** The "Allow troop pickup at built FOBs"
-  setting has existed since the rewrite, on by default — but nothing in the F10 "Load Troops" menu
-  ever consulted it, so a FOB never offered troop pickup no matter what it was set to. It now works:
-  a deployed FOB registers a real pickup zone, using the FOB's own radius, exactly as it does for
-  logistics.
+- **no CTLD radio menu** under F10, at all;
+- everything else in the mission working normally, so nothing obviously points at CTLD;
+- a single line in `dcs.log` mentioning *"CTLD configuration is not loaded"*.
 
-- **Troops can now be picked up at a built FARP.** FARPs had no troop-pickup capability at all —
-  only FOBs did. Any of the three built-in FARP scenes (default, Alpha, Countryside) now registers a
-  pickup zone the moment it finishes building, and removes it the moment DCS destroys the FARP (or
-  when a Countryside FARP is packed back into crates).
+It affected **every** mission installed with rc8 — it had nothing to do with your settings, your
+theatre, or how the mission was built.
 
-- **A quarter of the FM beacon band was unreachable.** The FM pool skipped four ranges —
-  36.0–39.9, 46.0–49.9, 56.0–59.9 and 66.0–69.9 MHz — including ordinary frequencies like 38.00 MHz.
-  Any beacon or briefing asking for one of those quietly failed or landed elsewhere. All 460 steps
-  from 30.0 to 75.9 MHz are reachable now.
+**If you use VEAF Mission Creation Tools**, the damage went further: VEAF loads its own scripts in the
+same block, right after CTLD, so the failure took the whole VEAF framework down with it. Those
+missions had **no radio menu whatsoever** — not CTLD's, not VEAF's. VEAF Tools 6.22.1 ships this fix;
+until you update it, re-installing with `ctld-tools.exe` from this release works too.
 
-## Under the hood: a clearer failure when CTLD isn't started correctly
+Reported by **Tripack** (VEAF) within hours of the release — thank you.
 
-If a mission's script setup skips `ctld.initialize()` — an integration mistake, not something a
-Mission Maker using the tool can trigger — CTLD used to crash on an unrelated arithmetic error deep
-inside the engine, giving no hint that initialization was the actual problem. It now fails
-immediately with a message that says exactly what's missing. Reported by **Zip**, who also reported
-the FM beacon gap above — thank you for both.
+## What caused it, briefly
 
-## New scripted capabilities (for mission scripters)
+rc8 added a deliberate safety check: asking CTLD for a setting before the engine has started is now
+refused outright, with a message saying so, instead of failing later on something unrelated. That
+check was right, and it is unchanged here.
 
-- A beacon placed through script (`createAtPoint`) can now be **requested on a specific frequency**
-  instead of always drawing at random — useful when a frequency is already briefed to pilots on a
-  kneeboard.
-- A troop pickup zone can now be added through script on **any named object** — a unit, a static, a
-  group, or an airbase — not only through a Mission Editor trigger zone.
+What it caught was CTLD's own logging: the engine writes a log line while registering its built-in
+FARP and FOB scenes, which happens *before* the engine starts — and writing that line asked for a
+setting. Logging now tolerates being called that early, which is what it always should have done.
+
+## And so that this cannot happen again
+
+CTLD's continuous integration checked that the engine file *existed*, that it *parsed*, and that the
+individual source modules behaved. Nothing ever **ran** the assembled engine — which is exactly where
+the failure was. Every build now loads it end to end and refuses to publish if it does not come up.
 
 ## Nothing to change in your configuration
 
-No existing setting was renamed or removed, and every default keeps today's behavior. FARP troop
-pickup ships **on by default** (`troopPickupAtFARP`, 150 m radius) — turn it off in the tool if you
-don't want it.
-
----
-
-Thanks to **Tripack** (VEAF) for testing and feedback on this release candidate.
+No setting was renamed, removed or given a new default since rc8. Re-install your mission and you are
+done.
