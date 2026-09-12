@@ -1904,7 +1904,16 @@ function ctld.utils.log(level, fmt, ...)
             ctld.__logFile:flush()
         end)
     end
-    if ctld.gs("debugScreenLog") == true then
+    -- Guarded like CTLD_i18n.lua's _activeLang(), and for the same reason: log() runs during the
+    -- main chunk, before ctld.initialize(). The scene files self-register at load time and log as
+    -- they do, so this read happens against a config that is legitimately not loaded yet —
+    -- CTLDConfig:getSetting refuses that by design (FIX-CONFIG-NOT-LOADED-GUARD), and an error
+    -- raised from the logger aborts the whole file. Logging is infrastructure: it is called *from*
+    -- initialization, so it cannot require initialization to have finished. env.info above is
+    -- deliberately outside the guard — a pre-init line must still reach dcs.log.
+    -- The inner read needs no guard of its own: reaching it proves the config is loaded.
+    local okScreenLog, screenLog = pcall(ctld.gs, "debugScreenLog")
+    if okScreenLog and screenLog == true then
         local duration = ctld.gs("debugScreenLogDuration")
         trigger.action.outText(msg, duration)
     end
