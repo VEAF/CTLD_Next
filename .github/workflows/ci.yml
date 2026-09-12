@@ -121,6 +121,28 @@ jobs:
           retention-days: 7
 
   # ─────────────────────────────────────────────────────────────
+  # Run the deliverable. The build job above only weighs it.
+  #
+  # FIX-BUILT-FILE-DOES-NOT-LOAD: 2.0.0-rc8 was tagged and released with a CTLD.lua that raised
+  # during its own main chunk, and passed lua-lint (syntax only, per src/ module), busted (which
+  # loads a config first and never loads src/scenes/) and the build job (exists, non-empty). This
+  # job judges the merged bytes that ship, downloaded from the build job rather than rebuilt.
+  # ─────────────────────────────────────────────────────────────
+  smoke:
+    name: Built CTLD.lua Loads
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v7
+        with:
+          name: CTLD
+      - name: Install Lua 5.1
+        run: sudo apt-get update && sudo apt-get install -y lua5.1
+      - name: Load the built CTLD.lua with the DCS stubs
+        run: lua5.1 tests/ci/smoke/load_built_ctld.lua CTLD.lua
+
+  # ─────────────────────────────────────────────────────────────
   # busted tests (tests/ci/**/*_spec.lua) with coverage ratchet.
   # DCS API is stubbed in tests/ci/helpers/. Coverage floor only goes up.
   # ─────────────────────────────────────────────────────────────
