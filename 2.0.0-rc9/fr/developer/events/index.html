@@ -1,0 +1,5882 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Combined Transport and Logistics Dispatcher for DCS World — modular rewrite.">
+      
+      
+      
+        <link rel="canonical" href="https://veaf.github.io/CTLD/2.0.0-rc9/fr/developer/events/">
+      
+      
+        <link rel="prev" href="../subsystems/aa/">
+      
+      
+        <link rel="next" href="../i18n/">
+      
+      
+        
+          <link rel="alternate" href="../../../developer/events/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="fr">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Événements - CTLD</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#events" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../" title="CTLD" class="md-header__button md-logo" aria-label="CTLD" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CTLD
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Événements
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Sélectionner la langue">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../developer/events/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/VEAF/CTLD" title="Aller au dépôt" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    VEAF/CTLD
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Accueil
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../pilot/" class="md-tabs__link">
+          
+  
+  
+  Pilote
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../mission-maker/" class="md-tabs__link">
+          
+  
+  
+  Concepteur de mission (mission maker)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  Développeur
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="CTLD" class="md-nav__button md-logo" aria-label="CTLD" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CTLD
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/VEAF/CTLD" title="Aller au dépôt" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    VEAF/CTLD
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pilote
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pilote
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pilot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue d'ensemble
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pilot/troop-transport/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transport de troupes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pilot/crates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caisses (crates)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pilot/vehicles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Véhicules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pilot/slingload/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Élingue (sling-load)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pilot/parachute/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parachute
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pilot/jtac/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JTAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pilot/recon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reconnaissance (recon)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pilot/beacons/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Balises (beacons)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pilot/smoke/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fumigène (smoke)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pilot/pack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pack
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepteur de mission (mission maker)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Concepteur de mission (mission maker)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mission-maker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue d'ensemble
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mission-maker/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mission-maker/ctld-tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurer avec ctld-tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mission-maker/zones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration des zones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mission-maker/scenes-fob/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scènes & FOB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mission-maker/crates-catalogue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Catalogue de caisses (crates)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mission-maker/minefield/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Champ de mines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mission-maker/asset-validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Valider votre configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mission-maker/translations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Traductions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mission-maker/legacy-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API historique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Développeur
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Développeur
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue d'ensemble
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow de développement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sous-systèmes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sous-systèmes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue d'ensemble
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/scenes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Moteur de scènes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/crates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pipeline de spawn des caisses (crates)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/troops-jtac/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cycle de vie troupes + JTAC (troops)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/zones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestion des zones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/vehicles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Système de véhicules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/beacons/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Système de balises (beacons)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/recon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Système de reconnaissance (recon)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/menu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Système de menu F10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/players/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Suivi des joueurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subsystems/aa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assemblage des systèmes AA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Événements
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Événements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-eventdispatcher-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        L'API EventDispatcher
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="L&#39;API EventDispatcher">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#subscribeeventname-callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        subscribe(eventName, callback)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unsubscribeeventname-callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        unsubscribe(eventName, callback)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unsubscribealleventname" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        unsubscribeAll(eventName)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publisheventname-payload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        publish(eventName, payload)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#payload-convention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convention de payload
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migrating-from-the-v1-callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migration depuis le callback v1
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#event-catalogue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Catalogue des événements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Catalogue des événements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#beacon-events-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Événements beacon (5)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Événements beacon (5)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#onbeacondropped" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnBeaconDropped
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onbeaconremoved" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnBeaconRemoved
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onbeacondestroyed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnBeaconDestroyed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onbeaconrefreshed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnBeaconRefreshed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onbeaconlayertoggled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnBeaconLayerToggled
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crate-events-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Événements crate (10)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Événements crate (10)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#oncratespawned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnCrateSpawned
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oncrateloaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnCrateLoaded
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oncrateunloaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnCrateUnloaded
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oncratelost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnCrateLost
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oncratecleared" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnCrateCleared
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oncrateunpacked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnCrateUnpacked
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oncratedestroyed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnCrateDestroyed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oncrateparachuting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnCrateParachuting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oncrateparachutelanded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnCrateParachuteLanded
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onmmcratedetected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnMMCrateDetected
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vehicle-events-9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Événements vehicle (9)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Événements vehicle (9)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#onvehiclespawnedfortransport" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnVehicleSpawnedForTransport
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onvehicleloaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnVehicleLoaded
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onvehicleunloaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnVehicleUnloaded
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onvehiclepacked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnVehiclePacked
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onvehicleparachuting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnVehicleParachuting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onvehicleparachutelanded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnVehicleParachuteLanded
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onvehicledead" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnVehicleDead
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ongroundunitspawned-ongroundunitremoved" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnGroundUnitSpawned / OnGroundUnitRemoved
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troop-events-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Événements troop (2)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Événements troop (2)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ontroopsdeployed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnTroopsDeployed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ontroopsparachutelanded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnTroopsParachuteLanded
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jtac-events-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Événements JTAC (8)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Événements JTAC (8)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#onjtacspawned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnJTACSpawned
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onjtacintransit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnJTACInTransit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onjtaclasestart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnJTACLaseStart
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onjtactargetlased" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnJTACTargetLased
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onjtaclasestop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnJTACLaseStop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onjtacorbitstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnJTACOrbitStart
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onjtacsmoketarget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnJTACSmokeTarget
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onjtacdead" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnJTACDead
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recon-events-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Événements RECON (8)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Événements RECON (8)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reconfarpdetected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ReconFarpDetected
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reconfarplost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ReconFarpLost
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onreconscan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnReconScan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onreconscanrefresh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnReconScanRefresh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onreconhidetargets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnReconHideTargets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onreconlayertoggled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnReconLayerToggled
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onreconautorefreshenabled-onreconautorefreshdisabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnReconAutoRefreshEnabled / OnReconAutoRefreshDisabled
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fob-events-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Événements FOB (2)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Événements FOB (2)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#onfobdeployed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnFOBDeployed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onfobdestroyed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnFOBDestroyed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aa-system-events-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Événements AA system (3)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Événements AA system (3)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#onaasystemdeployed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnAASystemDeployed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onaasystemrearmed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnAASystemRearmed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onaasystemrepaired" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnAASystemRepaired
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zone-events-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Événements zone (2)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Événements zone (2)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#onzonesmokerefreshed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnZoneSmokeRefreshed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onlogisticzoneupdated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnLogisticZoneUpdated
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#catalogue-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Résumé du catalogue
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-dcs-event-bridge-for-contrast" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Le pont d'événements DCS (à titre de contraste)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Internationalisation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../building-and-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Build et tests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../integration-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tests d'intégration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migration-v1-v2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migration v1 → v2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Référence de l'API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design-spec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spécification de conception
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-eventdispatcher-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        L'API EventDispatcher
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="L&#39;API EventDispatcher">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#subscribeeventname-callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        subscribe(eventName, callback)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unsubscribeeventname-callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        unsubscribe(eventName, callback)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unsubscribealleventname" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        unsubscribeAll(eventName)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publisheventname-payload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        publish(eventName, payload)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#payload-convention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convention de payload
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migrating-from-the-v1-callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migration depuis le callback v1
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#event-catalogue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Catalogue des événements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Catalogue des événements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#beacon-events-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Événements beacon (5)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Événements beacon (5)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#onbeacondropped" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnBeaconDropped
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onbeaconremoved" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnBeaconRemoved
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onbeacondestroyed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnBeaconDestroyed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onbeaconrefreshed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnBeaconRefreshed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onbeaconlayertoggled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnBeaconLayerToggled
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crate-events-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Événements crate (10)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Événements crate (10)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#oncratespawned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnCrateSpawned
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oncrateloaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnCrateLoaded
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oncrateunloaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnCrateUnloaded
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oncratelost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnCrateLost
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oncratecleared" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnCrateCleared
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oncrateunpacked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnCrateUnpacked
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oncratedestroyed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnCrateDestroyed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oncrateparachuting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnCrateParachuting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oncrateparachutelanded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnCrateParachuteLanded
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onmmcratedetected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnMMCrateDetected
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vehicle-events-9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Événements vehicle (9)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Événements vehicle (9)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#onvehiclespawnedfortransport" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnVehicleSpawnedForTransport
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onvehicleloaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnVehicleLoaded
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onvehicleunloaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnVehicleUnloaded
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onvehiclepacked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnVehiclePacked
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onvehicleparachuting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnVehicleParachuting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onvehicleparachutelanded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnVehicleParachuteLanded
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onvehicledead" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnVehicleDead
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ongroundunitspawned-ongroundunitremoved" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnGroundUnitSpawned / OnGroundUnitRemoved
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troop-events-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Événements troop (2)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Événements troop (2)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ontroopsdeployed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnTroopsDeployed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ontroopsparachutelanded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnTroopsParachuteLanded
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jtac-events-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Événements JTAC (8)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Événements JTAC (8)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#onjtacspawned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnJTACSpawned
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onjtacintransit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnJTACInTransit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onjtaclasestart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnJTACLaseStart
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onjtactargetlased" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnJTACTargetLased
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onjtaclasestop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnJTACLaseStop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onjtacorbitstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnJTACOrbitStart
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onjtacsmoketarget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnJTACSmokeTarget
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onjtacdead" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnJTACDead
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recon-events-8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Événements RECON (8)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Événements RECON (8)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reconfarpdetected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ReconFarpDetected
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reconfarplost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ReconFarpLost
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onreconscan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnReconScan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onreconscanrefresh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnReconScanRefresh
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onreconhidetargets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnReconHideTargets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onreconlayertoggled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnReconLayerToggled
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onreconautorefreshenabled-onreconautorefreshdisabled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnReconAutoRefreshEnabled / OnReconAutoRefreshDisabled
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fob-events-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Événements FOB (2)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Événements FOB (2)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#onfobdeployed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnFOBDeployed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onfobdestroyed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnFOBDestroyed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aa-system-events-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Événements AA system (3)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Événements AA system (3)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#onaasystemdeployed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnAASystemDeployed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onaasystemrearmed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnAASystemRearmed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onaasystemrepaired" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnAASystemRepaired
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zone-events-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Événements zone (2)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Événements zone (2)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#onzonesmokerefreshed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnZoneSmokeRefreshed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onlogisticzoneupdated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OnLogisticZoneUpdated
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#catalogue-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Résumé du catalogue
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-dcs-event-bridge-for-contrast" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Le pont d'événements DCS (à titre de contraste)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="events">Événements<a class="headerlink" href="#events" title="Permanent link">&para;</a></h1>
+<p>CTLD dispose de <strong>deux canaux d'événements distincts</strong>, qui ne se chevauchent jamais :</p>
+<table>
+<thead>
+<tr>
+<th>Canal</th>
+<th>Classe</th>
+<th>Transporte</th>
+<th>Page source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Événements métier</td>
+<td><code>EventDispatcher</code></td>
+<td>Événements de domaine CTLD (<code>OnCrateLoaded</code>, <code>OnTroopsDeployed</code>, …)</td>
+<td>cette page</td>
+</tr>
+<tr>
+<td>Événements moteur DCS</td>
+<td><code>CTLDDCSEventBridge</code></td>
+<td><code>S_EVENT_*</code> bruts issus du simulateur</td>
+<td>voir <a href="../architecture/">Architecture</a></td>
+</tr>
+</tbody>
+</table>
+<p><code>EventDispatcher</code> est le bus pub/sub interne que les managers utilisent pour signaler les
+changements de domaine entre eux et aux scripts de mission externes. Les événements moteur DCS
+(<code>S_EVENT_DEAD</code>, <code>S_EVENT_BIRTH</code>, …) n'y transitent <strong>jamais</strong> : ils arrivent via
+<code>CTLDDCSEventBridge</code>, sont traités par le manager concerné, puis seulement ré-émis comme
+événements métier lorsque c'est utile.</p>
+<h2 id="the-eventdispatcher-api">L'API <code>EventDispatcher</code><a class="headerlink" href="#the-eventdispatcher-api" title="Permanent link">&para;</a></h2>
+<p><code>EventDispatcher</code> est un singleton déclaré dans <code>src/CTLD_core.lua</code>. On l'obtient avec
+<code>getInstance()</code> ; il n'a pas de point d'entrée <code>:new()</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">local</span><span class="w"> </span><span class="nv">ed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">EventDispatcher</span><span class="p">.</span><span class="nf">getInstance</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="subscribeeventname-callback"><code>subscribe(eventName, callback)</code><a class="headerlink" href="#subscribeeventname-callback" title="Permanent link">&para;</a></h3>
+<p>Enregistre un callback pour un événement nommé. Le callback reçoit la table de payload de
+l'événement comme unique argument.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">EventDispatcher</span><span class="p">.</span><span class="nf">getInstance</span><span class="p">():</span><span class="nf">subscribe</span><span class="p">(</span><span class="s2">"OnCrateLoaded"</span><span class="p">,</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="nv">evt</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">-- evt.crateName, evt.carrierUnitName, evt.coalition, ...</span>
+<span class="kr">end</span><span class="p">)</span>
+</code></pre></div>
+<p>Le même callback peut être enregistré plusieurs fois ; chaque enregistrement produit un appel
+supplémentaire lors de la publication. Il incombe aux appelants d'éviter les abonnements en
+double accidentels. Un <code>callback</code> qui n'est pas une fonction est ignoré silencieusement.</p>
+<h3 id="unsubscribeeventname-callback"><code>unsubscribe(eventName, callback)</code><a class="headerlink" href="#unsubscribeeventname-callback" title="Permanent link">&para;</a></h3>
+<p>Retire un callback précédemment enregistré. L'argument <code>callback</code> doit être la <strong>référence de
+fonction exactement identique</strong> utilisée au moment de l'abonnement (conservez une référence
+locale si vous comptez vous désabonner). Seule la dernière occurrence correspondante enregistrée
+est retirée par appel.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">onLoaded</span><span class="p">(</span><span class="nv">evt</span><span class="p">)</span><span class="w"> </span><span class="cm">--[[ ... ]]</span><span class="w"> </span><span class="kr">end</span>
+<span class="kd">local</span><span class="w"> </span><span class="nv">ed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">EventDispatcher</span><span class="p">.</span><span class="nf">getInstance</span><span class="p">()</span>
+<span class="nv">ed</span><span class="p">:</span><span class="nf">subscribe</span><span class="p">(</span><span class="s2">"OnCrateLoaded"</span><span class="p">,</span><span class="w"> </span><span class="nv">onLoaded</span><span class="p">)</span>
+<span class="c1">-- plus tard :</span>
+<span class="nv">ed</span><span class="p">:</span><span class="nf">unsubscribe</span><span class="p">(</span><span class="s2">"OnCrateLoaded"</span><span class="p">,</span><span class="w"> </span><span class="nv">onLoaded</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="unsubscribealleventname"><code>unsubscribeAll(eventName)</code><a class="headerlink" href="#unsubscribealleventname" title="Permanent link">&para;</a></h3>
+<p>Supprime tous les abonnés d'un événement — utilisé à la fermeture d'un module.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">EventDispatcher</span><span class="p">.</span><span class="nf">getInstance</span><span class="p">():</span><span class="nf">unsubscribeAll</span><span class="p">(</span><span class="s2">"OnCrateLoaded"</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="publisheventname-payload"><code>publish(eventName, payload)</code><a class="headerlink" href="#publisheventname-payload" title="Permanent link">&para;</a></h3>
+<p>Distribue <code>payload</code> à chaque abonné de <code>eventName</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">EventDispatcher</span><span class="p">.</span><span class="nf">getInstance</span><span class="p">():</span><span class="nf">publish</span><span class="p">(</span><span class="s2">"OnMySomethingHappened"</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nv">unitName</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">"UH-1H-1"</span><span class="p">,</span>
+<span class="w">    </span><span class="nv">coalition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">coalition</span><span class="p">.</span><span class="py">side</span><span class="p">.</span><span class="py">BLUE</span><span class="p">,</span>
+<span class="w">    </span><span class="nv">timestamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">timer</span><span class="p">.</span><span class="nf">getAbsTime</span><span class="p">(),</span>
+<span class="p">})</span>
+</code></pre></div>
+<p>Deux garanties comptent pour les auteurs :</p>
+<ul>
+<li><strong>Isolation des callbacks.</strong> Chaque abonné est invoqué dans un <code>pcall</code>. Un callback qui lève
+  une erreur est journalisé (<code>ERROR</code>, <code>EventDispatcher:publish [&lt;event&gt;] callback error: …</code>) et
+  <strong>n'interrompt pas</strong> les abonnés restants.</li>
+<li><strong>Sûreté vis-à-vis de la réentrance.</strong> La liste des abonnés est copiée avant l'itération, si
+  bien qu'un callback peut sans risque <code>subscribe</code> ou <code>unsubscribe</code> pendant la distribution sans
+  affecter la distribution en cours.</li>
+</ul>
+<p>Publier un événement sans abonné est une opération sans effet (retour anticipé peu coûteux).</p>
+<h3 id="payload-convention">Convention de payload<a class="headerlink" href="#payload-convention" title="Permanent link">&para;</a></h3>
+<p>Par convention, chaque événement CTLD porte un champ <code>timestamp</code> positionné à
+<code>timer.getAbsTime()</code>. Au-delà, les champs sont propres à chaque événement — voir le catalogue
+ci-dessous. Les managers publient via de fines fonctions utilitaires privées
+(<code>CTLDCrateManager:_publish</code>, <code>CTLDJTACManager:_publishEvent</code>) qui transmettent à
+<code>EventDispatcher:publish</code> ; les abonnés ne voient aucune différence.</p>
+<h3 id="migrating-from-the-v1-callback">Migration depuis le callback v1<a class="headerlink" href="#migrating-from-the-v1-callback" title="Permanent link">&para;</a></h3>
+<p>La v1 utilisait un unique <code>ctld.addCallback</code> fourre-tout avec une chaîne de tests
+<code>if event.id == …</code>. La v2 le remplace par des abonnements ciblés — voir
+<a href="../migration-v1-v2/">Migration v1 → v2</a> pour l'exemple complet détaillé.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- v2 : un abonnement par événement d'intérêt, pas de chaîne de dispatch par id</span>
+<span class="nv">EventDispatcher</span><span class="p">.</span><span class="nf">getInstance</span><span class="p">():</span><span class="nf">subscribe</span><span class="p">(</span><span class="s2">"OnCrateSpawned"</span><span class="p">,</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="nv">evt</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">-- evt.crateName, evt.coalition, evt.spawnedBy, evt.position</span>
+<span class="kr">end</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="event-catalogue">Catalogue des événements<a class="headerlink" href="#event-catalogue" title="Permanent link">&para;</a></h2>
+<p>Les événements sont regroupés par domaine de publication. Chaque payload porte aussi
+<code>timestamp</code> (omis des tableaux sauf s'il s'agit du seul champ). « Published by » nomme le manager
+et la ou les méthodes qui émettent l'événement, vérifiés dans <code>src/</code>.</p>
+<p>Presque tous les noms d'événements suivent la convention <code>On&lt;Something&gt;</code>. Les deux exceptions sont
+les événements RECON FARP (<code>ReconFarpDetected</code>, <code>ReconFarpLost</code>), qui n'ont pas de préfixe <code>On</code> —
+abonnez-vous à eux par leurs noms exacts.</p>
+<h3 id="beacon-events-5">Événements beacon (5)<a class="headerlink" href="#beacon-events-5" title="Permanent link">&para;</a></h3>
+<h4 id="onbeacondropped"><code>OnBeaconDropped</code><a class="headerlink" href="#onbeacondropped" title="Permanent link">&para;</a></h4>
+<p>Un radio beacon est déployé (par un joueur ou depuis une zone).</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>player</code></td>
+<td>string</td>
+<td>Nom du joueur, ou <code>"MissionMaker"</code> si depuis une zone</td>
+</tr>
+<tr>
+<td><code>playerUnit</code></td>
+<td>Unit ou nil</td>
+<td>Objet Unit DCS</td>
+</tr>
+<tr>
+<td><code>coalition</code></td>
+<td>number</td>
+<td>ID de coalition</td>
+</tr>
+<tr>
+<td><code>beacon</code></td>
+<td>table</td>
+<td>Payload beacon complet (voir note)</td>
+</tr>
+</tbody>
+</table>
+<p>Sous-table <code>beacon</code> : <code>{ beaconName, name, position (vec3), mgrsCoords, frequencies { vhf, uhf, fm }, battery { remainingTime, wasInfinite, duration, infinite } }</code></p>
+<p><strong>Published by</strong> : <code>CTLDBeaconManager:dropBeacon()</code>, <code>:createAtZone()</code></p>
+<h4 id="onbeaconremoved"><code>OnBeaconRemoved</code><a class="headerlink" href="#onbeaconremoved" title="Permanent link">&para;</a></h4>
+<p>Un joueur retire manuellement le beacon le plus proche.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>player</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>playerUnit</code></td>
+<td>Unit</td>
+<td></td>
+</tr>
+<tr>
+<td><code>coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>beacon</code></td>
+<td>table</td>
+<td><code>{ beaconName, name, position, mgrsCoords, frequencies, battery, distance }</code></td>
+</tr>
+<tr>
+<td><code>reason</code></td>
+<td>string</td>
+<td><code>"manual"</code></td>
+</tr>
+<tr>
+<td><code>frequenciesFreed</code></td>
+<td>table</td>
+<td><code>{ vhf, uhf, fm }</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDBeaconManager:removeClosestBeacon()</code></p>
+<h4 id="onbeacondestroyed"><code>OnBeaconDestroyed</code><a class="headerlink" href="#onbeacondestroyed" title="Permanent link">&para;</a></h4>
+<p>La batterie d'un beacon s'épuise, ou ses units DCS sont détruites.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>beacon</code></td>
+<td>table</td>
+<td><code>{ beaconName, name, position, mgrsCoords, frequencies, battery, unitsAlive, durationAlive }</code></td>
+</tr>
+<tr>
+<td><code>reason</code></td>
+<td>string</td>
+<td><code>"battery"</code> ou <code>"units"</code></td>
+</tr>
+<tr>
+<td><code>frequenciesFreed</code></td>
+<td>table</td>
+<td><code>{ vhf, uhf, fm }</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDBeaconManager:_refreshAll()</code> (tick périodique — batterie épuisée ou trop peu d'units radio en vie)</p>
+<h4 id="onbeaconrefreshed"><code>OnBeaconRefreshed</code><a class="headerlink" href="#onbeaconrefreshed" title="Permanent link">&para;</a></h4>
+<p>Émis à chaque tick du beacon-manager avec un résumé de tous les beacons actifs.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>beacons</code></td>
+<td>table</td>
+<td>Tableau de payloads beacon</td>
+</tr>
+<tr>
+<td><code>totalBeaconsRefreshed</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>totalBeaconsDestroyed</code></td>
+<td>number</td>
+<td>Beacons détruits durant ce tick</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDBeaconManager:_refreshAll()</code></p>
+<h4 id="onbeaconlayertoggled"><code>OnBeaconLayerToggled</code><a class="headerlink" href="#onbeaconlayertoggled" title="Permanent link">&para;</a></h4>
+<p>Un joueur bascule la couche beacon de la carte F10.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>player</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>playerUnit</code></td>
+<td>Unit</td>
+<td></td>
+</tr>
+<tr>
+<td><code>coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>previousState</code></td>
+<td>bool</td>
+<td></td>
+</tr>
+<tr>
+<td><code>newState</code></td>
+<td>bool</td>
+<td></td>
+</tr>
+<tr>
+<td><code>action</code></td>
+<td>string</td>
+<td><code>"enabled"</code> ou <code>"disabled"</code></td>
+</tr>
+<tr>
+<td><code>beaconsDisplayed</code></td>
+<td>table</td>
+<td>Tableau des beacons désormais affichés</td>
+</tr>
+<tr>
+<td><code>totalBeaconsDisplayed</code></td>
+<td>number</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDBeaconManager:toggleLayer()</code></p>
+<h3 id="crate-events-10">Événements crate (10)<a class="headerlink" href="#crate-events-10" title="Permanent link">&para;</a></h3>
+<h4 id="oncratespawned"><code>OnCrateSpawned</code><a class="headerlink" href="#oncratespawned" title="Permanent link">&para;</a></h4>
+<p>Une crate quelconque apparaît sur la carte.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>crate</code></td>
+<td>CTLDCrate</td>
+<td>Objet crate interne</td>
+</tr>
+<tr>
+<td><code>crateName</code></td>
+<td>string</td>
+<td>Identifiant unique de la crate</td>
+</tr>
+<tr>
+<td><code>descriptor</code></td>
+<td>table</td>
+<td>Descripteur de crate</td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>vec3</td>
+<td></td>
+</tr>
+<tr>
+<td><code>coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>spawnedBy</code></td>
+<td>string ou nil</td>
+<td>Nom du joueur / mission-maker</td>
+</tr>
+<tr>
+<td><code>spawnMethod</code></td>
+<td>string</td>
+<td><code>"request_crate"</code>, <code>"parachute_drop"</code>, <code>"slingload_cut"</code>, <code>"mm_late_activation"</code>, …</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDCrateManager:spawnCrate()</code>, <code>:unloadCrate()</code>, <code>:cutSlingload()</code>, <code>:parachuteCrates()</code></p>
+<h4 id="oncrateloaded"><code>OnCrateLoaded</code><a class="headerlink" href="#oncrateloaded" title="Permanent link">&para;</a></h4>
+<p>Une crate est ramassée (slingload ou cargo natif DCS).</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>crate</code></td>
+<td>CTLDCrate</td>
+<td></td>
+</tr>
+<tr>
+<td><code>crateName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>carrierUnitName</code></td>
+<td>string</td>
+<td>Nom de l'unit de transport</td>
+</tr>
+<tr>
+<td><code>coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>descriptor</code></td>
+<td>table</td>
+<td></td>
+</tr>
+<tr>
+<td><code>trigger</code></td>
+<td>string</td>
+<td><code>"slingload"</code> ou <code>"dcs_native"</code></td>
+</tr>
+<tr>
+<td><code>method</code></td>
+<td>string ou nil</td>
+<td><code>"dcs_native"</code> (absent pour le slingload)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDCrateManager:loadCrate()</code>, <code>:checkHoverStatus()</code>, <code>:_checkNativeDCSCargo()</code></p>
+<h4 id="oncrateunloaded"><code>OnCrateUnloaded</code><a class="headerlink" href="#oncrateunloaded" title="Permanent link">&para;</a></h4>
+<p>Une crate est larguée ou déchargée (pas unpacked).</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>crate</code></td>
+<td>CTLDCrate</td>
+<td></td>
+</tr>
+<tr>
+<td><code>crateName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>descriptor</code></td>
+<td>table</td>
+<td></td>
+</tr>
+<tr>
+<td><code>method</code></td>
+<td>string ou nil</td>
+<td><code>"dcs_native"</code> si natif, absent pour le slingload</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDCrateManager:unloadCrate()</code>, <code>:cutSlingload()</code>, <code>:_checkNativeDCSCargo()</code></p>
+<h4 id="oncratelost"><code>OnCrateLost</code><a class="headerlink" href="#oncratelost" title="Permanent link">&para;</a></h4>
+<p>Une crate est détruite par slingload en survitesse ou par l'impact d'un cut-slingload.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>crate</code></td>
+<td>CTLDCrate</td>
+<td></td>
+</tr>
+<tr>
+<td><code>crateName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>transport</code></td>
+<td>Unit</td>
+<td>L'aéronef porteur</td>
+</tr>
+<tr>
+<td><code>trigger</code></td>
+<td>string</td>
+<td><code>"slingload_overspeed"</code> ou <code>"slingload_cut_impact"</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDCrateManager:checkHoverStatus()</code>, <code>:cutSlingload()</code></p>
+<h4 id="oncratecleared"><code>OnCrateCleared</code><a class="headerlink" href="#oncratecleared" title="Permanent link">&para;</a></h4>
+<p>Une crate est retirée du monde (unpacked, détruite, ou chargée nativement).</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>crateName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>vec3</td>
+<td>Dernière position connue</td>
+</tr>
+<tr>
+<td><code>coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>descriptor</code></td>
+<td>table</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reason</code></td>
+<td>string</td>
+<td><code>"destroyed"</code>, <code>"unpacked"</code>, ou <code>"loaded"</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDCrateManager:cutSlingload()</code>, <code>:loadCrate()</code>, <code>:unpackCrate()</code>, <code>:destroyCrate()</code></p>
+<h4 id="oncrateunpacked"><code>OnCrateUnpacked</code><a class="headerlink" href="#oncrateunpacked" title="Permanent link">&para;</a></h4>
+<p>Une crate est unpacked avec succès (assemblée en équipement).</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>crate</code></td>
+<td>CTLDCrate</td>
+<td></td>
+</tr>
+<tr>
+<td><code>crateName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>descriptor</code></td>
+<td>table</td>
+<td></td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>vec3</td>
+<td>Emplacement d'unpack</td>
+</tr>
+<tr>
+<td><code>coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>carrierUnitName</code></td>
+<td>string ou nil</td>
+<td>Unit effectuant l'unpack</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDCrateManager:unpackCrate()</code></p>
+<h4 id="oncratedestroyed"><code>OnCrateDestroyed</code><a class="headerlink" href="#oncratedestroyed" title="Permanent link">&para;</a></h4>
+<p>Une crate est détruite à l'impact d'un largage en haute altitude (distinct de la perte en slingload).</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>crate</code></td>
+<td>CTLDCrate</td>
+<td></td>
+</tr>
+<tr>
+<td><code>crateName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reason</code></td>
+<td>string</td>
+<td><code>"drop_impact"</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : rien — <strong>cet événement n'est plus émis.</strong> Son seul émetteur était
+<code>CTLDCrateManager:dropCrate()</code>, une méthode inatteignable supprimée dans <code>FIX-CATALOGUE-TRUTH</code> : aucune
+entrée de menu ne l'appelait, et le largage en vol qu'elle implémentait est assuré par
+<code>parachuteCrates()</code>. Le nom et la charge utile de l'événement restent documentés ici afin qu'un plugin
+qui s'y abonne sache que son handler ne se déclenchera pas ; rien dans le moteur ne l'émet depuis.</p>
+<h4 id="oncrateparachuting"><code>OnCrateParachuting</code><a class="headerlink" href="#oncrateparachuting" title="Permanent link">&para;</a></h4>
+<p>Une crate est larguée en mode parachute-drop.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>crate</code></td>
+<td>CTLDCrate</td>
+<td></td>
+</tr>
+<tr>
+<td><code>crateName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>descriptor</code></td>
+<td>table</td>
+<td></td>
+</tr>
+<tr>
+<td><code>dropPosition</code></td>
+<td>vec3</td>
+<td>Position au largage</td>
+</tr>
+<tr>
+<td><code>landingPosition</code></td>
+<td>vec3</td>
+<td>Position d'atterrissage estimée</td>
+</tr>
+<tr>
+<td><code>altitude</code></td>
+<td>number</td>
+<td>AGL en mètres</td>
+</tr>
+<tr>
+<td><code>descentTime</code></td>
+<td>number</td>
+<td>Secondes estimées jusqu'à l'atterrissage</td>
+</tr>
+<tr>
+<td><code>carrierUnitName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>player</code></td>
+<td>string</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDCrateManager:parachuteCrates()</code></p>
+<h4 id="oncrateparachutelanded"><code>OnCrateParachuteLanded</code><a class="headerlink" href="#oncrateparachutelanded" title="Permanent link">&para;</a></h4>
+<p>Une crate parachutée atterrit (asynchrone, après le sondage de descente).</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>crate</code></td>
+<td>CTLDCrate</td>
+<td></td>
+</tr>
+<tr>
+<td><code>crateName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>descriptor</code></td>
+<td>table</td>
+<td></td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>vec3</td>
+<td>Position d'atterrissage</td>
+</tr>
+<tr>
+<td><code>coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>startAltitude</code></td>
+<td>number</td>
+<td>AGL au largage</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDCrateManager:parachuteCrates()</code> (callback de sondage d'atterrissage)</p>
+<h4 id="onmmcratedetected"><code>OnMMCrateDetected</code><a class="headerlink" href="#onmmcratedetected" title="Permanent link">&para;</a></h4>
+<p>Une crate pré-placée par le mission-maker est enregistrée (y compris à l'activation tardive).</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>crate</code></td>
+<td>CTLDCrate</td>
+<td></td>
+</tr>
+<tr>
+<td><code>crateName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>descriptor</code></td>
+<td>table</td>
+<td></td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>vec3</td>
+<td></td>
+</tr>
+<tr>
+<td><code>coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDCrateManager:registerMMCrate()</code></p>
+<h3 id="vehicle-events-9">Événements vehicle (9)<a class="headerlink" href="#vehicle-events-9" title="Permanent link">&para;</a></h3>
+<h4 id="onvehiclespawnedfortransport"><code>OnVehicleSpawnedForTransport</code><a class="headerlink" href="#onvehiclespawnedfortransport" title="Permanent link">&para;</a></h4>
+<p>Un véhicule est spawné à l'état <code>WAITING</code>, prêt pour le transport (Request Equipment).</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vehicleId</code></td>
+<td>string</td>
+<td>ID de véhicule CTLD interne</td>
+</tr>
+<tr>
+<td><code>vehicle</code></td>
+<td>Unit</td>
+<td>Objet Unit DCS</td>
+</tr>
+<tr>
+<td><code>vehicleType</code></td>
+<td>string</td>
+<td>Nom de type DCS</td>
+</tr>
+<tr>
+<td><code>spawner</code></td>
+<td>string ou nil</td>
+<td>Nom du joueur</td>
+</tr>
+<tr>
+<td><code>logisticZone</code></td>
+<td>table ou nil</td>
+<td>Zone où le spawn a eu lieu</td>
+</tr>
+<tr>
+<td><code>spawnMethod</code></td>
+<td>string</td>
+<td><code>"request_vehicle"</code></td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>vec3</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDVehicleSpawner:spawnVehicleForTransport()</code></p>
+<h4 id="onvehicleloaded"><code>OnVehicleLoaded</code><a class="headerlink" href="#onvehicleloaded" title="Permanent link">&para;</a></h4>
+<p>Un véhicule est chargé dans un transport.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vehicleId</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>ctldVehicleObject</code></td>
+<td>CTLDVehicle</td>
+<td></td>
+</tr>
+<tr>
+<td><code>dcsUnitObject</code></td>
+<td>Unit ou nil</td>
+<td>Présent si chargement natif</td>
+</tr>
+<tr>
+<td><code>vehicleType</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>transportUnitObject</code></td>
+<td>Unit</td>
+<td></td>
+</tr>
+<tr>
+<td><code>player</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>method</code></td>
+<td>string</td>
+<td><code>"slingload"</code> ou <code>"dcs_native"</code></td>
+</tr>
+<tr>
+<td><code>spawnMethod</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>vec3</td>
+<td></td>
+</tr>
+<tr>
+<td><code>transportPosition</code></td>
+<td>vec3</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDVehicleSpawner:loadVehicle()</code></p>
+<h4 id="onvehicleunloaded"><code>OnVehicleUnloaded</code><a class="headerlink" href="#onvehicleunloaded" title="Permanent link">&para;</a></h4>
+<p>Un véhicule est déchargé d'un transport. Mêmes champs que <code>OnVehicleLoaded</code>.</p>
+<p><strong>Published by</strong> : <code>CTLDVehicleSpawner:unloadVehicle()</code></p>
+<h4 id="onvehiclepacked"><code>OnVehiclePacked</code><a class="headerlink" href="#onvehiclepacked" title="Permanent link">&para;</a></h4>
+<p>Un véhicule est packed en crates.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vehicleType</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>descriptor</code></td>
+<td>table</td>
+<td>Descripteur de crate utilisé</td>
+</tr>
+<tr>
+<td><code>transport</code></td>
+<td>string</td>
+<td>Nom de l'unit de transport</td>
+</tr>
+<tr>
+<td><code>player</code></td>
+<td>string ou nil</td>
+<td></td>
+</tr>
+<tr>
+<td><code>cratesSpawned</code></td>
+<td>number</td>
+<td>Nombre de crates spawnées</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDVehicleSpawner:packVehicle()</code></p>
+<h4 id="onvehicleparachuting"><code>OnVehicleParachuting</code><a class="headerlink" href="#onvehicleparachuting" title="Permanent link">&para;</a></h4>
+<p>Un véhicule est largué en mode parachute.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vehicle</code></td>
+<td>CTLDVehicle</td>
+<td></td>
+</tr>
+<tr>
+<td><code>transport</code></td>
+<td>string</td>
+<td>Nom de l'unit de transport</td>
+</tr>
+<tr>
+<td><code>player</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>altitude</code></td>
+<td>number</td>
+<td>AGL en mètres</td>
+</tr>
+<tr>
+<td><code>dropPosition</code></td>
+<td>vec3</td>
+<td></td>
+</tr>
+<tr>
+<td><code>estimatedLandingPos</code></td>
+<td>vec3</td>
+<td></td>
+</tr>
+<tr>
+<td><code>estimatedLandingTime</code></td>
+<td>number</td>
+<td><code>timer.getAbsTime() + descentTime</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDVehicleSpawner:parachuteVehicle()</code></p>
+<h4 id="onvehicleparachutelanded"><code>OnVehicleParachuteLanded</code><a class="headerlink" href="#onvehicleparachutelanded" title="Permanent link">&para;</a></h4>
+<p>Un véhicule parachuté atterrit.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vehicle</code></td>
+<td>CTLDVehicle</td>
+<td></td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>vec3</td>
+<td></td>
+</tr>
+<tr>
+<td><code>transport</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>player</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>startAltitude</code></td>
+<td>number</td>
+<td>AGL au largage</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDVehicleSpawner:parachuteVehicle()</code> (callback d'atterrissage)</p>
+<h4 id="onvehicledead"><code>OnVehicleDead</code><a class="headerlink" href="#onvehicledead" title="Permanent link">&para;</a></h4>
+<p>Un véhicule CTLD suivi est détruit.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vehicleId</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>vehicle</code></td>
+<td>Unit</td>
+<td>Initiateur de <code>S_EVENT_DEAD</code></td>
+</tr>
+<tr>
+<td><code>vehicleType</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>coalition</code></td>
+<td>number ou nil</td>
+<td></td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>vec3</td>
+<td></td>
+</tr>
+<tr>
+<td><code>durationAlive</code></td>
+<td>number</td>
+<td>Secondes depuis le spawn</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDVehicleSpawner:onDead()</code> (handler <code>S_EVENT_DEAD</code>)</p>
+<h4 id="ongroundunitspawned-ongroundunitremoved"><code>OnGroundUnitSpawned</code> / <code>OnGroundUnitRemoved</code><a class="headerlink" href="#ongroundunitspawned-ongroundunitremoved" title="Permanent link">&para;</a></h4>
+<p>Une unit au sol suivie par CTLD apparaît ou disparaît. Ces deux événements sont transversaux —
+le vehicle spawner et le crate manager publient tous deux <code>OnGroundUnitSpawned</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vehicleType</code></td>
+<td>string</td>
+<td>Nom de type DCS</td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>vec3</td>
+<td></td>
+</tr>
+<tr>
+<td><code>coalitionId</code></td>
+<td>number</td>
+<td>(<code>OnGroundUnitSpawned</code> uniquement)</td>
+</tr>
+<tr>
+<td><code>reason</code></td>
+<td>string</td>
+<td>(<code>OnGroundUnitRemoved</code> uniquement) <code>"loaded"</code>, <code>"packed"</code>, <code>"dead"</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> :</p>
+<ul>
+<li><code>OnGroundUnitSpawned</code> : <code>CTLDVehicleSpawner:_spawnGroundUnit()</code>, <code>CTLDCrateManager:_spawnUnpacked()</code></li>
+<li><code>OnGroundUnitRemoved</code> : <code>CTLDVehicleSpawner:loadVehicle()</code>, <code>:onDead()</code>, <code>:packVehicle()</code></li>
+</ul>
+<h3 id="troop-events-2">Événements troop (2)<a class="headerlink" href="#troop-events-2" title="Permanent link">&para;</a></h3>
+<h4 id="ontroopsdeployed"><code>OnTroopsDeployed</code><a class="headerlink" href="#ontroopsdeployed" title="Permanent link">&para;</a></h4>
+<p>Des troops sont déployées par parachute.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>troops</code></td>
+<td>CTLDTroopGroup</td>
+<td></td>
+</tr>
+<tr>
+<td><code>carrierUnitName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>player</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>trigger</code></td>
+<td>string</td>
+<td><code>"parachute"</code></td>
+</tr>
+<tr>
+<td><code>destination</code></td>
+<td>table</td>
+<td><code>{ type="combat", troopZone=nil }</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDTroopManager:parachuteTroops()</code></p>
+<h4 id="ontroopsparachutelanded"><code>OnTroopsParachuteLanded</code><a class="headerlink" href="#ontroopsparachutelanded" title="Permanent link">&para;</a></h4>
+<p>Des troops parachutées atterrissent (asynchrone, après le timer de descente).</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>troops</code></td>
+<td>CTLDTroopGroup</td>
+<td></td>
+</tr>
+<tr>
+<td><code>spawnedGroup</code></td>
+<td>Group</td>
+<td>Group DCS spawné au sol</td>
+</tr>
+<tr>
+<td><code>positions</code></td>
+<td>table</td>
+<td>Tableau de vec3, un par soldat</td>
+</tr>
+<tr>
+<td><code>transport</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>player</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>startAltitude</code></td>
+<td>number</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDTroopManager:parachuteTroops()</code> (callback d'atterrissage)</p>
+<h3 id="jtac-events-8">Événements JTAC (8)<a class="headerlink" href="#jtac-events-8" title="Permanent link">&para;</a></h3>
+<h4 id="onjtacspawned"><code>OnJTACSpawned</code><a class="headerlink" href="#onjtacspawned" title="Permanent link">&para;</a></h4>
+<p>Un JTAC est spawné — véhicule, drone, ou soldat d'infanterie au sein d'un troop group.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>jtac.groupName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>jtac.groupId</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>jtac.unitName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>jtac.unitId</code></td>
+<td>number ou nil</td>
+<td></td>
+</tr>
+<tr>
+<td><code>jtac.unitType</code></td>
+<td>string ou nil</td>
+<td></td>
+</tr>
+<tr>
+<td><code>jtac.coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>jtac.position</code></td>
+<td>vec3 ou nil</td>
+<td></td>
+</tr>
+<tr>
+<td><code>jtac.isFlying</code></td>
+<td>bool</td>
+<td><code>true</code> pour les JTAC de type drone</td>
+</tr>
+<tr>
+<td><code>jtac.isInfantry</code></td>
+<td>bool</td>
+<td></td>
+</tr>
+<tr>
+<td><code>jtac.route</code></td>
+<td>table ou nil</td>
+<td>Route de patrouille du drone</td>
+</tr>
+<tr>
+<td><code>spawner</code></td>
+<td>string</td>
+<td>Nom de l'unit du joueur ou <code>"MissionMaker"</code></td>
+</tr>
+<tr>
+<td><code>laserCode</code></td>
+<td>number</td>
+<td>Code laser assigné (<code>0</code> si aucun)</td>
+</tr>
+<tr>
+<td><code>smokeEnabled</code></td>
+<td>bool</td>
+<td></td>
+</tr>
+<tr>
+<td><code>smokeColor</code></td>
+<td>string ou nil</td>
+<td></td>
+</tr>
+<tr>
+<td><code>lockMode</code></td>
+<td>string</td>
+<td>Réglage du lock-mode du JTAC</td>
+</tr>
+<tr>
+<td><code>radio</code></td>
+<td>table ou nil</td>
+<td><code>{ freq, modulation }</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDJTACManager:spawnJTAC()</code>, <code>:startLaseTroopUnit()</code> (JTAC infanterie)</p>
+<h4 id="onjtacintransit"><code>OnJTACInTransit</code><a class="headerlink" href="#onjtacintransit" title="Permanent link">&para;</a></h4>
+<p>Un JTAC de type véhicule est embarqué dans un transport.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>jtac.groupName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>jtac.coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>transport</code></td>
+<td>Unit</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDJTACManager:setJTACInTransit()</code></p>
+<h4 id="onjtaclasestart"><code>OnJTACLaseStart</code><a class="headerlink" href="#onjtaclasestart" title="Permanent link">&para;</a></h4>
+<p>Un JTAC acquiert une cible et commence à la laser.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>jtac.groupName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>jtac.unitName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>jtac.position</code></td>
+<td>vec3</td>
+<td></td>
+</tr>
+<tr>
+<td><code>jtac.coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>target.unitName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>target.unitId</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>target.unitType</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>target.coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>target.position</code></td>
+<td>vec3</td>
+<td></td>
+</tr>
+<tr>
+<td><code>target.priority</code></td>
+<td>number</td>
+<td>Score de priorité de la cible</td>
+</tr>
+<tr>
+<td><code>target.selectionMethod</code></td>
+<td>string</td>
+<td><code>"auto_nearest"</code> ou <code>"manual"</code></td>
+</tr>
+<tr>
+<td><code>target.wasManuallySelected</code></td>
+<td>bool</td>
+<td></td>
+</tr>
+<tr>
+<td><code>laserCode</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>lockMode</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>distance</code></td>
+<td>number</td>
+<td>Mètres du JTAC à la cible</td>
+</tr>
+<tr>
+<td><code>lineOfSight</code></td>
+<td>bool</td>
+<td>LOS confirmée au moment du lock</td>
+</tr>
+<tr>
+<td><code>radio</code></td>
+<td>table ou nil</td>
+<td></td>
+</tr>
+<tr>
+<td><code>message</code></td>
+<td>string ou nil</td>
+<td>Message de statut affiché au joueur</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDJTACManager:_autoLaseLoop()</code> (à l'acquisition)</p>
+<h4 id="onjtactargetlased"><code>OnJTACTargetLased</code><a class="headerlink" href="#onjtactargetlased" title="Permanent link">&para;</a></h4>
+<p>Émis à chaque cycle de lase tant qu'un JTAC lase activement.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>jtac.groupName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>jtac.unitName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>jtac.coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>target.unitName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>target.position</code></td>
+<td>vec3</td>
+<td>Position corrigée pour les drones</td>
+</tr>
+<tr>
+<td><code>laserCode</code></td>
+<td>number</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDJTACManager:_autoLaseLoop()</code> (chaque cycle)</p>
+<h4 id="onjtaclasestop"><code>OnJTACLaseStop</code><a class="headerlink" href="#onjtaclasestop" title="Permanent link">&para;</a></h4>
+<p>Un JTAC arrête de laser.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>jtac.groupName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>jtac.coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>jtac.laserCode</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>target.unitName</code></td>
+<td>string ou nil</td>
+<td></td>
+</tr>
+<tr>
+<td><code>target.unitType</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>target.lastKnownPosition</code></td>
+<td>vec3</td>
+<td></td>
+</tr>
+<tr>
+<td><code>reason</code></td>
+<td>string</td>
+<td><code>"target_dead"</code>, <code>"out_of_range"</code>, <code>"manual"</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDJTACManager:_stopLaseAndPublish()</code></p>
+<h4 id="onjtacorbitstart"><code>OnJTACOrbitStart</code><a class="headerlink" href="#onjtacorbitstart" title="Permanent link">&para;</a></h4>
+<p>Un JTAC de type drone commence son orbite au-dessus d'une cible.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>jtac.groupName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>jtac.coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>target.unitName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>target.position</code></td>
+<td>vec3</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDJTACManager:_updateOrbit()</code></p>
+<h4 id="onjtacsmoketarget"><code>OnJTACSmokeTarget</code><a class="headerlink" href="#onjtacsmoketarget" title="Permanent link">&para;</a></h4>
+<p>Un JTAC fume sa cible courante à la demande du joueur.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>jtac.groupName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>jtac.coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>target.unitName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>target.position</code></td>
+<td>vec3</td>
+<td></td>
+</tr>
+<tr>
+<td><code>smokePosition</code></td>
+<td>vec3</td>
+<td>Point de spawn réel de la fumée</td>
+</tr>
+<tr>
+<td><code>smokeColor</code></td>
+<td>number</td>
+<td>Constante <code>trigger.smokeColor.*</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDJTACManager:requestSmoke()</code></p>
+<h4 id="onjtacdead"><code>OnJTACDead</code><a class="headerlink" href="#onjtacdead" title="Permanent link">&para;</a></h4>
+<p>Un JTAC est détruit au combat.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>jtac.groupName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>jtac.coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>jtac.laserCode</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>killer</code></td>
+<td>table ou nil</td>
+<td><code>{ unitName, playerName }</code></td>
+</tr>
+<tr>
+<td><code>lastTarget</code></td>
+<td>table ou nil</td>
+<td>Dernière cible lasée</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDJTACManager:killJTAC()</code> (handler <code>S_EVENT_DEAD</code>)</p>
+<blockquote>
+<p>Packer un véhicule JTAC n'est <strong>pas</strong> une mort — <code>OnJTACDead</code> ne se déclenche pas lorsqu'un
+véhicule JTAC est ré-embarqué.</p>
+</blockquote>
+<h3 id="recon-events-8">Événements RECON (8)<a class="headerlink" href="#recon-events-8" title="Permanent link">&para;</a></h3>
+<h4 id="reconfarpdetected"><code>ReconFarpDetected</code><a class="headerlink" href="#reconfarpdetected" title="Permanent link">&para;</a></h4>
+<p>Un joueur en mode RECON détecte un FARP ou un FOB ennemi. (Pas de préfixe <code>On</code> — nom historique.)</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>player</code></td>
+<td>string</td>
+<td>Nom du joueur</td>
+</tr>
+<tr>
+<td><code>playerUnit</code></td>
+<td>Unit</td>
+<td>Objet Unit DCS</td>
+</tr>
+<tr>
+<td><code>coalition</code></td>
+<td>number</td>
+<td>ID de la coalition ennemie</td>
+</tr>
+<tr>
+<td><code>playerCoalition</code></td>
+<td>number</td>
+<td>ID de la coalition du joueur</td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>vec3</td>
+<td>Position du FARP/FOB</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td>string</td>
+<td>ID de mark interne (mis en correspondance par <code>ReconFarpLost</code>)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDReconManager:_syncFarpMarks()</code></p>
+<h4 id="reconfarplost"><code>ReconFarpLost</code><a class="headerlink" href="#reconfarplost" title="Permanent link">&para;</a></h4>
+<p>Un FARP/FOB ennemi précédemment détecté quitte le rayon de scan ou est détruit. (Pas de préfixe
+<code>On</code>.)</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>player</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td>string</td>
+<td>ID de mark correspondant à l'événement <code>ReconFarpDetected</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDReconManager:_syncFarpMarks()</code></p>
+<h4 id="onreconscan"><code>OnReconScan</code><a class="headerlink" href="#onreconscan" title="Permanent link">&para;</a></h4>
+<p>Un joueur effectue un scan RECON.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>player</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>playerUnit</code></td>
+<td>Unit</td>
+<td></td>
+</tr>
+<tr>
+<td><code>coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>vec3</td>
+<td>Position du scanner</td>
+</tr>
+<tr>
+<td><code>altitude</code></td>
+<td>number</td>
+<td>AGL en mètres</td>
+</tr>
+<tr>
+<td><code>searchRadius</code></td>
+<td>number</td>
+<td>Mètres</td>
+</tr>
+<tr>
+<td><code>activeLayers</code></td>
+<td>table</td>
+<td>Tableau des descripteurs de couches actives</td>
+</tr>
+<tr>
+<td><code>targets</code></td>
+<td>table</td>
+<td>Tableau des cibles détectées</td>
+</tr>
+<tr>
+<td><code>targetsByLayer</code></td>
+<td>table</td>
+<td>Map <code>layerId → targets</code></td>
+</tr>
+<tr>
+<td><code>totalTargetsDetected</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>totalMarksCreated</code></td>
+<td>number</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDReconManager:scan()</code></p>
+<h4 id="onreconscanrefresh"><code>OnReconScanRefresh</code><a class="headerlink" href="#onreconscanrefresh" title="Permanent link">&para;</a></h4>
+<p>Émis à chaque cycle d'auto-refresh avec des informations de delta.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>player</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>playerUnit</code></td>
+<td>Unit</td>
+<td></td>
+</tr>
+<tr>
+<td><code>coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>vec3</td>
+<td></td>
+</tr>
+<tr>
+<td><code>altitude</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>activeLayers</code></td>
+<td>table</td>
+<td></td>
+</tr>
+<tr>
+<td><code>targets</code></td>
+<td>table</td>
+<td>Toutes les cibles courantes</td>
+</tr>
+<tr>
+<td><code>newTargets</code></td>
+<td>table</td>
+<td>Nouvellement détectées durant ce cycle</td>
+</tr>
+<tr>
+<td><code>movedTargets</code></td>
+<td>table</td>
+<td>Cibles qui ont bougé</td>
+</tr>
+<tr>
+<td><code>lostTargets</code></td>
+<td>table</td>
+<td>Cibles qui ont disparu</td>
+</tr>
+<tr>
+<td><code>totalTargetsCurrent</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>totalTargetsNew</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>totalTargetsMoved</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>totalTargetsLost</code></td>
+<td>number</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDReconManager:_doRefresh()</code> (timer d'auto-refresh)</p>
+<h4 id="onreconhidetargets"><code>OnReconHideTargets</code><a class="headerlink" href="#onreconhidetargets" title="Permanent link">&para;</a></h4>
+<p>Un joueur arrête le RECON et tous les marks sont retirés.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>player</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>playerUnit</code></td>
+<td>Unit</td>
+<td></td>
+</tr>
+<tr>
+<td><code>coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>marksRemoved</code></td>
+<td>table</td>
+<td>Tableau des enregistrements de marks retirés</td>
+</tr>
+<tr>
+<td><code>totalMarksRemoved</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>refreshStopped</code></td>
+<td>bool</td>
+<td>Indique si l'auto-refresh était en cours</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDReconManager:stopScan()</code></p>
+<h4 id="onreconlayertoggled"><code>OnReconLayerToggled</code><a class="headerlink" href="#onreconlayertoggled" title="Permanent link">&para;</a></h4>
+<p>Un joueur active/désactive une couche de détection RECON.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>layerId</code></td>
+<td>string</td>
+<td>ex. <code>"infantry"</code>, <code>"ground_vehicles"</code></td>
+</tr>
+<tr>
+<td><code>layerName</code></td>
+<td>string</td>
+<td>Nom de couche lisible</td>
+</tr>
+<tr>
+<td><code>visible</code></td>
+<td>bool</td>
+<td>Nouvel état</td>
+</tr>
+<tr>
+<td><code>coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>player</code></td>
+<td>string</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDReconManager:toggleLayer()</code></p>
+<h4 id="onreconautorefreshenabled-onreconautorefreshdisabled"><code>OnReconAutoRefreshEnabled</code> / <code>OnReconAutoRefreshDisabled</code><a class="headerlink" href="#onreconautorefreshenabled-onreconautorefreshdisabled" title="Permanent link">&para;</a></h4>
+<p>Un joueur active ou désactive l'auto-refresh RECON.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>player</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>playerUnit</code></td>
+<td>Unit</td>
+<td></td>
+</tr>
+<tr>
+<td><code>coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>previousState</code></td>
+<td>bool</td>
+<td></td>
+</tr>
+<tr>
+<td><code>newState</code></td>
+<td>bool</td>
+<td></td>
+</tr>
+<tr>
+<td><code>targetsCount</code></td>
+<td>number</td>
+<td>Nombre de cibles courant</td>
+</tr>
+<tr>
+<td><code>refreshInterval</code></td>
+<td>number</td>
+<td>Secondes entre les refreshs</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDReconManager:enableAutoRefresh()</code>, <code>:disableAutoRefresh()</code></p>
+<h3 id="fob-events-2">Événements FOB (2)<a class="headerlink" href="#fob-events-2" title="Permanent link">&para;</a></h3>
+<h4 id="onfobdeployed"><code>OnFOBDeployed</code><a class="headerlink" href="#onfobdeployed" title="Permanent link">&para;</a></h4>
+<p>Un FOB est entièrement assemblé et déployé.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fob.fobId</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>fob.name</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>fob.coalitionId</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>cratesUsed</code></td>
+<td>table</td>
+<td>Tableau des crates consommées</td>
+</tr>
+<tr>
+<td><code>totalCratesUsed</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>vec3</td>
+<td></td>
+</tr>
+<tr>
+<td><code>sceneObjects</code></td>
+<td>table</td>
+<td>StaticObjects DCS spawnés</td>
+</tr>
+<tr>
+<td><code>logisticZone</code></td>
+<td>table</td>
+<td>LGZ créée <code>{ name, radius, type="static" }</code></td>
+</tr>
+<tr>
+<td><code>player</code></td>
+<td>string</td>
+<td>Nom de l'unit du joueur ayant déclenché le déploiement</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDFOBManager:_registerDeployedFOB()</code></p>
+<h4 id="onfobdestroyed"><code>OnFOBDestroyed</code><a class="headerlink" href="#onfobdestroyed" title="Permanent link">&para;</a></h4>
+<p>L'intégrité d'un FOB tombe sous le seuil de destruction.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fob.fobId</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>fob.name</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>fob.coalitionId</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>vec3</td>
+<td></td>
+</tr>
+<tr>
+<td><code>destruction.killerUnit</code></td>
+<td>Unit ou nil</td>
+<td></td>
+</tr>
+<tr>
+<td><code>destruction.killerCoalition</code></td>
+<td>number ou nil</td>
+<td></td>
+</tr>
+<tr>
+<td><code>destruction.objectsDestroyed</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>destruction.objectsTotal</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>destruction.destructionThreshold</code></td>
+<td>number</td>
+<td>Config <code>fobDestructionThreshold</code> (défaut <code>0.5</code>)</td>
+</tr>
+<tr>
+<td><code>destruction.integrityPercent</code></td>
+<td>number</td>
+<td><code>0.0</code>–<code>1.0</code> au moment de l'événement</td>
+</tr>
+<tr>
+<td><code>logisticZone</code></td>
+<td>table</td>
+<td><code>{ name, wasActive=true }</code></td>
+</tr>
+<tr>
+<td><code>durationAlive</code></td>
+<td>number</td>
+<td>Secondes du déploiement à la destruction</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDFOBManager:_destroyFOB()</code> (depuis le handler <code>S_EVENT_DEAD</code> <code>onDead()</code>)</p>
+<h3 id="aa-system-events-3">Événements AA system (3)<a class="headerlink" href="#aa-system-events-3" title="Permanent link">&para;</a></h3>
+<h4 id="onaasystemdeployed"><code>OnAASystemDeployed</code><a class="headerlink" href="#onaasystemdeployed" title="Permanent link">&para;</a></h4>
+<p>Un système AA est entièrement assemblé.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>systemName</code></td>
+<td>string</td>
+<td><code>"HAWK"</code>, <code>"PATRIOT"</code>, …</td>
+</tr>
+<tr>
+<td><code>groupName</code></td>
+<td>string</td>
+<td>Nom de group DCS</td>
+</tr>
+<tr>
+<td><code>heli</code></td>
+<td>Unit ou nil</td>
+<td><code>nil</code> si déployé par l'IA</td>
+</tr>
+<tr>
+<td><code>coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>vec3</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDCrateAssemblyManager:spawnSystemAt()</code>, <code>:_assemble()</code></p>
+<h4 id="onaasystemrearmed"><code>OnAASystemRearmed</code><a class="headerlink" href="#onaasystemrearmed" title="Permanent link">&para;</a></h4>
+<p>Un lanceur est ajouté à un système AA existant.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>systemName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>groupName</code></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td><code>heli</code></td>
+<td>Unit</td>
+<td></td>
+</tr>
+<tr>
+<td><code>coalition</code></td>
+<td>number</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDCrateAssemblyManager:_rearm()</code></p>
+<h4 id="onaasystemrepaired"><code>OnAASystemRepaired</code><a class="headerlink" href="#onaasystemrepaired" title="Permanent link">&para;</a></h4>
+<p>Un système AA complet est réparé et re-spawné. Mêmes champs que <code>OnAASystemRearmed</code>.</p>
+<p><strong>Published by</strong> : <code>CTLDCrateAssemblyManager:_repair()</code></p>
+<h3 id="zone-events-2">Événements zone (2)<a class="headerlink" href="#zone-events-2" title="Permanent link">&para;</a></h3>
+<h4 id="onzonesmokerefreshed"><code>OnZoneSmokeRefreshed</code><a class="headerlink" href="#onzonesmokerefreshed" title="Permanent link">&para;</a></h4>
+<p>Émis à chaque cycle du timer de smoke-refresh.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>troopZones</code></td>
+<td>table</td>
+<td>Tableau de payloads troop-zone</td>
+</tr>
+<tr>
+<td><code>logisticZones</code></td>
+<td>table</td>
+<td>Tableau de payloads logistic-zone</td>
+</tr>
+<tr>
+<td><code>refreshInterval</code></td>
+<td>number</td>
+<td>Secondes</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDZoneManager:_scheduleSmoke()</code> (timer périodique)</p>
+<h4 id="onlogisticzoneupdated"><code>OnLogisticZoneUpdated</code><a class="headerlink" href="#onlogisticzoneupdated" title="Permanent link">&para;</a></h4>
+<p>Des units de zone dynamique sont ajoutées ou retirées.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>zones</code></td>
+<td>table</td>
+<td>Toutes les zones après mise à jour</td>
+</tr>
+<tr>
+<td><code>unitsAdded</code></td>
+<td>table</td>
+<td>Units nouvellement enregistrées</td>
+</tr>
+<tr>
+<td><code>unitsRemoved</code></td>
+<td>table</td>
+<td>Units ayant quitté la zone</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Published by</strong> : <code>CTLDZoneManager:_publishLogisticZoneUpdated()</code></p>
+<h3 id="catalogue-summary">Résumé du catalogue<a class="headerlink" href="#catalogue-summary" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Domaine</th>
+<th>Nombre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Beacon</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Crate</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Vehicle</td>
+<td>9</td>
+</tr>
+<tr>
+<td>Troop</td>
+<td>2</td>
+</tr>
+<tr>
+<td>JTAC</td>
+<td>8</td>
+</tr>
+<tr>
+<td>RECON</td>
+<td>8</td>
+</tr>
+<tr>
+<td>FOB</td>
+<td>2</td>
+</tr>
+<tr>
+<td>AA System</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Zone</td>
+<td>2</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>49</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Une dizaine d'événements environ ont des abonnés internes (rafraîchissement de menu et
+coordination entre managers) ; les autres sont publiés purement pour la consommation par le
+mission-maker et n'ont aucun listener interne tant que vous ne vous y abonnez pas.</p>
+<h2 id="the-dcs-event-bridge-for-contrast">Le pont d'événements DCS (à titre de contraste)<a class="headerlink" href="#the-dcs-event-bridge-for-contrast" title="Permanent link">&para;</a></h2>
+<p>Les événements moteur DCS ne transitent <strong>pas</strong> par <code>EventDispatcher</code>. Un unique singleton
+<code>CTLDDCSEventBridge</code> enregistre un seul <code>world.addEventHandler</code> et route chaque <code>S_EVENT_*</code> vers
+les managers qui s'y sont enregistrés, via <code>bridge:register(target, eventId, "methodName")</code>. Le
+pont ne filtre rien au-delà de l'id d'événement — chaque manager filtre en interne. Voir
+<a href="../architecture/">Architecture</a> pour la conception de <code>CTLDDCSEventBridge</code>.</p>
+<p>Les événements moteur actuellement traités, et par qui :</p>
+<table>
+<thead>
+<tr>
+<th>Événement DCS</th>
+<th>Handler(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>S_EVENT_PLAYER_ENTER_UNIT</code></td>
+<td><code>CTLDPlayerTracker:onPlayerEnterUnit()</code>, <code>CTLDPlayerManager:onPlayerEnterUnit()</code></td>
+</tr>
+<tr>
+<td><code>S_EVENT_PLAYER_LEAVE_UNIT</code></td>
+<td><code>CTLDPlayerTracker:onPlayerLeaveUnit()</code>, <code>CTLDPlayerManager:onPlayerLeaveUnit()</code></td>
+</tr>
+<tr>
+<td><code>S_EVENT_BIRTH</code></td>
+<td><code>CTLDPlayerTracker:onBirth()</code>, <code>CTLDCrateManager:onBirth()</code>, <code>CTLDJTACManager:onBirth()</code>, <code>CTLDVehicleSpawner:onBirth()</code></td>
+</tr>
+<tr>
+<td><code>S_EVENT_LAND</code></td>
+<td><code>CTLDPlayerManager:onLand()</code>, <code>CTLDCoreManager:onAILand()</code></td>
+</tr>
+<tr>
+<td><code>S_EVENT_TAKEOFF</code></td>
+<td><code>CTLDPlayerManager:onTakeoff()</code></td>
+</tr>
+<tr>
+<td><code>S_EVENT_DEAD</code></td>
+<td><code>CTLDTroopManager:onUnitDead()</code> + <code>:onTransportDead()</code>, <code>CTLDVehicleSpawner:onDead()</code>, <code>CTLDCrateManager:onCrateDead()</code>, <code>CTLDFOBManager:onDead()</code>, <code>CTLDZoneManager:onDead()</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong><code>S_EVENT_STATIC_DEAD</code> — un événement synthétique.</strong> <code>S_EVENT_DEAD</code> n'est pas fiable pour les
+objets statiques et de base. <code>CTLDStaticWatcher</code> sonde les objets enregistrés sur un timer d'1 s
+et, lorsque l'un d'eux disparaît, distribue un <code>S_EVENT_STATIC_DEAD</code> synthétique (payload
+<code>{ id, meta }</code>) via <code>EventDispatcher</code>. Il circule sur le bus métier mais n'est ni un événement
+moteur DCS ni un événement de domaine <code>On*</code>.</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": {"default": "dev", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

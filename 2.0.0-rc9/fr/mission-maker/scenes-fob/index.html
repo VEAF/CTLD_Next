@@ -1,0 +1,2901 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Combined Transport and Logistics Dispatcher for DCS World — modular rewrite.">
+      
+      
+      
+        <link rel="canonical" href="https://veaf.github.io/CTLD/2.0.0-rc9/fr/mission-maker/scenes-fob/">
+      
+      
+        <link rel="prev" href="../zones/">
+      
+      
+        <link rel="next" href="../crates-catalogue/">
+      
+      
+        
+          <link rel="alternate" href="../../../mission-maker/scenes-fob/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="fr">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Scènes & FOB - CTLD</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#scenes-fob" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../" title="CTLD" class="md-header__button md-logo" aria-label="CTLD" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CTLD
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Scènes & FOB
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Sélectionner la langue">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../mission-maker/scenes-fob/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/VEAF/CTLD" title="Aller au dépôt" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    VEAF/CTLD
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Accueil
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../pilot/" class="md-tabs__link">
+          
+  
+  
+  Pilote
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  Concepteur de mission (mission maker)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../developer/" class="md-tabs__link">
+          
+  
+  
+  Développeur
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="CTLD" class="md-nav__button md-logo" aria-label="CTLD" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CTLD
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/VEAF/CTLD" title="Aller au dépôt" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    VEAF/CTLD
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pilote
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pilote
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pilot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue d'ensemble
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pilot/troop-transport/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transport de troupes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pilot/crates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caisses (crates)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pilot/vehicles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Véhicules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pilot/slingload/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Élingue (sling-load)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pilot/parachute/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parachute
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pilot/jtac/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JTAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pilot/recon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reconnaissance (recon)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pilot/beacons/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Balises (beacons)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pilot/smoke/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fumigène (smoke)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pilot/pack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pack
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepteur de mission (mission maker)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Concepteur de mission (mission maker)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue d'ensemble
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ctld-tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurer avec ctld-tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration des zones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scènes & FOB
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scènes & FOB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#scenes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scenes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#built-in-scenes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenes intégrées
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plugin-scenes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scènes plugin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-a-scene-is-built" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comment une scene est construite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step hooks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#objects-the-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objects : le registry
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#declaring-a-custom-scene" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Déclarer une scene personnalisée
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#farp-pack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pack de FARP
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fob-forward-operating-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FOB — Forward Operating Base
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FOB — Forward Operating Base">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#build-flow-pilot-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Déroulé de la construction (côté pilote)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fob-destruction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Destruction d'un FOB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Événements
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#farp-point-de-ravitaillement-et-de-rearmement-avance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FARP — Point de Ravitaillement et de Réarmement Avancé
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FARP — Point de Ravitaillement et de Réarmement Avancé">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#farp-build-flow-pilot-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Déroulé de la construction d'une FARP (côté pilote)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#farp-destruction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Destruction d'une FARP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#farp-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration de la FARP
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crates-catalogue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Catalogue de caisses (crates)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../minefield/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Champ de mines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../asset-validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Valider votre configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../translations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Traductions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../legacy-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API historique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Développeur
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Développeur
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue d'ensemble
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow de développement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sous-systèmes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sous-systèmes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/subsystems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue d'ensemble
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/subsystems/scenes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Moteur de scènes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/subsystems/crates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pipeline de spawn des caisses (crates)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/subsystems/troops-jtac/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cycle de vie troupes + JTAC (troops)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/subsystems/zones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestion des zones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/subsystems/vehicles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Système de véhicules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/subsystems/beacons/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Système de balises (beacons)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/subsystems/recon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Système de reconnaissance (recon)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/subsystems/menu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Système de menu F10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/subsystems/players/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Suivi des joueurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/subsystems/aa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assemblage des systèmes AA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Événements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Internationalisation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/building-and-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Build et tests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/integration-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tests d'intégration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/migration-v1-v2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migration v1 → v2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/api-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Référence de l'API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/design-spec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spécification de conception
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#scenes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scenes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#built-in-scenes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenes intégrées
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plugin-scenes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scènes plugin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-a-scene-is-built" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comment une scene est construite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step hooks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#objects-the-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objects : le registry
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#declaring-a-custom-scene" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Déclarer une scene personnalisée
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#farp-pack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pack de FARP
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fob-forward-operating-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FOB — Forward Operating Base
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FOB — Forward Operating Base">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#build-flow-pilot-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Déroulé de la construction (côté pilote)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fob-destruction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Destruction d'un FOB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Événements
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#farp-point-de-ravitaillement-et-de-rearmement-avance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FARP — Point de Ravitaillement et de Réarmement Avancé
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FARP — Point de Ravitaillement et de Réarmement Avancé">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#farp-build-flow-pilot-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Déroulé de la construction d'une FARP (côté pilote)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#farp-destruction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Destruction d'une FARP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#farp-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration de la FARP
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="scenes-fob">Scènes &amp; FOB<a class="headerlink" href="#scenes-fob" title="Permanent link">&para;</a></h1>
+<p>Cette page couvre deux outils liés que vous configurez en tant que mission maker : les <strong>scenes</strong>
+(déploiements séquencés tels qu'une FARP ou un champ de mines qui se matérialisent lorsqu'un pilote
+déballe une crate) et le <strong>FOB</strong> (une base avancée que les pilotes assemblent à partir de crates et
+qui devient une logistics zone opérationnelle).</p>
+<p>Les deux sont <em>déployés</em> par les pilotes depuis le cockpit. Pour les actions côté pilote — spawn,
+transport et unpack des crates, ainsi que le pack d'une FARP — voir <a href="../../pilot/crates/">Crates</a> et
+<a href="../../pilot/pack/">Pack</a>.</p>
+<hr />
+<h2 id="scenes">Scenes<a class="headerlink" href="#scenes" title="Permanent link">&para;</a></h2>
+<p>Une <strong>scene</strong> est un déploiement séquencé et temporisé de plusieurs objets DCS (statics et/ou ground
+groups) qui se joue automatiquement lorsqu'un pilote déballe une crate désignée. Elle permet de
+mettre en scène une construction réaliste — une FARP qui se matérialise pièce par pièce, un champ de
+mines qui se déploie — sans scripting spécifique à chaque mission : vous utilisez soit une scene
+intégrée, soit vous déclarez un modèle de scene une seule fois.</p>
+<h3 id="built-in-scenes">Scenes intégrées<a class="headerlink" href="#built-in-scenes" title="Permanent link">&para;</a></h3>
+<p>Celles-ci sont livrées avec CTLD et sont prêtes à être proposées aux pilotes. Chacune déclare
+elle-même sa crate, elle apparaît donc automatiquement dans le menu <strong>Request Equipment</strong> une fois
+CTLD chargé (aucune config supplémentaire).</p>
+<table>
+<thead>
+<tr>
+<th>Nom de scene</th>
+<th>Crates</th>
+<th>Ce qu'elle déploie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FARP Alpha</code></td>
+<td>1</td>
+<td>FARP complète : helipad, tente, dépôt de munitions, camions de carburant + réparation, escouade de sécurité, décor. Warehouse approvisionné avec 10 000 L de chaque type de carburant.</td>
+</tr>
+<tr>
+<td><code>Countryside FARP</code></td>
+<td>3</td>
+<td>Heliport Invisible-FARP discret + tente, camions, équipe de garde, lumières, manche à air. Warehouse mis à zéro par défaut (FARP visuelle, pas de service carburant). Supporte le pack de FARP.</td>
+</tr>
+<tr>
+<td><code>mineField</code></td>
+<td>1</td>
+<td>Dispose une grille configurable de mines terrestres devant l'hélicoptère, marquée sur la carte F10. Voir <a href="../minefield/">Champ de mines</a>.</td>
+</tr>
+<tr>
+<td><code>FOB</code></td>
+<td>3</td>
+<td>Forward Operating Base : une construction animée qui se termine en logistics zone. Voir <a href="#fob-forward-operating-base">FOB</a> ci-dessous.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="plugin-scenes">Scènes plugin<a class="headerlink" href="#plugin-scenes" title="Permanent link">&para;</a></h3>
+<p>Certaines scènes ne sont pas embarquées dans <code>CTLD.lua</code> — généralement parce qu'elles dépendent d'un
+<strong>mod</strong> DCS. Elles vivent dans le dépôt séparé
+<a href="https://github.com/VEAF/CTLD_plugins"><code>VEAF/CTLD_plugins</code></a> et se chargent à la demande : une mission
+ne les embarque que si elle le décide.</p>
+<p>Pour ajouter une scène plugin à votre mission :</p>
+<ol>
+<li>Téléchargez le <code>.lua</code> du plugin depuis le
+   <a href="https://veaf.github.io/CTLD_plugins/">catalogue des plugins</a>.</li>
+<li>Dans l'éditeur de mission, ajoutez un déclencheur <code>DO SCRIPT FILE</code> au <strong>démarrage de la mission</strong>,
+   <strong>après</strong> le déclencheur qui charge <code>CTLD.lua</code>. La scène s'enregistre et sa caisse apparaît dans
+   <strong>Request Equipment</strong>.</li>
+<li>Si le plugin requiert un mod DCS, assurez-vous que <strong>tous</strong> les clients l'ont installé (la page du
+   plugin liste les prérequis). Le plugin prévient en jeu si votre version de CTLD est trop ancienne.</li>
+</ol>
+<blockquote>
+<p><strong><code>Metal FARP</code></strong> est désormais un plugin (il nécessite le mod <code>Farp_FG_Petit_Helipad</code>). Il était
+auparavant intégré ; les missions qui l'utilisaient doivent maintenant charger le plugin Metal
+FARP comme ci-dessus.</p>
+</blockquote>
+<h3 id="how-a-scene-is-built">Comment une scene est construite<a class="headerlink" href="#how-a-scene-is-built" title="Permanent link">&para;</a></h3>
+<p>Un modèle de scene est une table avec un <code>name</code>, une <code>crate</code> auto-déclarée optionnelle et une liste
+ordonnée de <code>steps</code>. Chaque step est d'un des trois types.</p>
+<p><strong>Polar step — position déterministe.</strong> L'objet spawn à une distance et un angle fixes relatifs à la
+position et au cap de l'hélicoptère (capturés au moment de l'unpack).</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>registryKey</code></td>
+<td>string</td>
+<td>Clé de l'objet à spawn (voir <a href="#objects-the-registry">Objects</a>)</td>
+</tr>
+<tr>
+<td><code>polar</code></td>
+<td>table</td>
+<td><code>{ distance=N, angle=N }</code> — distance en mètres, angle en degrés dans le sens horaire depuis le cap de l'appareil (<code>0</code> = midi)</td>
+</tr>
+<tr>
+<td><code>relativeHeadingInDegrees</code></td>
+<td>number</td>
+<td>Cap de l'objet spawné relatif au cap de l'appareil</td>
+</tr>
+<tr>
+<td><code>relativeAltitudeInMeters</code></td>
+<td>number</td>
+<td>Décalage d'altitude par rapport à l'altitude de l'hélicoptère</td>
+</tr>
+<tr>
+<td><code>delayAfterPreviousStep</code></td>
+<td>number</td>
+<td>Secondes à attendre <em>avant</em> l'exécution de ce step</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Axis step — position sur axe aléatoire.</strong> Un ou plusieurs objets spawnent le long d'un axe choisi
+aléatoirement rayonnant depuis l'hélicoptère — un placement d'aspect naturel sans relèvement codé en
+dur.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>registryKey</code></td>
+<td>string</td>
+<td>Clé de l'objet à spawn</td>
+</tr>
+<tr>
+<td><code>axis</code></td>
+<td>table</td>
+<td><code>{ count=N, safeDistance=N, spacing=N }</code> — nombre d'objets, distance jusqu'au premier objet (m), espacement entre objets (m)</td>
+</tr>
+<tr>
+<td><code>delayAfterPreviousStep</code></td>
+<td>number</td>
+<td>Secondes à attendre avant l'exécution de ce step</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Func-only step — pas de spawn.</strong> Aucun objet n'est spawné ; seul un callback s'exécute. Utilisez-le
+pour les messages de fin, l'approvisionnement du warehouse ou l'enregistrement post-construction.</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>delayAfterPreviousStep</code></td>
+<td>number</td>
+<td>Secondes à attendre avant l'exécution de ce step</td>
+</tr>
+<tr>
+<td><code>func</code></td>
+<td>function</td>
+<td>Callback <code>function(ctx)</code> (voir ci-dessous)</td>
+</tr>
+</tbody>
+</table>
+<p>La coalition (BLUE/RED) et le pays sont résolus automatiquement à partir du pilote qui a déballé la
+crate.</p>
+<h3 id="step-hooks">Step hooks<a class="headerlink" href="#step-hooks" title="Permanent link">&para;</a></h3>
+<p>Tout spawn step peut également porter des hooks de script et un flag de criticité :</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>preFunc</code></td>
+<td>function</td>
+<td><code>function(ctx)</code> exécuté <strong>avant</strong> le spawn. Retourne <code>false</code> pour ignorer le spawn de ce step (la scene continue) ; appelle <code>ctx.scene:abort(reason)</code> pour arrêter toute la scene.</td>
+</tr>
+<tr>
+<td><code>func</code></td>
+<td>function</td>
+<td><code>function(ctx)</code> exécuté <strong>après</strong> le spawn (ou après un spawn ignoré).</td>
+</tr>
+<tr>
+<td><code>critical</code></td>
+<td>boolean</td>
+<td>Si <code>true</code> et que le spawn ne produit aucun objet, la scene s'interrompt plutôt que de continuer avec une construction partielle défectueuse.</td>
+</tr>
+</tbody>
+</table>
+<p>Chaque hook reçoit une unique table de contexte <code>ctx</code> :</p>
+<table>
+<thead>
+<tr>
+<th>Champ <code>ctx</code></th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ctx.unit</code></td>
+<td>L'unité déclencheuse (l'appareil du pilote)</td>
+</tr>
+<tr>
+<td><code>ctx.spawnedObj</code></td>
+<td>Le dernier objet DCS spawné dans ce step (<code>nil</code> pour les func-only ou les steps ignorés)</td>
+</tr>
+<tr>
+<td><code>ctx.step</code></td>
+<td>La table du step courant</td>
+</tr>
+<tr>
+<td><code>ctx.scene</code></td>
+<td>L'instance de scene — lecture/écriture de <code>_refX</code> / <code>_refZ</code> / <code>_refAlt</code> (point de référence), <code>_params</code>, etc.</td>
+</tr>
+</tbody>
+</table>
+<p>Un modèle de scene peut aussi définir <code>model.onComplete = function(scene) ... end</code>, appelé une fois
+le dernier step terminé.</p>
+<h3 id="objects-the-registry">Objects : le registry<a class="headerlink" href="#objects-the-registry" title="Permanent link">&para;</a></h3>
+<p>Les steps de scene référencent les objets par un <code>registryKey</code> qui se résout via
+<strong><code>CTLDObjectRegistry</code></strong> — un catalogue de descripteurs DCS enrichis (fréquence de helipad,
+<code>shape_name</code> de static, formations de ground groups multi-unités, types d'unités selon la coalition).
+Ceci remplace toute liste d'objets figée : vous enregistrez au chargement les clés dont votre scene a
+besoin, et les clés partagées peuvent être déclarées sans risque depuis plusieurs scenes.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">CTLDObjectRegistry</span><span class="p">.</span><span class="nf">registerIfAbsent</span><span class="p">(</span><span class="s2">"FARP_Tent"</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nv">groupType</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">"STATIC"</span><span class="p">,</span>
+<span class="w">    </span><span class="nv">namePrefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"FARP_Tent"</span><span class="p">,</span>
+<span class="w">    </span><span class="nb">type</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="s2">"FARP Tent"</span><span class="p">,</span>
+<span class="w">    </span><span class="nv">category</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">"Fortifications"</span><span class="p">,</span>
+<span class="p">})</span>
+</code></pre></div>
+<p><code>registerIfAbsent</code> est un no-op lorsque la clé existe déjà, les scenes peuvent donc co-déclarer des
+objets communs (<code>SINGLE_HELIPAD</code>, <code>Fuel_Truck</code>, <code>FARP_Tent</code>, <code>ammo_cargo</code>, <code>Windsock</code>,
+<code>NF-2_LightOn</code>…) sans conflit. Vérifiez tout <code>type</code> DCS par rapport au dataset datamine avant de vous
+y fier.</p>
+<h3 id="declaring-a-custom-scene">Déclarer une scene personnalisée<a class="headerlink" href="#declaring-a-custom-scene" title="Permanent link">&para;</a></h3>
+<p><strong>Étape 1 — enregistrez les objets</strong> que vos steps utilisent (comme ci-dessus), s'ils ne sont pas
+déjà dans le registry.</p>
+<p><strong>Étape 2 — déclarez le modèle de scene</strong> dans un script de mission chargé après CTLD. Déclarez
+vous-même une table <code>crate</code> pour que la scene soit proposée automatiquement dans le menu Request
+Equipment :</p>
+<div class="highlight"><pre><span></span><code><span class="kd">local</span><span class="w"> </span><span class="nv">myScene</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"My FARP"</span><span class="p">,</span>
+
+<span class="w">    </span><span class="c1">-- Auto-injected into the Request Equipment menu — no spawnableCrates entry needed.</span>
+<span class="w">    </span><span class="nv">crate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nv">weight</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="mf">1050.00</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">i18nKey</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="s2">"My FARP Crate"</span><span class="p">,</span><span class="w">   </span><span class="c1">-- display name (translation key)</span>
+<span class="w">        </span><span class="nv">deployKey</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="s2">"Deploy My FARP"</span><span class="p">,</span><span class="w">  </span><span class="c1">-- menu label (translation key)</span>
+<span class="w">        </span><span class="nv">cratesRequired</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">side</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w">               </span><span class="c1">-- nil = both coalitions</span>
+<span class="w">    </span><span class="p">},</span>
+
+<span class="w">    </span><span class="nv">steps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">-- polar step: helipad 100 m ahead, facing south relative to the helicopter</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nv">registryKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"SINGLE_HELIPAD"</span><span class="p">,</span><span class="w"> </span><span class="nv">polar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nv">distance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="nv">angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">},</span>
+<span class="w">          </span><span class="nv">relativeHeadingInDegrees</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">180</span><span class="p">,</span><span class="w"> </span><span class="nv">relativeAltitudeInMeters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nv">delayAfterPreviousStep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">},</span>
+<span class="w">        </span><span class="c1">-- polar step: tent 130 m ahead-right, 3 s later</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nv">registryKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"FARP_Tent"</span><span class="p">,</span><span class="w"> </span><span class="nv">polar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nv">distance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">130</span><span class="p">,</span><span class="w"> </span><span class="nv">angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">},</span>
+<span class="w">          </span><span class="nv">relativeHeadingInDegrees</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">90</span><span class="p">,</span><span class="w"> </span><span class="nv">relativeAltitudeInMeters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nv">delayAfterPreviousStep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">},</span>
+<span class="w">        </span><span class="c1">-- axis step: scatter 3 ammo crates along a random axis</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nv">registryKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ammo_cargo"</span><span class="p">,</span><span class="w"> </span><span class="nv">axis</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nv">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="nv">safeDistance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="nv">spacing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="p">},</span>
+<span class="w">          </span><span class="nv">delayAfterPreviousStep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">},</span>
+<span class="w">        </span><span class="c1">-- func-only step: completion message</span>
+<span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nv">delayAfterPreviousStep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">          </span><span class="nv">func</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="nv">ctx</span><span class="p">)</span>
+<span class="w">              </span><span class="nv">trigger</span><span class="p">.</span><span class="py">action</span><span class="p">.</span><span class="nf">outText</span><span class="p">(</span><span class="s2">"FARP ready at "</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="nv">ctx</span><span class="p">.</span><span class="py">unit</span><span class="p">:</span><span class="nf">getName</span><span class="p">(),</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span>
+<span class="w">              </span><span class="kr">return</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">          </span><span class="kr">end</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="p">}</span>
+
+<span class="nv">CTLDSceneManager</span><span class="p">.</span><span class="nf">getInstance</span><span class="p">():</span><span class="nf">registerSceneModel</span><span class="p">(</span><span class="nv">myScene</span><span class="p">)</span>
+</code></pre></div>
+<p>C'est tout ce qui est requis : les pilotes chargent la crate dans une logistics zone, volent jusqu'à
+la cible et font l'unpack — la scene se joue automatiquement.</p>
+<blockquote>
+<p><strong>Note de migration.</strong> Les versions antérieures utilisaient un champ <code>objectsDescDbKey</code> et une
+signature <code>func(unit, spawnedObj, step)</code>, et requéraient une entrée <code>spawnableCrates</code>
+correspondante avec <code>unit = "&lt;scene name&gt;"</code>. L'API actuelle utilise <strong><code>registryKey</code></strong>, une unique
+table de contexte <strong><code>func(ctx)</code></strong> et une <strong>table <code>crate</code> auto-déclarée</strong> sur le modèle. Mettez à
+jour les anciens scripts de scene en conséquence.</p>
+</blockquote>
+<h3 id="farp-pack">Pack de FARP<a class="headerlink" href="#farp-pack" title="Permanent link">&para;</a></h3>
+<p>Lorsque <code>enableFARPRepack = true</code> (par défaut), un pilote au sol à moins de <strong>300 m</strong> d'une scene de
+FARP déployée qui supporte le pack obtient une entrée <strong>Pack Equipt → Pack <code>&lt;scene name&gt;</code></strong> sous
+<strong>Crate Commands</strong>. La packer :</p>
+<ol>
+<li>Capture l'état du warehouse de la FARP (carburant, et le cas échéant armes/appareils) via le hook
+   <code>onRepack</code> de la scene.</li>
+<li>Détruit les objets de la scene déployée.</li>
+<li>Spawn les crates requises près de l'hélicoptère, portant le snapshot du warehouse.</li>
+</ol>
+<p>Lorsque ces crates sont déballées à un nouvel emplacement, le warehouse est restauré aux niveaux
+capturés au lieu des valeurs par défaut.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">mm_facing</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enableFARPRepack</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">   </span><span class="c1"># default: true</span>
+</code></pre></div>
+<p><strong>Scenes qui supportent le pack :</strong> <code>Countryside FARP</code> (et le plugin <code>Metal FARP</code>).</p>
+<p>Pour rendre une scene <strong>personnalisée</strong> packable, ajoutez un hook <code>onRepack(scene, repackData)</code> qui
+enregistre ce qui doit être restauré, et faites en sorte que votre warehouse step vérifie
+<code>ctx.scene._params.repackData</code> pour choisir entre restaurer le snapshot et appliquer les valeurs par
+défaut :</p>
+<div class="highlight"><pre><span></span><code><span class="nv">myScene</span><span class="p">.</span><span class="py">onRepack</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="nv">scene</span><span class="p">,</span><span class="w"> </span><span class="nv">repackData</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">farpName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">scene</span><span class="p">.</span><span class="py">_params</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">scene</span><span class="p">.</span><span class="py">_params</span><span class="p">.</span><span class="py">farpName</span>
+<span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">farpName</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span>
+<span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">ab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Airbase</span><span class="p">.</span><span class="nf">getByName</span><span class="p">(</span><span class="nv">farpName</span><span class="p">)</span>
+<span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">ab</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span>
+<span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">w</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">ab</span><span class="p">:</span><span class="nf">getWarehouse</span><span class="p">()</span>
+<span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">w</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span>
+<span class="w">    </span><span class="nv">repackData</span><span class="p">.</span><span class="py">warehouseSnapshot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nv">liquid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">w</span><span class="p">:</span><span class="nf">getLiquidAmount</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">w</span><span class="p">:</span><span class="nf">getLiquidAmount</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+<span class="w">                   </span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">w</span><span class="p">:</span><span class="nf">getLiquidAmount</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="w"> </span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">w</span><span class="p">:</span><span class="nf">getLiquidAmount</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="kr">end</span>
+</code></pre></div>
+<blockquote>
+<p>La clé de config <code>enableFARPRepack</code> et le hook de modèle <code>onRepack</code> conservent leurs noms
+hérités, mais l'action en jeu est <strong>pack</strong> partout — le menu affiche « Pack Equipt ».</p>
+</blockquote>
+<hr />
+<h2 id="fob-forward-operating-base">FOB — Forward Operating Base<a class="headerlink" href="#fob-forward-operating-base" title="Permanent link">&para;</a></h2>
+<p>Un FOB est une base avancée déployable construite à partir de crates. Une fois construit, il
+s'enregistre automatiquement comme logistics zone (les pilotes peuvent y spawn des crates et des
+véhicules) et, optionnellement, comme troop pickup zone.</p>
+<blockquote>
+<p><strong>Les FOB sont le seul moyen de créer une nouvelle logistics zone à l'exécution.</strong> Si votre mission
+a besoin de logistique à une position décidée en cours de jeu, déployez un FOB plutôt que de
+pré-placer une trigger zone <code>LGZ_</code>. Voir <a href="../zones/">Configuration des zones</a>.</p>
+</blockquote>
+<p>Le FOB est livré comme la scene intégrée <strong><code>FOB</code></strong> : une construction animée d'environ 120 s qui se
+termine en enregistrant la base. Il nécessite <strong>3 crates de FOB</strong> par défaut (défini sur la table
+<code>crate</code> de la scene, pas dans un réglage global).</p>
+<h3 id="build-flow-pilot-side">Déroulé de la construction (côté pilote)<a class="headerlink" href="#build-flow-pilot-side" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Le pilote charge les crates de FOB requises et vole jusqu'à la zone cible.</li>
+<li>L'unpack est déclenché depuis le menu F10 (<strong>Crate Commands → Unpack Crate(s)</strong> avec des crates de
+   FOB à proximité). CTLD vérifie que toutes les crates requises sont à moins de <strong>750 m</strong> les unes
+   des autres et que le site est en dehors de toute logistics zone active et à au moins
+   <code>fobMinDistanceFromZones</code> des zones existantes.</li>
+<li>La scene de FOB se joue ; les structures spawnent en séquence.</li>
+<li>À la fin : une <a href="../../pilot/beacons/">balise</a> radio est déposée au centre du FOB, la zone
+   s'enregistre comme logistics zone et — si <code>troopPickupAtFOB = true</code> — comme troop pickup zone.</li>
+</ol>
+<p>Les pilotes peuvent lister les FOB actifs via <strong>CTLD → FOBs List → List active FOBs</strong>.</p>
+<h3 id="fob-destruction">Destruction d'un FOB<a class="headerlink" href="#fob-destruction" title="Permanent link">&para;</a></h3>
+<p>Si une action ennemie détruit suffisamment de structures de FOB pour que la fraction survivante passe
+sous <code>(1 - fobDestructionThreshold)</code>, le FOB est considéré comme détruit : sa logistics zone est
+désenregistrée immédiatement, sa balise est retirée et l'événement <code>OnFOBDestroyed</code> se déclenche.</p>
+<table>
+<thead>
+<tr>
+<th><code>fobDestructionThreshold</code></th>
+<th>Structures devant survivre</th>
+<th>FOB perdu lorsque</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0.5</code> (par défaut)</td>
+<td>&gt; 50 %</td>
+<td>≥ 50 % détruites</td>
+</tr>
+<tr>
+<td><code>0.75</code></td>
+<td>&gt; 25 %</td>
+<td>≥ 75 % détruites</td>
+</tr>
+<tr>
+<td><code>1.0</code></td>
+<td>&gt; 0 % (au moins une survivante)</td>
+<td>toutes les structures détruites</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Une fois détruit, la logistics zone du FOB est perdue pour le reste de la mission — il n'y a pas de
+reconstruction automatique. Les pilotes doivent déployer de nouvelles crates de FOB ailleurs pour
+rétablir la logistique dans cette zone.</p>
+</blockquote>
+<h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Défaut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>enabledFOBBuilding</code></td>
+<td><code>true</code></td>
+<td>Active la construction de FOB et le menu FOB</td>
+</tr>
+<tr>
+<td><code>troopPickupAtFOB</code></td>
+<td><code>true</code></td>
+<td>Enregistre un FOB déployé comme troop pickup zone</td>
+</tr>
+<tr>
+<td><code>fobMinDistanceFromZones</code></td>
+<td><code>500</code></td>
+<td>Distance minimale (m) par rapport aux logistics zones existantes pour autoriser le déploiement</td>
+</tr>
+<tr>
+<td><code>fobLogisticZoneRadius</code></td>
+<td><code>150</code></td>
+<td>Rayon (m) de la logistics zone créée autour du FOB</td>
+</tr>
+<tr>
+<td><code>fobDestructionThreshold</code></td>
+<td><code>0.5</code></td>
+<td>Fraction des objets de scene détruits avant que le FOB ne soit perdu (0.0–1.0)</td>
+</tr>
+<tr>
+<td><code>fobTroopPickupRadius</code></td>
+<td><code>150</code></td>
+<td>Rayon (m) à l'intérieur duquel les troupes peuvent être récupérées à un FOB</td>
+</tr>
+</tbody>
+</table>
+<p>Dans <code>ctld-tools</code>, c'est la famille <strong>FOB / FARP</strong> ; à la main, ces réglages vivent tous sous
+<code>mm_facing</code> :</p>
+<div class="highlight"><pre><span></span><code><span class="nt">mm_facing</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enabledFOBBuilding</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">troopPickupAtFOB</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">fobMinDistanceFromZones</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500</span>
+<span class="w">  </span><span class="nt">fobLogisticZoneRadius</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">150</span>
+<span class="w">  </span><span class="nt">fobDestructionThreshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+<span class="w">  </span><span class="nt">fobTroopPickupRadius</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">150</span>
+</code></pre></div>
+<blockquote>
+<p>Le nombre de crates dont un FOB a besoin n'est <strong>pas</strong> un réglage global — il vit sur le champ
+<code>crate.cratesRequired</code> de la scene <code>FOB</code> (3 par défaut), et la construction est auto-temporisée par
+la scene. Les anciennes docs référençaient <code>cratesRequiredForFOB</code> et <code>buildTimeFOB</code> ; ces réglages
+n'existent plus.</p>
+</blockquote>
+<h3 id="events">Événements<a class="headerlink" href="#events" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Événement</th>
+<th>Déclenché quand</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OnFOBDeployed</code></td>
+<td>Construction du FOB terminée et base pleinement active</td>
+</tr>
+<tr>
+<td><code>OnFOBDestroyed</code></td>
+<td>FOB détruit par une action ennemie</td>
+</tr>
+</tbody>
+</table>
+<h2 id="farp-point-de-ravitaillement-et-de-rearmement-avance">FARP — Point de Ravitaillement et de Réarmement Avancé<a class="headerlink" href="#farp-point-de-ravitaillement-et-de-rearmement-avance" title="Permanent link">&para;</a></h2>
+<p>Une FARP est un point de ravitaillement/réarmement déployable construit à partir de crates,
+utilisant l'une des trois scenes FARP intégrées — <code>farpScene</code>, <code>FARP Alpha</code> ou <code>Countryside FARP</code>
+(voir <a href="#built-in-scenes">Scenes intégrées</a> ci-dessus). Une fois construite, elle s'enregistre
+auprès de DCS comme une vraie base aérienne et, si <code>troopPickupAtFARP = true</code>, comme troop pickup
+zone — le même mécanisme qu'un FOB construit, fonctionnant identiquement sur les trois scenes.</p>
+<h3 id="farp-build-flow-pilot-side">Déroulé de la construction d'une FARP (côté pilote)<a class="headerlink" href="#farp-build-flow-pilot-side" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Le pilote charge la ou les crates requises par la scene FARP choisie et vole jusqu'à la zone
+   cible.</li>
+<li>L'unpack est déclenché depuis le menu F10, comme pour toute autre scene.</li>
+<li>La scene de FARP se joue ; les structures spawnent en séquence.</li>
+<li>À la fin : la FARP est une base aérienne DCS fonctionnelle (ravitaillement/réarmement/réparation
+   disponibles), et — si <code>troopPickupAtFARP = true</code> — une troop pickup zone.</li>
+</ol>
+<h3 id="farp-destruction">Destruction d'une FARP<a class="headerlink" href="#farp-destruction" title="Permanent link">&para;</a></h3>
+<p>Contrairement au FOB — dont la destruction est un seuil de fraction de structures
+(<code>fobDestructionThreshold</code>) — la destruction d'une FARP est décidée par DCS lui-même : dès que DCS
+ne considère plus la base aérienne sous-jacente comme existante, sa troop pickup zone (le cas
+échéant) est retirée immédiatement. Il n'existe pas de réglage de seuil de destruction spécifique
+à la FARP.</p>
+<h3 id="farp-configuration">Configuration de la FARP<a class="headerlink" href="#farp-configuration" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Défaut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>troopPickupAtFARP</code></td>
+<td><code>true</code></td>
+<td>Enregistre une FARP déployée comme troop pickup zone</td>
+</tr>
+<tr>
+<td><code>farpTroopPickupRadius</code></td>
+<td><code>150</code></td>
+<td>Rayon (m) à l'intérieur duquel les troupes peuvent être récupérées à une FARP</td>
+</tr>
+</tbody>
+</table>
+<p>Même famille <code>mm_facing</code> <strong>FOB / FARP</strong> que les réglages du FOB ci-dessus :</p>
+<div class="highlight"><pre><span></span><code><span class="nt">mm_facing</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">troopPickupAtFARP</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">farpTroopPickupRadius</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">150</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": {"default": "dev", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

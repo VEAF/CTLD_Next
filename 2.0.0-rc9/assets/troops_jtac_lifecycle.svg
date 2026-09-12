@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 920" font-family="'Segoe UI', Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#555"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#c0392b"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#27ae60"/>
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="2" dy="2" stdDeviation="2" flood-opacity="0.25"/>
+    </filter>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8f9fa"/>
+      <stop offset="100%" stop-color="#e9ecef"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="920" fill="url(#bgGrad)" rx="12"/>
+
+  <!-- Title -->
+  <text x="600" y="38" text-anchor="middle" font-size="22" font-weight="bold" fill="#2c3e50">CTLD Troop + JTAC Lifecycle — State Machine</text>
+
+  <!-- LEGEND -->
+  <rect x="16" y="58" width="280" height="72" fill="white" stroke="#ddd" stroke-width="1" rx="6" filter="url(#shadow)"/>
+  <text x="28" y="78" font-size="12" font-weight="bold" fill="#2c3e50">Legend</text>
+  <line x1="28" y1="92" x2="68" y2="92" stroke="#555" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="76" y="96" font-size="11" fill="#555">Troop transition</text>
+  <line x1="28" y1="110" x2="68" y2="110" stroke="#27ae60" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <text x="76" y="114" font-size="11" fill="#27ae60">JTAC start/resume</text>
+  <line x1="28" y1="122" x2="68" y2="122" stroke="#c0392b" stroke-width="2" marker-end="url(#arrow-red)"/>
+  <text x="76" y="126" font-size="11" fill="#c0392b">JTAC kill/deregister</text>
+
+  <!-- ===================== TROOP STATES ===================== -->
+
+  <!-- TRZ_LOADED -->
+  <g filter="url(#shadow)">
+    <rect x="40" y="175" width="220" height="90" rx="10" fill="#d5f5e3" stroke="#27ae60" stroke-width="2"/>
+    <text x="150" y="197" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e8449">TRZ_LOADED</text>
+    <text x="150" y="216" text-anchor="middle" font-size="10" fill="#555">Troops boarded in transport</text>
+    <text x="150" y="231" text-anchor="middle" font-size="10" fill="#555">DCS group: NOT spawned</text>
+    <text x="150" y="246" text-anchor="middle" font-size="10" fill="#555">_aliveUnits + _jtacUnits memorised</text>
+    <text x="150" y="261" text-anchor="middle" font-size="9" fill="#888">CTLDTroopGroup._inTransit[transportUnitName]</text>
+  </g>
+
+  <!-- DEPLOYED -->
+  <g filter="url(#shadow)">
+    <rect x="370" y="175" width="220" height="90" rx="10" fill="#fef9e7" stroke="#f39c12" stroke-width="2"/>
+    <text x="480" y="197" text-anchor="middle" font-size="14" font-weight="bold" fill="#d68910">DEPLOYED</text>
+    <text x="480" y="216" text-anchor="middle" font-size="10" fill="#555">Troops on the ground</text>
+    <text x="480" y="231" text-anchor="middle" font-size="10" fill="#555">DCS group: SPAWNED</text>
+    <text x="480" y="246" text-anchor="middle" font-size="10" fill="#555">_aliveUnits = current DCS units</text>
+    <text x="480" y="261" text-anchor="middle" font-size="9" fill="#888">CTLDTroopGroup._droppedGroups[coa][name]</text>
+  </g>
+
+  <!-- DEPLOYED_EXZ -->
+  <g filter="url(#shadow)">
+    <rect x="700" y="175" width="220" height="90" rx="10" fill="#fdebd0" stroke="#e67e22" stroke-width="2"/>
+    <text x="810" y="197" text-anchor="middle" font-size="14" font-weight="bold" fill="#d35400">DEPLOYED_EXZ</text>
+    <text x="810" y="216" text-anchor="middle" font-size="10" fill="#555">Silent drop into EXZ_ zone</text>
+    <text x="810" y="231" text-anchor="middle" font-size="10" fill="#555">DCS group: NEVER spawned</text>
+    <text x="810" y="246" text-anchor="middle" font-size="10" fill="#555">Counter flag incremented only</text>
+    <text x="810" y="261" text-anchor="middle" font-size="9" fill="#888">Group instance discarded</text>
+  </g>
+
+  <!-- FIELD_LOADED -->
+  <g filter="url(#shadow)">
+    <rect x="370" y="380" width="220" height="90" rx="10" fill="#e8daef" stroke="#8e44ad" stroke-width="2"/>
+    <text x="480" y="402" text-anchor="middle" font-size="14" font-weight="bold" fill="#6c3483">FIELD_LOADED</text>
+    <text x="480" y="421" text-anchor="middle" font-size="10" fill="#555">Troops re-boarded from field</text>
+    <text x="480" y="436" text-anchor="middle" font-size="10" fill="#555">DCS group: DESTROYED (destroy)</text>
+    <text x="480" y="451" text-anchor="middle" font-size="10" fill="#555">_aliveUnits / _jtacUnits SAVED</text>
+    <text x="480" y="466" text-anchor="middle" font-size="9" fill="#888">Group tracked in _inTransit[transportUnitName]</text>
+  </g>
+
+  <!-- RETURNED_TO_TRZ -->
+  <g filter="url(#shadow)">
+    <rect x="700" y="380" width="220" height="90" rx="10" fill="#f5b7b1" stroke="#e74c3c" stroke-width="2"/>
+    <text x="810" y="402" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">RETURNED_TO_TRZ</text>
+    <text x="810" y="421" text-anchor="middle" font-size="10" fill="#555">Troops returned to TroopZone</text>
+    <text x="810" y="436" text-anchor="middle" font-size="10" fill="#555">DCS group: never existed / destroyed</text>
+    <text x="810" y="451" text-anchor="middle" font-size="10" fill="#555">TRZ stock restored</text>
+    <text x="810" y="466" text-anchor="middle" font-size="9" fill="#888">CTLDTroopGroup instance discarded</text>
+  </g>
+
+  <!-- TRANSPORT_KILLED -->
+  <g filter="url(#shadow)">
+    <rect x="370" y="580" width="220" height="75" rx="10" fill="#fadbd8" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,3"/>
+    <text x="480" y="602" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">TRANSPORT_KILLED</text>
+    <text x="480" y="621" text-anchor="middle" font-size="10" fill="#777">Transport shot down while</text>
+    <text x="480" y="636" text-anchor="middle" font-size="10" fill="#777">carrying FIELD_LOADED troops</text>
+    <text x="480" y="651" text-anchor="middle" font-size="9" fill="#c0392b">Group + JTAC instances lost</text>
+  </g>
+
+  <!-- ===================== JTAC STATES ===================== -->
+
+  <!-- No JTAC instance -->
+  <g filter="url(#shadow)">
+    <rect x="40" y="380" width="220" height="60" rx="10" fill="#ececec" stroke="#aaa" stroke-width="1.5" stroke-dasharray="5,3"/>
+    <text x="150" y="402" text-anchor="middle" font-size="13" font-weight="bold" fill="#999">NO JTAC INSTANCE</text>
+    <text x="150" y="421" text-anchor="middle" font-size="10" fill="#888">No active JTAC (TRZ_LOADED / RETURNED)</text>
+  </g>
+
+  <!-- JTAC_IDLE -->
+  <g filter="url(#shadow)">
+    <rect x="40" y="540" width="150" height="60" rx="8" fill="#d4efdf" stroke="#1e8449" stroke-width="1.5"/>
+    <text x="115" y="562" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e8449">IDLE</text>
+    <text x="115" y="580" text-anchor="middle" font-size="9" fill="#555">Awaiting target</text>
+    <text x="115" y="593" text-anchor="middle" font-size="9" fill="#555">autoLaseLoop running</text>
+  </g>
+
+  <!-- JTAC_LASING -->
+  <g filter="url(#shadow)">
+    <rect x="215" y="540" width="150" height="60" rx="8" fill="#f9e79f" stroke="#d4ac0d" stroke-width="1.5"/>
+    <text x="290" y="562" text-anchor="middle" font-size="12" font-weight="bold" fill="#9a7d0a">LASING</text>
+    <text x="290" y="580" text-anchor="middle" font-size="9" fill="#555">Active laser on target</text>
+    <text x="290" y="593" text-anchor="middle" font-size="9" fill="#555">Locked + illuminating</text>
+  </g>
+
+  <!-- JTAC_IN_TRANSIT -->
+  <g filter="url(#shadow)">
+    <rect x="215" y="620" width="150" height="60" rx="8" fill="#fadbd8" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="290" y="642" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">IN_TRANSIT</text>
+    <text x="290" y="660" text-anchor="middle" font-size="9" fill="#555">Embarked — lasing stopped</text>
+    <text x="290" y="673" text-anchor="middle" font-size="9" fill="#555">autoLaseLoop paused</text>
+  </g>
+
+  <!-- JTAC_DEAD -->
+  <g filter="url(#shadow)">
+    <rect x="40" y="620" width="150" height="60" rx="8" fill="#f5b7b1" stroke="#922b21" stroke-width="1.5"/>
+    <text x="115" y="642" text-anchor="middle" font-size="12" font-weight="bold" fill="#922b21">DEAD</text>
+    <text x="115" y="660" text-anchor="middle" font-size="9" fill="#555">Unit destroyed</text>
+    <text x="115" y="673" text-anchor="middle" font-size="9" fill="#555">Laser code freed</text>
+  </g>
+
+  <!-- ===================== TRANSITIONS ===================== -->
+
+  <!-- TRZ_LOADED → DEPLOYED (embarkFromTroopZone → disembark) -->
+  <path d="M 260 220 L 370 220" stroke="#555" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <text x="315" y="213" text-anchor="middle" font-size="10" font-weight="bold" fill="#2c3e50">embarkFromTroopZone()</text>
+  <text x="315" y="227" text-anchor="middle" font-size="9" fill="#27ae60">JTAC: none (not instantiated yet)</text>
+
+  <!-- TRZ_LOADED → RETURNED_TO_TRZ -->
+  <path d="M 150 265 Q 100 320 150 380 Q 200 410 700 410 Q 800 410 810 380" stroke="#555" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <text x="450" y="400" text-anchor="middle" font-size="10" font-weight="bold" fill="#2c3e50">returnToTroopZone()</text>
+  <text x="450" y="416" text-anchor="middle" font-size="9" fill="#c0392b">JTAC: deregisterJTAC() ×N → DEAD</text>
+  <text x="450" y="428" text-anchor="middle" font-size="9" fill="#555">TRZ stock restored</text>
+
+  <!-- DEPLOYED → TRZ_LOADED (embarkFromField) -->
+  <path d="M 480 265 L 480 380" stroke="#555" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <text x="497" y="322" font-size="10" font-weight="bold" fill="#2c3e50">embarkFromField()</text>
+  <text x="497" y="338" font-size="9" fill="#2c3e50">_aliveUnits saved</text>
+
+  <!-- DEPLOYED → DEPLOYED_EXZ (dispatchToEXZ) -->
+  <path d="M 590 220 L 700 220" stroke="#555" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <text x="645" y="213" text-anchor="middle" font-size="10" font-weight="bold" fill="#2c3e50">dispatchToEXZ()</text>
+  <text x="645" y="227" text-anchor="middle" font-size="9" fill="#27ae60">JTAC: NONE (group never spawned)</text>
+  <text x="645" y="239" text-anchor="middle" font-size="9" fill="#555">Flag counter ++ only</text>
+
+  <!-- DEPLOYED → FIELD_LOADED (embarkFromField) loop-back label -->
+  <path d="M 480 265 L 480 380" stroke="#555" stroke-width="2.5" fill="none"/>
+  <text x="505" y="322" font-size="10" font-weight="bold" fill="#2c3e50">embarkFromField()</text>
+  <text x="505" y="338" font-size="9" fill="#c0392b">JTAC: deregisterJTAC() ×N first</text>
+
+  <!-- FIELD_LOADED → DEPLOYED (disembark after field) -->
+  <path d="M 480 470 L 480 265" stroke="#555" stroke-width="2.5" fill="none" marker-end="url(#arrow)"/>
+  <text x="497" y="370" font-size="10" font-weight="bold" fill="#2c3e50">disembark()</text>
+  <text x="497" y="386" font-size="9" fill="#555">JTAC: resumeJTAC() ×N</text>
+  <text x="497" y="398" font-size="9" fill="#555">Spawn from saved _aliveUnits</text>
+
+  <!-- FIELD_LOADED → TRANSPORT_KILLED -->
+  <path d="M 480 470 L 480 580" stroke="#c0392b" stroke-width="2" fill="none" stroke-dasharray="6,3" marker-end="url(#arrow-red)"/>
+  <text x="500" y="528" font-size="9" font-weight="bold" fill="#c0392b">Transport S_EVENT_DEAD</text>
+  <text x="500" y="542" font-size="9" fill="#c0392b">→ cleanupDeadTransports()</text>
+  <text x="500" y="556" font-size="9" fill="#c0392b">JTAC zombies orphaned!</text>
+
+  <!-- RETURNED_TO_TRZ → DEPLOYED (spawn via returnToTroopZone) — no, return is a dead-end -->
+
+  <!-- JTAC transitions -->
+  <!-- IDLE → LASING -->
+  <path d="M 115 600 L 215 570" stroke="#555" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+  <text x="165" y="590" font-size="8" fill="#555">target found</text>
+
+  <!-- LASING → IDLE (target lost) -->
+  <path d="M 215 570 L 115 600" stroke="#555" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+  <text x="165" y="582" font-size="8" fill="#555">target lost</text>
+
+  <!-- IDLE/LASING → IN_TRANSIT -->
+  <path d="M 150 540 Q 100 530 100 580 Q 100 620 115 620" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+  <path d="M 290 540 Q 340 530 340 580 Q 340 620 290 620" stroke="#c0392b" stroke-width="1.5" fill="none" marker-end="url(#arrow-red)"/>
+  <text x="220" y="632" font-size="8" font-weight="bold" fill="#c0392b">embarkFromField()</text>
+  <text x="220" y="644" font-size="8" fill="#c0392b">deregisterJTAC() first</text>
+
+  <!-- IN_TRANSIT → IDLE -->
+  <path d="M 215 650 L 150 650" stroke="#27ae60" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)"/>
+  <text x="182" y="643" font-size="8" fill="#27ae60">disembark()</text>
+  <text x="182" y="655" font-size="8" fill="#27ae60">resumeJTAC()</text>
+
+  <!-- JTAC lifecycle box label -->
+  <rect x="16" y="510" width="370" height="175" fill="none" stroke="#aaa" stroke-width="1" stroke-dasharray="4,4" rx="6"/>
+  <text x="28" y="527" font-size="11" font-weight="bold" fill="#888">JTAC Instances (per alive JTAC unit)</text>
+
+  <!-- JTAC spawn: DEPLOYED → IDLE -->
+  <path d="M 310 175 Q 310 140 240 140 L 115 140 L 115 150" stroke="#27ae60" stroke-width="2" fill="none" stroke-dasharray="5,3" marker-end="url(#arrow-green)"/>
+  <text x="220" y="132" text-anchor="middle" font-size="9" fill="#27ae60">disembark() (1st)</text>
+  <text x="220" y="144" text-anchor="middle" font-size="9" fill="#27ae60">startLase() ×N → IDLE</text>
+
+  <!-- Title: Troop States -->
+  <text x="480" y="158" text-anchor="middle" font-size="12" font-weight="bold" fill="#555">Troop Group States</text>
+
+  <!-- JTAC spawn after field: FIELD_LOADED → IDLE -->
+  <path d="M 560 380 Q 560 340 350 340 Q 220 340 90 340 L 60 340" stroke="#27ae60" stroke-width="1.5" fill="none" stroke-dasharray="5,3"/>
+  <path d="M 60 340 L 40 500" stroke="#27ae60" stroke-width="1.5" fill="none" marker-end="url(#arrow-green)"/>
+  <text x="300" y="330" text-anchor="middle" font-size="9" fill="#27ae60">disembark() after field → resumeJTAC() ×N</text>
+
+  <!-- Notes box -->
+  <rect x="940" y="58" width="248" height="200" fill="white" stroke="#ddd" stroke-width="1" rx="6" filter="url(#shadow)"/>
+  <text x="952" y="78" font-size="11" font-weight="bold" fill="#2c3e50">Key principles</text>
+  <text x="952" y="95" font-size="9" fill="#555">• N JTAC instances per troop group</text>
+  <text x="952" y="109" font-size="9" fill="#555">  (1 per alive JTAC unit)</text>
+  <text x="952" y="126" font-size="9" fill="#555">• _aliveUnits = map[unitName] = dcsUnit</text>
+  <text x="952" y="140" font-size="9" fill="#555">  (not indices — safe from re-index)</text>
+  <text x="952" y="157" font-size="9" fill="#555">• _jtacUnits = map[unitName] = true</text>
+  <text x="952" y="171" font-size="9" fill="#555">• JTAC instantiated on 1st disembark()</text>
+  <text x="952" y="185" font-size="9" fill="#555">• deregisterJTAC() BEFORE group:destroy()</text>
+  <text x="952" y="199" font-size="9" fill="#555">  to avoid spurious killJTAC() from</text>
+  <text x="952" y="211" font-size="9" fill="#555">  S_EVENT_DEAD (DCS Unit events)</text>
+  <text x="952" y="228" font-size="9" fill="#555">• S_EVENT_DEAD syncs _aliveUnits</text>
+  <text x="952" y="242" font-size="9" fill="#555">  on every unit death in deployed group</text>
+  <text x="952" y="256" font-size="9" fill="#c0392b">• dispatchToEXZ(): no JTAC (never spawned)</text>
+
+  <!-- Terminology box -->
+  <rect x="940" y="275" width="248" height="110" fill="white" stroke="#ddd" stroke-width="1" rx="6" filter="url(#shadow)"/>
+  <text x="952" y="295" font-size="11" font-weight="bold" fill="#2c3e50">Terminology changes</text>
+  <text x="952" y="312" font-size="9" fill="#2c3e50">Old</text>
+  <text x="952" y="326" font-size="9" fill="#555">  loadFromZone / load()       → embarkFromTroopZone()</text>
+  <text x="952" y="339" font-size="9" fill="#555">  deploy() / unload()       → disembark()</text>
+  <text x="952" y="352" font-size="9" fill="#555">  extract()                 → embarkFromField()</text>
+  <text x="952" y="365" font-size="9" fill="#555">  returnToBase()            → returnToTroopZone()</text>
+  <text x="952" y="378" font-size="11" font-weight="bold" fill="#2c3e50">New states</text>
+  <text x="952" y="392" font-size="9" fill="#555">  LOADED → TRZ_LOADED</text>
+  <text x="952" y="405" font-size="9" fill="#555">  EXTRACTED → FIELD_LOADED</text>
+  <text x="952" y="418" font-size="9" fill="#555">  (new) → DEPLOYED_EXZ</text>
+
+  <!-- Footer -->
+  <text x="600" y="900" text-anchor="middle" font-size="9" fill="#aaa">CTLD v2.0 — Troop + JTAC Lifecycle — docs/assets/troops_transport_flows.svg</text>
+</svg>

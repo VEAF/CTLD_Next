@@ -1,0 +1,3520 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Combined Transport and Logistics Dispatcher for DCS World — modular rewrite.">
+      
+      
+      
+        <link rel="canonical" href="https://veaf.github.io/CTLD/2.0.0-rc9/fr/developer/subsystems/menu/">
+      
+      
+        <link rel="prev" href="../recon/">
+      
+      
+        <link rel="next" href="../players/">
+      
+      
+        
+          <link rel="alternate" href="../../../../developer/subsystems/menu/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="fr">
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Système de menu F10 - CTLD</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#f10-menu-system" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../../" title="CTLD" class="md-header__button md-logo" aria-label="CTLD" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CTLD
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Système de menu F10
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Sélectionner la langue">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../../developer/subsystems/menu/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/VEAF/CTLD" title="Aller au dépôt" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    VEAF/CTLD
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Accueil
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../pilot/" class="md-tabs__link">
+          
+  
+  
+  Pilote
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../mission-maker/" class="md-tabs__link">
+          
+  
+  
+  Concepteur de mission (mission maker)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+  Développeur
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../" title="CTLD" class="md-nav__button md-logo" aria-label="CTLD" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CTLD
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/VEAF/CTLD" title="Aller au dépôt" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    VEAF/CTLD
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pilote
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pilote
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue d'ensemble
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/troop-transport/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transport de troupes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/crates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caisses (crates)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/vehicles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Véhicules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/slingload/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Élingue (sling-load)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/parachute/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parachute
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/jtac/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JTAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/recon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reconnaissance (recon)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/beacons/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Balises (beacons)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/smoke/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fumigène (smoke)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/pack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pack
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepteur de mission (mission maker)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Concepteur de mission (mission maker)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue d'ensemble
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/ctld-tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurer avec ctld-tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/zones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration des zones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/scenes-fob/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scènes & FOB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/crates-catalogue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Catalogue de caisses (crates)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/minefield/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Champ de mines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/asset-validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Valider votre configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/translations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Traductions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/legacy-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API historique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Développeur
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Développeur
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue d'ensemble
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow de développement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sous-systèmes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sous-systèmes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue d'ensemble
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Moteur de scènes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pipeline de spawn des caisses (crates)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troops-jtac/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cycle de vie troupes + JTAC (troops)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestion des zones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vehicles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Système de véhicules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beacons/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Système de balises (beacons)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Système de reconnaissance (recon)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Système de menu F10
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Système de menu F10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#two-layer-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture à deux couches
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-menu-model-ctldmenu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Le modèle de menu — ctld.Menu
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Le modèle de menu — ctld.Menu">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#order-convention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convention d'ordre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enabled-convention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convention d'activation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_lookup-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table _lookup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rendering-ctldmenumanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rendu — ctld.MenuManager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rendu — ctld.MenuManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomic-refresh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rafraîchissement atomique
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debounced-refresh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rafraîchissement débouncé
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pagination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pagination
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#callback-wrapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enrobage du callback
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ctldmenu-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API de ctld.Menu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ctldmenumanager-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API de ctld.MenuManager
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-registration-ctldplayermanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enregistrement des sections — CTLDPlayerManager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enregistrement des sections — CTLDPlayerManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buildmenuplayerobj" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        buildMenu(playerObj)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flight-state-refresh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rafraîchissement selon l'état de vol
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-f10-menu-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        L'arbre de menu F10
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="L&#39;arbre de menu F10">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#section-registration-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table d'enregistrement des sections
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troop-commands-order20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troop Commands (order=20)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-equipment-order25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request Equipment (order=25)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vehicle-commands-order30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vehicle Commands (order=30)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crate-commands-order40" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crate Commands (order=40)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#radio-beacons-order60" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Radio Beacons (order=60)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recon-order70" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RECON (order=70)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mine-field-order75" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mine Field (order=75)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#smoke-order80" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Smoke (order=80)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jtac-order90" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JTAC (order=90)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-a-menu-section-to-a-new-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ajouter une section de menu à un nouveau module
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dcs-api-constraints-and-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contraintes et limites de l'API DCS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Décisions de conception
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#differences-from-v1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Différences avec la v1
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-subsystems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sous-systèmes liés
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../players/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Suivi des joueurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assemblage des systèmes AA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Événements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Internationalisation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building-and-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Build et tests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../integration-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tests d'intégration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../migration-v1-v2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migration v1 → v2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Référence de l'API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-spec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spécification de conception
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#two-layer-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture à deux couches
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-menu-model-ctldmenu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Le modèle de menu — ctld.Menu
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Le modèle de menu — ctld.Menu">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#order-convention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convention d'ordre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enabled-convention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Convention d'activation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_lookup-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table _lookup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rendering-ctldmenumanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rendu — ctld.MenuManager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rendu — ctld.MenuManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#atomic-refresh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rafraîchissement atomique
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debounced-refresh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rafraîchissement débouncé
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pagination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pagination
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#callback-wrapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enrobage du callback
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ctldmenu-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API de ctld.Menu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ctldmenumanager-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API de ctld.MenuManager
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section-registration-ctldplayermanager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enregistrement des sections — CTLDPlayerManager
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enregistrement des sections — CTLDPlayerManager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buildmenuplayerobj" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        buildMenu(playerObj)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flight-state-refresh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rafraîchissement selon l'état de vol
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-f10-menu-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        L'arbre de menu F10
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="L&#39;arbre de menu F10">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#section-registration-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table d'enregistrement des sections
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troop-commands-order20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troop Commands (order=20)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-equipment-order25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request Equipment (order=25)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vehicle-commands-order30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vehicle Commands (order=30)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crate-commands-order40" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crate Commands (order=40)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#radio-beacons-order60" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Radio Beacons (order=60)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recon-order70" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RECON (order=70)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mine-field-order75" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mine Field (order=75)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#smoke-order80" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Smoke (order=80)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jtac-order90" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JTAC (order=90)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-a-menu-section-to-a-new-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ajouter une section de menu à un nouveau module
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dcs-api-constraints-and-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contraintes et limites de l'API DCS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Décisions de conception
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#differences-from-v1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Différences avec la v1
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-subsystems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sous-systèmes liés
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="f10-menu-system">Système de menu F10<a class="headerlink" href="#f10-menu-system" title="Permanent link">&para;</a></h1>
+<p>Le menu radio F10 est l'interface principale de CTLD en mission : chaque action qu'un pilote de
+transport effectue — charger des crates, embarquer des troops, demander de l'équipement, activer
+ou désactiver la désignation laser du JTAC — est déclenchée depuis lui. Cette page documente le
+moteur de menu à deux couches (<code>ctld.Menu</code> et <code>ctld.MenuManager</code>), la façon dont
+<code>CTLDPlayerManager</code> assemble le menu par joueur à partir des sections contribuées par chaque
+manager, la façon dont l'arbre est rafraîchi en fonction de l'état changeant du vol et de la
+cargaison, ainsi que l'arbre de menu complet tel qu'il est rendu en jeu.</p>
+<p><strong>Source :</strong> <code>src/CTLD_menu.lua</code> (le moteur), <code>src/CTLD_player.lua</code> (propriété et orchestration
+des sections).</p>
+<h2 id="two-layer-architecture">Architecture à deux couches<a class="headerlink" href="#two-layer-architecture" title="Permanent link">&para;</a></h2>
+<p>La conception sépare <em>ce que contient le menu</em> de <em>la façon dont DCS le rend</em>. L'API DCS
+<code>missionCommands.*</code> est fragile — il n'y a aucun moyen d'interroger le menu courant, pas de mise
+à jour partielle, et pas de pagination automatique — donc CTLD conserve un arbre de référence en
+mémoire et traite chaque appel DCS comme un effet de bord de rendu de cet arbre.</p>
+<table>
+<thead>
+<tr>
+<th>Couche</th>
+<th>Classe</th>
+<th>Responsabilité</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Modèle logique</td>
+<td><code>ctld.Menu</code></td>
+<td>Arbre en mémoire pour le menu d'un groupe. Profondeur illimitée ; la pagination est transparente pour les appelants. Un <code>ctld.Menu</code> par <code>groupId</code>.</td>
+</tr>
+<tr>
+<td>Moteur de rendu DCS</td>
+<td><code>ctld.MenuManager</code></td>
+<td>Singleton propriétaire de tous les <code>ctld.Menu</code>. Efface et reconstruit atomiquement les entrées CTLD d'un groupe sur <code>refresh()</code> ; trie les frères et sœurs par <code>order</code> ; pagine.</td>
+</tr>
+<tr>
+<td>Orchestrateur</td>
+<td><code>CTLDPlayerManager</code></td>
+<td>Propriétaire du cycle de vie du menu F10 : le construit à l'entrée d'un joueur, l'assemble à partir des sections enregistrées et déclenche les rafraîchissements lors des changements d'état de vol/cargaison.</td>
+</tr>
+</tbody>
+</table>
+<p><code>CTLDPlayerManager</code> suit l'idiome de manager standard (<code>CTLDPlayerManager = class()</code> +
+<code>getInstance()</code> ; voir <a href="../../architecture/">Architecture</a>). Le moteur de menu n'utilise <strong>pas</strong>
+<code>class()</code> : <code>ctld.MenuManager</code> est un singleton codé à la main (<code>ctld.MenuManager = ctld.MenuManager or {}</code>,
+<code>_instance</code>, <code>getInstance()</code> appelant <code>self:_new()</code>), et les instances de <code>ctld.Menu</code> sont de
+simples tables avec une métatable créée par <code>ctld.Menu:_new(groupId, manager)</code>.</p>
+<div class="highlight"><pre><span></span><code>CTLDPlayerManager                 ctld.MenuManager
+  _menuSections[]           →       menus{}  (groupId → ctld.Menu)
+  registerMenuSection()             refreshMenuForGroup() / deferredRefreshForGroup()
+  buildMenu(playerObj)              _rebuildMenuNode() / _rebuildPagedChildren()
+  refreshForUnit(unitName)          _sortByOrder()
+                                  ctld.Menu
+                                    addSubMenu / addCommand / clearBranch
+                                    setBranchEnabled / removeMenuBranch
+                                    _getNode(pathTable) / refresh()
+</code></pre></div>
+<h2 id="the-menu-model-ctldmenu">Le modèle de menu — <code>ctld.Menu</code><a class="headerlink" href="#the-menu-model-ctldmenu" title="Permanent link">&para;</a></h2>
+<p>Un <code>ctld.Menu</code> est un arbre de nœuds. Les appelants manipulent exclusivement cet arbre ; ils
+n'appellent jamais <code>missionCommands.*</code> directement. Il existe deux types de nœuds, plus l'objet
+menu racine lui-même.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Root menu (the ctld.Menu instance)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="nv">groupId</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nv">number</span><span class="p">,</span><span class="w">     </span><span class="c1">-- DCS group ID this menu belongs to</span>
+<span class="w">    </span><span class="nv">groupName</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">   </span><span class="c1">-- resolved once at creation, for name-based lookup</span>
+<span class="w">    </span><span class="nv">children</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span><span class="w">    </span><span class="c1">-- root-level nodes</span>
+<span class="w">    </span><span class="nv">_lookup</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span><span class="w">    </span><span class="c1">-- "path.string" → node reference (fast access)</span>
+<span class="w">    </span><span class="nv">manager</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nv">reference</span><span class="p">,</span><span class="w">  </span><span class="c1">-- back-reference to ctld.MenuManager</span>
+<span class="w">    </span><span class="nv">nextItemId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">number</span><span class="p">,</span><span class="w">     </span><span class="c1">-- counter for unique node ids</span>
+<span class="p">}</span>
+
+<span class="c1">-- Submenu node</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="nv">id</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="s2">"sub_123"</span><span class="p">,</span>
+<span class="w">    </span><span class="nv">name</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span>
+<span class="w">    </span><span class="nb">type</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"submenu"</span><span class="p">,</span>
+<span class="w">    </span><span class="nv">children</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nv">order</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nv">number</span><span class="o">|</span><span class="kc">nil</span><span class="p">,</span><span class="w">   </span><span class="c1">-- position among siblings (see Order convention)</span>
+<span class="w">    </span><span class="nv">enabled</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nv">boolean</span><span class="p">,</span><span class="w">      </span><span class="c1">-- DCS visibility (see Enabled convention), default true</span>
+<span class="p">}</span>
+
+<span class="c1">-- Command node</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="nv">id</span><span class="w">             </span><span class="o">=</span><span class="w"> </span><span class="s2">"cmd_456"</span><span class="p">,</span>
+<span class="w">    </span><span class="nv">name</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span>
+<span class="w">    </span><span class="nb">type</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="s2">"command"</span><span class="p">,</span>
+<span class="w">    </span><span class="nv">functionToCall</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kr">function</span><span class="err">,</span>
+<span class="w">    </span><span class="nf">anyArgument</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nv">table</span><span class="p">,</span><span class="w">   </span><span class="c1">-- passed as-is to the callback; defaults to {}</span>
+<span class="w">    </span><span class="nv">order</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="nv">number</span><span class="o">|</span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">    </span><span class="nv">enabled</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="nv">boolean</span><span class="p">,</span><span class="w"> </span><span class="c1">-- default true</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="order-convention">Convention d'ordre<a class="headerlink" href="#order-convention" title="Permanent link">&para;</a></h3>
+<p>Chaque nœud peut porter un champ <code>order</code> optionnel (un nombre). Avant le rendu, les frères et
+sœurs sont triés par <code>order</code> <strong>croissant</strong>, indépendamment de l'ordre d'insertion ou de la
+séquence d'initialisation des managers. Comme chaque manager enregistre sa section de manière
+indépendante, sans <code>order</code> explicite la position visuelle d'un submenu dépendrait de l'ordre
+fragile d'initialisation des managers. Un <code>order</code> explicite rend les positions déclaratives et
+stables. L'espacement recommandé est des multiples de 10 (10, 20, 30…) pour laisser de la place
+aux insertions futures. Les nœuds sans valeur <code>order</code> sont ajoutés en dernier (<code>math.huge</code>) ; à
+égalité, l'ordre d'insertion est préservé (tri stable).</p>
+<h3 id="enabled-convention">Convention d'activation<a class="headerlink" href="#enabled-convention" title="Permanent link">&para;</a></h3>
+<p>Chaque nœud porte un champ <code>enabled</code> (booléen, <code>true</code> par défaut). Un nœud désactivé
+(<code>enabled == false</code>) est invisible dans DCS mais <strong>reste dans l'arbre en mémoire, préservant son
+créneau <code>order</code></strong> — le réactiver le ramène exactement à la même position de touche F qu'il aurait
+occupée s'il avait toujours été visible. On le bascule avec <code>setBranchEnabled(path, bool)</code> suivi de
+<code>refresh()</code>. C'est ainsi que des fonctionnalités sont déverrouillées à l'exécution (p. ex. un
+trigger de mission activant la construction de FOB en cours de mission) sans perturber les
+créneaux voisins.</p>
+<h3 id="_lookup-table">Table <code>_lookup</code><a class="headerlink" href="#_lookup-table" title="Permanent link">&para;</a></h3>
+<p>La table <code>_lookup</code> associe une chaîne de chemin pointée à une référence de nœud, offrant une
+résolution de chemin en O(1) au lieu d'un parcours d'arbre en O(profondeur × frères) :</p>
+<div class="highlight"><pre><span></span><code><span class="nv">_lookup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">[</span><span class="s2">"CTLD"</span><span class="p">]</span><span class="w">                          </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="nv">ref</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">[</span><span class="s2">"CTLD.Troop Commands"</span><span class="p">]</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="nv">ref</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">[</span><span class="s2">"CTLD.Troop Commands.Infantry"</span><span class="p">]</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="nv">ref</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Elle est maintenue automatiquement par <code>addSubMenu</code> / <code>addCommand</code> et élaguée par <code>clearBranch</code>,
+<code>removeMenuBranch</code>, et (indirectement) <code>buildMenu</code> lorsqu'il réinitialise le modèle.</p>
+<h2 id="rendering-ctldmenumanager">Rendu — <code>ctld.MenuManager</code><a class="headerlink" href="#rendering-ctldmenumanager" title="Permanent link">&para;</a></h2>
+<h3 id="atomic-refresh">Rafraîchissement atomique<a class="headerlink" href="#atomic-refresh" title="Permanent link">&para;</a></h3>
+<p>DCS n'offre aucune mise à jour par item, donc un rafraîchissement est tout ou rien : le manager
+supprime les entrées de premier niveau courantes de CTLD, puis reconstruit l'arbre entier depuis
+la mémoire. Point crucial, il ne supprime <strong>que les entrées propres à CTLD</strong> — il ne passe <em>pas</em>
+<code>nil</code> à <code>missionCommands.removeItemForGroup</code> (ce qui détruirait aussi les entrées DCS standard
+comme Ground Crew et ATC). Il suit le handle DCS opaque retourné par <code>addSubMenuForGroup</code> /
+<code>addCommandForGroup</code> dans le champ <code>_dcsHandle</code> de chaque nœud de premier niveau et supprime
+exactement ces handles. (Passer un tableau de chemin sous forme de chaîne à <code>removeItemForGroup</code>
+est silencieusement ignoré par DCS, c'est pourquoi le handle opaque est requis.)</p>
+<div class="highlight"><pre><span></span><code>refreshMenuForGroup(groupId)
+  1. Validate a menu exists in memory for groupId
+  2. For each top-level child with a stored _dcsHandle:
+        missionCommands.removeItemForGroup(groupId, handle); clear the handle
+  3. Sort root children by order, then for each:
+        _rebuildMenuNode(groupId, {}, child)   -- recursive, depth-first
+  4. Return { success = true, refreshedCount = N }
+</code></pre></div>
+<p><code>_rebuildMenuNode</code> ignore les nœuds désactivés (retourne 0), rend un submenu avec
+<code>addSubMenuForGroup</code> (en capturant le nouveau <code>_dcsHandle</code>), rend une commande avec
+<code>addCommandForGroup</code>, et descend récursivement dans les enfants du submenu via
+<code>_rebuildPagedChildren</code>.</p>
+<h3 id="debounced-refresh">Rafraîchissement débouncé<a class="headerlink" href="#debounced-refresh" title="Permanent link">&para;</a></h3>
+<p><code>ctld.Menu:refresh()</code> ne reconstruit pas immédiatement — il appelle
+<code>ctld.MenuManager:deferredRefreshForGroup(groupId)</code>, qui fusionne toutes les demandes de
+rafraîchissement d'un groupe dans une fenêtre de <code>DEBOUNCE_S = 0.15 s</code> en une seule reconstruction
+DCS (planifiée via <code>timer.scheduleFunction</code>). Cela empêche les appelants à cadence rapide (le
+poller d'état de vol qui oscille, la détection de cargaison, les événements d'atterrissage qui se
+déclenchent ensemble) d'éjecter le joueur du menu F10 en pleine navigation. Le <code>buildMenu</code> initial
+à l'entrée d'un joueur passe aussi par le debounce. <code>refreshMenuForGroup</code> reste disponible pour une
+reconstruction directe, non débouncée.</p>
+<h3 id="pagination">Pagination<a class="headerlink" href="#pagination" title="Permanent link">&para;</a></h3>
+<p>DCS donne à chaque niveau de menu dix créneaux contrôlés par le programmeur (F1–F10 ; F11 est la
+« Previous Page » de DCS, F12 est « Quit »). <code>_rebuildPagedChildren</code> applique cette règle à une
+liste d'enfants pré-triée et limitée aux nœuds activés :</p>
+<table>
+<thead>
+<tr>
+<th>Enfants visibles</th>
+<th>Rendu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>≤ 10</td>
+<td>Tous rendus sur une page (pas de pagination).</td>
+</tr>
+<tr>
+<td>&gt; 10</td>
+<td>F1–F9 rendent les neuf premiers items ; F10 = un submenu <code>→ Next Page</code> ; le reste descend récursivement à l'intérieur.</td>
+</tr>
+</tbody>
+</table>
+<p>Le nœud <code>→ Next Page</code> existe <strong>uniquement au moment du rendu</strong> — il ne fait jamais partie du modèle
+en mémoire — et son libellé est traduit via <code>ctld.tr("→ Next Page")</code>. La dernière page reçoit
+toujours ≤ 10 items. Comme la pagination est recalculée à chaque rafraîchissement, il n'y a aucun
+état de page en cache à invalider et la profondeur d'imbrication est illimitée.</p>
+<p><strong>Exemple — un submenu de 15 véhicules :</strong></p>
+<div class="highlight"><pre><span></span><code>F10 → Vehicles → (page 1):
+  F1  vehicle_1 … F9 vehicle_9    F10  → Next Page
+F10 → Vehicles → → Next Page:
+  F1  vehicle_10 … F6 vehicle_15
+  (F11 Previous Page — provided by DCS)
+</code></pre></div>
+<h3 id="callback-wrapping">Enrobage du callback<a class="headerlink" href="#callback-wrapping" title="Permanent link">&para;</a></h3>
+<p>Lorsqu'une commande est rendue, son callback utilisateur est enrobé dans une closure qui isole les
+échecs avec <code>pcall</code>, de sorte qu'un callback défectueux ne peut pas faire planter tout le rendu du
+menu :</p>
+<div class="highlight"><pre><span></span><code><span class="kd">local</span><span class="w"> </span><span class="nv">wrapped</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kr">function</span><span class="p">()</span>
+<span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">ok</span><span class="p">,</span><span class="w"> </span><span class="nv">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">pcall</span><span class="p">(</span><span class="nv">node</span><span class="p">.</span><span class="py">functionToCall</span><span class="p">,</span><span class="w"> </span><span class="nv">node</span><span class="p">.</span><span class="py">anyArgument</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="p">{})</span>
+<span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">ok</span><span class="w"> </span><span class="kr">then</span>
+<span class="w">        </span><span class="nv">ctld</span><span class="p">.</span><span class="nf">logError</span><span class="p">(</span><span class="s2">"ctld.MenuManager: callback failed for '%s': %s"</span><span class="p">,</span><span class="w"> </span><span class="nv">node</span><span class="p">.</span><span class="py">name</span><span class="p">,</span><span class="w"> </span><span class="nb">tostring</span><span class="p">(</span><span class="nv">err</span><span class="p">))</span>
+<span class="w">    </span><span class="kr">end</span>
+<span class="kr">end</span>
+<span class="nv">missionCommands</span><span class="p">.</span><span class="nf">addCommandForGroup</span><span class="p">(</span><span class="nv">groupId</span><span class="p">,</span><span class="w"> </span><span class="nv">node</span><span class="p">.</span><span class="py">name</span><span class="p">,</span><span class="w"> </span><span class="nv">dcsPath</span><span class="p">,</span><span class="w"> </span><span class="nv">wrapped</span><span class="p">,</span><span class="w"> </span><span class="p">{})</span>
+</code></pre></div>
+<p>Le callback reçoit exactement la table <code>anyArgument</code> fournie au moment de <code>addCommand</code> (par défaut
+<code>{}</code>) ; il n'est pas augmenté du group id. Les appelants qui ont besoin du groupe l'encodent
+eux-mêmes dans <code>anyArgument</code>.</p>
+<h2 id="ctldmenu-api">API de <code>ctld.Menu</code><a class="headerlink" href="#ctldmenu-api" title="Permanent link">&para;</a></h2>
+<p>Toutes les méthodes de mutation retournent une table de statut <code>{ success = bool, message = string, ... }</code>
+plutôt que de lever des erreurs (Lua 5.1 n'a pas d'exceptions ; des retours explicites sont plus
+robustes dans l'environnement mono-thread de DCS).</p>
+<table>
+<thead>
+<tr>
+<th>Méthode</th>
+<th>Objet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>addSubMenu(pathTable, menuName, opts)</code></td>
+<td>Ajoute un submenu à <code>pathTable</code> (<code>{}</code> = racine). <code>opts.order</code> / <code>opts.enabled</code> fixent la position et la visibilité initiale. <strong>Idempotent</strong> : si le submenu existe déjà, il est retourné inchangé (avec <code>order</code>/<code>enabled</code> mis à jour s'ils sont fournis). Retourne <code>{ success, message, subMenuId }</code>.</td>
+</tr>
+<tr>
+<td><code>addCommand(pathTable, commandName, functionToCall, anyArgument, opts)</code></td>
+<td>Ajoute une commande exécutable. <code>anyArgument</code> doit être une table (ou nil → <code>{}</code>). <code>opts.order</code> fixe la position. Retourne <code>{ success, message, commandId }</code>.</td>
+</tr>
+<tr>
+<td><code>clearBranch(pathTable)</code></td>
+<td>Vide les enfants d'un submenu <strong>sans supprimer le conteneur</strong>, de sorte que son créneau <code>order</code> ne bouge pas. L'idiome standard pour les listes dynamiques de proximité (crates à proximité, véhicules chargeables).</td>
+</tr>
+<tr>
+<td><code>setBranchEnabled(pathTable, enabled)</code></td>
+<td>Bascule la visibilité DCS d'une branche tout en la conservant (ainsi que son créneau <code>order</code>) en mémoire. À faire suivre de <code>refresh()</code>.</td>
+</tr>
+<tr>
+<td><code>removeMenuBranch(pathTable)</code></td>
+<td>Supprime définitivement une branche et ses descendants. Retourne <code>{ success, message, removedCount }</code>. Réservé aux suppressions vraiment permanentes — préférer <code>clearBranch</code> / <code>setBranchEnabled</code>.</td>
+</tr>
+<tr>
+<td><code>refresh()</code></td>
+<td>Raccourci pratique vers <code>manager:deferredRefreshForGroup(self.groupId)</code> — effacer + reconstruire (ordonné, paginé), débouncé.</td>
+</tr>
+</tbody>
+</table>
+<p>Messages d'échec courants : <code>"Path not found: …"</code> (créez d'abord le submenu parent),
+<code>"Cannot add submenu/command under a command node"</code>, <code>"Invalid menu name"</code>,
+<code>"Invalid function reference"</code>, <code>"Cannot remove root menu"</code>.</p>
+<p>L'idiome de rafraîchissement dynamique, utilisé partout dans les managers crate/véhicule :</p>
+<div class="highlight"><pre><span></span><code><span class="kd">local</span><span class="w"> </span><span class="nv">menu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">ctld</span><span class="p">.</span><span class="py">MenuManager</span><span class="p">:</span><span class="nf">getInstance</span><span class="p">():</span><span class="nf">getMenuByGroupId</span><span class="p">(</span><span class="nv">groupId</span><span class="p">)</span>
+<span class="nv">menu</span><span class="p">:</span><span class="nf">clearBranch</span><span class="p">({</span><span class="w"> </span><span class="s2">"CTLD Commands"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Pack Vehicles"</span><span class="w"> </span><span class="p">})</span><span class="w">   </span><span class="c1">-- keep the container, drop its contents</span>
+<span class="kr">for</span><span class="w"> </span><span class="nv">_</span><span class="p">,</span><span class="w"> </span><span class="nv">v</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nb">ipairs</span><span class="p">(</span><span class="nv">nearbyVehicles</span><span class="p">)</span><span class="w"> </span><span class="kr">do</span>
+<span class="w">    </span><span class="nv">menu</span><span class="p">:</span><span class="nf">addCommand</span><span class="p">({</span><span class="w"> </span><span class="s2">"CTLD Commands"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Pack Vehicles"</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="nv">v</span><span class="p">.</span><span class="py">name</span><span class="p">,</span><span class="w"> </span><span class="nv">packFn</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nv">unitName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">v</span><span class="p">.</span><span class="py">name</span><span class="w"> </span><span class="p">})</span>
+<span class="kr">end</span>
+<span class="nv">menu</span><span class="p">:</span><span class="nf">refresh</span><span class="p">()</span><span class="w">   </span><span class="c1">-- single atomic, debounced rebuild</span>
+</code></pre></div>
+<h2 id="ctldmenumanager-api">API de <code>ctld.MenuManager</code><a class="headerlink" href="#ctldmenumanager-api" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Méthode</th>
+<th>Objet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getInstance()</code></td>
+<td>Retourne (crée au premier appel) le singleton.</td>
+</tr>
+<tr>
+<td><code>createMenuForGroup(groupId)</code></td>
+<td>Crée un <code>ctld.Menu</code> vide pour un <code>groupId</code> numérique. <strong>Idempotent</strong> : retourne le menu existant si un est déjà enregistré. Retourne le menu, ou <code>nil</code> sur un id invalide.</td>
+</tr>
+<tr>
+<td><code>refreshMenuForGroup(groupId)</code></td>
+<td>Effacement + reconstruction immédiat, non débouncé, des entrées CTLD du groupe. Retourne <code>{ success, message, refreshedCount }</code>.</td>
+</tr>
+<tr>
+<td><code>deferredRefreshForGroup(groupId)</code></td>
+<td>Planifie un rafraîchissement débouncé (0.15 s) ; fusionne les rafales.</td>
+</tr>
+<tr>
+<td><code>getMenuByGroupId(groupId)</code></td>
+<td>Menu pour un group id numérique, ou <code>nil</code>.</td>
+</tr>
+<tr>
+<td><code>getMenuByGroupName(groupName)</code></td>
+<td>Menu dont le nom de groupe correspond, ou <code>nil</code>.</td>
+</tr>
+<tr>
+<td><code>getMenuByUnitName(unitName)</code></td>
+<td>Menu du groupe contenant cette unité (<code>Unit.getByName</code> → group), ou <code>nil</code>.</td>
+</tr>
+<tr>
+<td><code>getMenuByUnitId(unitId)</code></td>
+<td>Menu du groupe contenant cette unité (<code>Unit.getByID</code> → group), ou <code>nil</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>La résolution du nom de groupe (<code>_getGroupName</code>) itère sur les trois coalitions et fait
+correspondre <code>group:getID()</code>, car <code>Group.getByID()</code> n'existe pas dans l'API de scripting DCS —
+seul <code>Group.getByName()</code> est disponible.</p>
+<h2 id="section-registration-ctldplayermanager">Enregistrement des sections — <code>CTLDPlayerManager</code><a class="headerlink" href="#section-registration-ctldplayermanager" title="Permanent link">&para;</a></h2>
+<p>Le submenu racine <code>CTLD</code> et la commande <code>Check Cargo</code> sont ajoutés directement par
+<code>CTLDPlayerManager</code>. Toute autre section de premier niveau est contribuée par le manager qui la
+possède. Chaque manager enregistre sa section une fois, au moment de son propre <code>getInstance()</code> :</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- e.g. from a crate/troop/jtac manager</span>
+<span class="nv">CTLDPlayerManager</span><span class="p">.</span><span class="nf">getInstance</span><span class="p">():</span><span class="nf">registerMenuSection</span><span class="p">({</span>
+<span class="w">    </span><span class="nv">key</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="s2">"crates"</span><span class="p">,</span><span class="w">              </span><span class="c1">-- unique id; duplicate keys are ignored (idempotent)</span>
+<span class="w">    </span><span class="nv">manager</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="nv">_cmInstance</span><span class="p">,</span><span class="w">           </span><span class="c1">-- the manager instance</span>
+<span class="w">    </span><span class="nv">method</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="s2">"buildMenuSection"</span><span class="p">,</span><span class="w">    </span><span class="c1">-- called as manager:method(playerObj, menu)</span>
+<span class="w">    </span><span class="nv">configKey</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"enableCrates"</span><span class="p">,</span><span class="w">        </span><span class="c1">-- ctld.gs(configKey) must be true; nil = always active</span>
+<span class="w">    </span><span class="nv">order</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w">                     </span><span class="c1">-- lower = higher in the menu</span>
+<span class="w">    </span><span class="nv">refreshMethod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"refreshMenuSection"</span><span class="p">,</span><span class="w">  </span><span class="c1">-- optional; called on land/takeoff (see below)</span>
+<span class="p">})</span>
+</code></pre></div>
+<p>Un <code>sectionDef</code> porte : <code>key</code>, <code>manager</code>, <code>method</code>, <code>configKey</code> optionnel, <code>order</code> optionnel, et un
+<code>refreshMethod</code> optionnel. L'enregistrement est idempotent par <code>key</code>.</p>
+<p><strong>Enregistrement pré-init.</strong> Les fichiers de scène peuvent être chargés avant l'exécution de
+<code>CTLDPlayerManager.getInstance()</code>. Pour ce cas, <code>CTLDPlayerManager.deferMenuSection(sectionDef)</code>
+met une section en file d'attente au niveau supérieur du module ; la file est vidée dans
+<code>_menuSections</code> pendant <code>init()</code>. La scène de champ de mines (mine-field) utilise ce chemin.</p>
+<h3 id="buildmenuplayerobj"><code>buildMenu(playerObj)</code><a class="headerlink" href="#buildmenuplayerobj" title="Permanent link">&para;</a></h3>
+<p>Appelé à l'entrée d'un joueur (et réexécutable). Il :</p>
+<ol>
+<li>Récupère/crée le <code>ctld.Menu</code> du groupe via <code>ctld.MenuManager:getInstance()</code>.</li>
+<li>Réinitialise le modèle en mémoire (<code>children</code>, <code>_lookup</code>, <code>nextItemId</code>) pour que les sections ne
+   s'accumulent pas d'un appel à l'autre.</li>
+<li>Ajoute le submenu racine <code>ctld.tr("CTLD")</code> à <code>order = 10</code>.</li>
+<li>Ajoute la commande <code>Check Cargo</code> sous la racine — elle compte les crates chargées, les troops en
+   transit, et les véhicules entiers du transport, puis <code>outTextForGroup</code>.</li>
+<li>Itère sur les sections enregistrées <strong>triées par <code>order</code></strong> ; pour chacune, si <code>configKey</code> est
+   nil ou <code>ctld.gs(configKey) == true</code>, appelle <code>manager:method(playerObj, menu)</code> pour construire le
+   sous-arbre de cette section.</li>
+<li>Appelle <code>menu:refresh()</code> pour un rendu atomique unique.</li>
+</ol>
+<p><strong>Contrôle des capacités.</strong> Les capacités du joueur sont détectées dans <code>_detectCapabilities</code> à
+partir de <code>ctld.gs("capabilitiesByType")[typeName]</code> : un transport est tout type ayant une entrée ;
+<code>canCarryVehicles</code> est positionné lorsque le <code>canTransportWholeVehicle == true</code> de cette entrée.
+Les managers utilisent ces indicateurs (et leurs propres contrôles config/proximité) pour décider
+quels items rendre. Lorsque <code>addPlayerAircraftByType == false</code>, seules les unités dont le nom
+figure dans <code>transportPilotNames</code> reçoivent un menu CTLD.</p>
+<p><code>refreshForUnit(unitName)</code> et <code>refreshAll()</code> déclenchent un rafraîchissement débouncé pour un / tous
+les joueurs suivis.</p>
+<h2 id="flight-state-refresh">Rafraîchissement selon l'état de vol<a class="headerlink" href="#flight-state-refresh" title="Permanent link">&para;</a></h2>
+<p>Les items dont la disponibilité dépend d'être en vol ou au sol (p. ex. <code>Release Slingload</code>
+uniquement en l'air, <code>Load Crate</code> uniquement au sol) sont basculés via <code>setBranchEnabled</code> / des
+reconstructions de section plutôt que par le ré-enregistrement de commandes DCS (ce qui laisserait
+fuir des items de menu orphelins). Deux mécanismes pilotent cela :</p>
+<ul>
+<li><strong>Poller d'état de vol (cadence de 0.5 s).</strong> <code>S_EVENT_TAKEOFF</code> / <code>S_EVENT_LAND</code> se déclenchent
+  avec un délai de 3 à 5 s pour les hélicoptères dans DCS. Un poller vérifie
+  <code>ctld.utils.inAir(unit)</code> toutes les 0.5 s et, une fois qu'un nouvel état se maintient pendant
+  <code>DEBOUNCE_TICKS = 2</code> polls consécutifs (~1 s), le valide et exécute la chaîne de rafraîchissement
+  complète — de sorte que les menus basculent en ~1 s de la vraie transition. Les handlers
+  <code>onTakeoff</code> / <code>onLand</code> s'exécutent tout de même lorsque les événements DCS finissent par se
+  déclencher, mais d'ici là l'état correspond déjà et le rafraîchissement est un no-op rapide.</li>
+<li><strong>Rafraîchissements par événement/handler.</strong> À l'atterrissage/décollage (et sur les événements de
+  cargaison via l'<a href="../../events/">event bus</a> — <code>OnVehicleLoaded</code>, <code>OnVehicleUnloaded</code>,
+  <code>OnCrateLoaded</code>, <code>OnFOBDeployed</code>), <code>CTLDPlayerManager</code> appelle la méthode de rafraîchissement de
+  chaque manager concerné (<code>refreshMenuSection</code>, <code>refreshRequestEquipmentSection</code>,
+  <code>refreshCrateFlightSection</code>, <code>refreshLoadSection</code>, <code>refreshUnloadSection</code>,
+  <code>refreshParachuteVehicleSection</code>, <code>refreshJtacEquipmentSection</code>, …). Les sections ayant enregistré
+  un <code>refreshMethod</code> sont invoquées génériquement via <code>manager:refreshMethod(playerObj)</code>.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Déclencheur</th>
+<th>Managers/sections rafraîchis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>S_EVENT_LAND</code> / poller → sol</td>
+<td>Troop, Crate (Request Equipment, Load Crate, Unpack, section de vol), Vehicle (load/unload/parachute), JTAC, plus le <code>refreshMethod</code> de chaque section</td>
+</tr>
+<tr>
+<td><code>S_EVENT_TAKEOFF</code> / poller → air</td>
+<td>Même ensemble — bascule la visibilité de la branche SOL/AIR</td>
+</tr>
+<tr>
+<td>Spawn/despawn de véhicule</td>
+<td>Vehicle : section load + section pack</td>
+</tr>
+<tr>
+<td>Load/unload de crate</td>
+<td>Crate : section de vol ; section Unpack sur load</td>
+</tr>
+<tr>
+<td>Embarquement/débarquement de troops</td>
+<td>Troop : section de menu</td>
+</tr>
+<tr>
+<td>Spawn/mort de JTAC</td>
+<td>JTAC : branche de commande par JTAC, pour tous les joueurs de la coalition</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-f10-menu-tree">L'arbre de menu F10<a class="headerlink" href="#the-f10-menu-tree" title="Permanent link">&para;</a></h2>
+<p>L'arbre ci-dessous est le menu CTLD complet tel qu'il est rendu en jeu. Les valeurs d'ordre de
+premier niveau déterminent les positions des touches F ; la visibilité de chaque section dépend des
+contrôles de config, des contrôles de capacité et de la proximité/l'état.</p>
+<div class="highlight"><pre><span></span><code>CTLD (root, order=10)
+├── Check Cargo                     (command — added by CTLDPlayerManager)
+├── Troop Commands                  (submenu, order=20)
+├── Request Equipment               (submenu, order=25)
+├── Vehicle Commands                (submenu, order=30)
+├── Crate Commands                  (submenu, order=40)
+├── FOB (List active FOBs)          (submenu, order=60)  ⚠ shares order with Radio Beacons
+├── Radio Beacons                   (submenu, order=60)  ⚠ shares order with FOB
+├── RECON                           (submenu, order=70)
+├── Mine Field                      (submenu, order=75)  — conditional, ground only
+├── Smoke                           (submenu, order=80)
+└── JTAC                            (submenu, order=90)
+</code></pre></div>
+<blockquote>
+<p><strong>Conflit <code>order=60</code>.</strong> FOB (<code>CTLD_fob.lua</code>) et Radio Beacons (<code>CTLD_beacon.lua</code>) utilisent tous
+deux <code>order=60</code>, donc l'ordre de rendu entre les deux dépend de la séquence d'initialisation des
+managers. C'est une lacune connue — l'un devrait être renuméroté (p. ex. FOB → <code>order=55</code>).</p>
+</blockquote>
+<h3 id="section-registration-table">Table d'enregistrement des sections<a class="headerlink" href="#section-registration-table" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Manager</th>
+<th>Ordre</th>
+<th>Contrôle config</th>
+<th>Contrôle capacité / état</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Check Cargo</td>
+<td><code>CTLDPlayerManager</code></td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Troop Commands</td>
+<td><code>CTLDTroopManager</code></td>
+<td>20</td>
+<td>—</td>
+<td><code>troopsEnabled = true</code></td>
+</tr>
+<tr>
+<td>Request Equipment</td>
+<td><code>CTLDCrateManager</code></td>
+<td>25</td>
+<td>—</td>
+<td><code>cratesEnabled = true</code></td>
+</tr>
+<tr>
+<td>Vehicle Commands</td>
+<td><code>CTLDVehicleSpawner</code></td>
+<td>30</td>
+<td>—</td>
+<td><code>canCarryVehicles = true</code></td>
+</tr>
+<tr>
+<td>Crate Commands</td>
+<td><code>CTLDCrateManager</code></td>
+<td>40</td>
+<td>—</td>
+<td><code>cratesEnabled = true</code></td>
+</tr>
+<tr>
+<td>FOB (List FOBs)</td>
+<td><code>CTLDFOBManager</code></td>
+<td><strong>60</strong> ⚠</td>
+<td><code>enabledFOBBuilding</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>Radio Beacons</td>
+<td><code>CTLDBeaconManager</code></td>
+<td><strong>60</strong> ⚠</td>
+<td><code>enabledRadioBeaconDrop</code></td>
+<td><code>isTransport = true</code></td>
+</tr>
+<tr>
+<td>RECON</td>
+<td><code>CTLDReconManager</code></td>
+<td>70</td>
+<td><code>reconF10Menu</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>Mine Field</td>
+<td><code>mineFieldScene</code></td>
+<td>75</td>
+<td>—</td>
+<td>sol + champs de mines à proximité</td>
+</tr>
+<tr>
+<td>Smoke</td>
+<td><code>CTLDCrateManager</code></td>
+<td>80</td>
+<td><code>enableSmokeDrop</code></td>
+<td><code>isTransport = true</code></td>
+</tr>
+<tr>
+<td>JTAC</td>
+<td><code>CTLDJTACManager</code></td>
+<td>90</td>
+<td><code>JTAC_jtacStatusF10</code></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h3 id="troop-commands-order20">Troop Commands (order=20)<a class="headerlink" href="#troop-commands-order20" title="Permanent link">&para;</a></h3>
+<p>Manager <code>CTLDTroopManager</code> (<code>src/CTLD_troop.lua</code>). Les sous-items sont conditionnés selon que le
+transport est au sol (SOL) ou en l'air (AIR), selon que des troops sont transportées, et selon des
+conditions par template (un template n'est proposé que si <code>tmpl.total &lt;= transportLimit</code>, si du
+stock est disponible et si le camp correspond). <code>Embark / Extract</code> pagine à 10 items par page.</p>
+<div class="highlight"><pre><span></span><code>Troop Commands
+├── Disembark Troops            [SOL — if hasTroops]
+│   ├── (direct command if 1 group)
+│   └── Disembark Troops (submenu if 2+ groups)
+│       ├── Disembark All
+│       ├── [1] TemplateNameA
+│       └── [2] TemplateNameB
+├── Embark / Extract Troops     [SOL — if TRZ zones or field groups nearby]
+│   ├── Load from TRZ_ZoneName
+│   │   ├── Load Template-Infantry
+│   │   └── Load Template-Mixed
+│   └── Extract from field      [if dropped troops nearby]
+│       ├── GroupName1 (50m)
+│       └── GroupName2 (120m)
+├── Check Cargo                 [SOL]
+└── Parachute Troops            [AIR — if canParachuteDrop + hasTroops]
+    ├── (direct command if 1 group)
+    └── Parachute Troops (submenu if 2+ groups)
+        ├── Parachute All
+        └── [1] TemplateNameA
+</code></pre></div>
+<h3 id="request-equipment-order25">Request Equipment (order=25)<a class="headerlink" href="#request-equipment-order25" title="Permanent link">&para;</a></h3>
+<p>Manager <code>CTLDCrateManager</code> (<code>src/CTLD_crate.lua</code>). Affiché lorsque le transport a atterri <strong>et</strong>
+qu'il se trouve dans une zone logistique (LGZ). Une branche par zone logistique à proximité ; les
+catégories paginent à 10 par page.</p>
+<div class="highlight"><pre><span></span><code>Request Equipment
+├── [Logistics Zone "Zone-Alpha"]
+│   ├── Infantry
+│   │   ├── Rifle Squad
+│   │   └── Rifle Squad x3   (singleTypeSet, if enableAllCrates)
+│   ├── Support
+│   │   └── Machine Gunner Team
+│   └── [→ Next Page]         (if &gt; 10 categories)
+└── [Logistics Zone "Zone-Beta"]
+    └── [...]
+</code></pre></div>
+<p>Conditions des items : les items JTAC requièrent <code>JTAC_dropEnabled = true</code> ; un <code>descriptor.side</code>
+doit correspondre à la coalition ; les items de véhicule entier (Feature Q) apparaissent lorsque
+<code>canTransportWholeVehicle = true</code> et que le type figure dans
+<code>loadableVehiclesRED</code>/<code>loadableVehiclesBLUE</code>, faisant spawn un véhicule WAITING directement plutôt
+qu'une crate. Types de spawn : crate unique, <code>SingleTypeSet</code> (N crates d'un même type), <code>MixedSet</code>
+(multi-type, nécessite <code>enableAllCrates</code>), et véhicule (Feature Q).</p>
+<h3 id="vehicle-commands-order30">Vehicle Commands (order=30)<a class="headerlink" href="#vehicle-commands-order30" title="Permanent link">&para;</a></h3>
+<p>Manager <code>CTLDVehicleSpawner</code> (<code>src/CTLD_vehicle.lua</code>). Affiché lorsque
+<code>capabilitiesByType[typeName].canCarryVehicles = true</code>.</p>
+<div class="highlight"><pre><span></span><code>Vehicle Commands
+├── Load / Extract Vehicles  (submenu)  [SOL — dynamic]
+│   ├── M1A1 Abrams
+│   ├── M113 APC
+│   └── [... vehicles in range, coalition match, loadable type]
+├── Unload Vehicles          (submenu)  [SOL — hidden if 0 loaded]
+│   ├── Vehicle 1 (descriptor label)
+│   └── Vehicle 2
+└── Parachute Vehicle        (command)  [AIR — if canParachuteDrop + vehicle loaded]
+</code></pre></div>
+<p>Filtres de chargement : distance ≤ <code>maximumDistancePackableUnitsSearch</code> (~200 m), correspondance de
+coalition, type dans <code>loadableVehiclesRED</code>/<code>loadableVehiclesBLUE</code>, et état <code>WAITING</code>. Rafraîchi à
+l'atterrissage, au décollage, et au spawn/despawn de véhicule.</p>
+<h3 id="crate-commands-order40">Crate Commands (order=40)<a class="headerlink" href="#crate-commands-order40" title="Permanent link">&para;</a></h3>
+<p>Manager <code>CTLDCrateManager</code> (<code>src/CTLD_crate.lua</code>).</p>
+<div class="highlight"><pre><span></span><code>Crate Commands
+├── Load Crate          (submenu, order=10) [SOL — if loadCrateFromMenu = true]
+│   └── [dynamic: nearby crates &lt; 300 m with assembly status]
+├── Drop Crate(s)       (command, order=15) [SOL]
+├── Unpack Crate        (submenu, order=20) [SOL]
+│   ├── [Crate 1 - M1045 HMMWV TOW, 2500kg]
+│   ├── [Crate 2 - Soldier]
+│   └── [...]
+├── List Nearby Crates  (command)           [SOL]
+├── Pack Equipt         (submenu, order=25) [SOL — dynamic, rebuilt on land]
+│   ├── Pack FARP-AlphaModel               [if enableFARPRepack + nearby FARP scenes]
+│   ├── Pack FARP-BetaModel
+│   ├── M1A1 Abrams                        [if enablePackingVehicles + packable vehicles nearby]
+│   └── M113 APC
+│   (submenu hidden entirely if no packable content found)
+├── Parachute Crates    (command)           [AIR — if canParachuteDrop + crates onboard]
+├── Release Slingload   (command)           [AIR — if canSlingload + slingload active]
+└── Cut Slingload       (command)           [AIR — if canSlingload + slingload active]
+</code></pre></div>
+<p>Schémas de rafraîchissement : <code>refreshCrateFlightSection()</code> bascule la visibilité SOL/AIR à
+l'atterrissage/décollage ; <code>refreshPackEquiptSection()</code> reconstruit « Pack Equipt » à
+l'atterrissage ; <code>refreshRequestEquipmentSection()</code> reconstruit « Request Equipment » à l'entrée de
+zone/à l'atterrissage.</p>
+<h3 id="radio-beacons-order60">Radio Beacons (order=60)<a class="headerlink" href="#radio-beacons-order60" title="Permanent link">&para;</a></h3>
+<p>Manager <code>CTLDBeaconManager</code> (<code>src/CTLD_beacon.lua</code>). Contrôle config <code>enabledRadioBeaconDrop = true</code>.</p>
+<div class="highlight"><pre><span></span><code>Radio Beacons
+├── Drop Beacon              — spawns TACAN/ADF units + starts radio transmissions
+├── Remove Closest Beacon    — removes a beacon within 500 m
+└── List Beacons             — displays VHF/UHF/FM frequencies
+</code></pre></div>
+<h3 id="recon-order70">RECON (order=70)<a class="headerlink" href="#recon-order70" title="Permanent link">&para;</a></h3>
+<p>Manager <code>CTLDReconManager</code> (<code>src/CTLD_recon.lua</code>). Contrôle config <code>reconF10Menu = true</code>.</p>
+<div class="highlight"><pre><span></span><code>RECON
+├── RECON [Start] / RECON [Stop]     (toggle command)
+├── Infantry        [activate/deactivate (X)]
+├── Air Defense (AA) [activate/deactivate (X)]
+├── Ground Vehicles [activate/deactivate (X)]
+├── Helicopters     [activate/deactivate (X)]
+├── Aircraft        [activate/deactivate (X)]
+├── Ships           [activate/deactivate (X)]
+└── FARP / FOB      [activate/deactivate (X)]
+</code></pre></div>
+<p>Logique des libellés : RECON actif + couche activée → <code>[deactivate]</code> ; RECON actif + couche
+désactivée → <code>[activate]</code> ; RECON inactif + couche désactivée → <code>[activate] (X)</code>, où <code>(X)</code> signale
+que le scan ne tourne pas. Les sept couches sont <code>infantry</code>, <code>air_defense</code>, <code>ground_vehicles</code>,
+<code>helicopters</code>, <code>aircraft</code>, <code>ships</code>, <code>farp_fob</code>. Pipeline de scan : contrôle d'altitude
+(AGL ≥ <code>reconMinAltitude</code>, 50 m par défaut) → ligne de vue (line-of-sight) par unité ennemie mise
+en correspondance avec les couches activées → tracé d'une marque sur la carte F10 par cible (forme
+selon la couche, couleur selon la coalition) → timer d'auto-rafraîchissement
+(<code>reconRefreshInterval</code>, 10 s par défaut) détectant les cibles nouvelles/déplacées/perdues.</p>
+<h3 id="mine-field-order75">Mine Field (order=75)<a class="headerlink" href="#mine-field-order75" title="Permanent link">&para;</a></h3>
+<p>Manager <code>mineFieldScene</code> (<code>src/scenes/CTLD_mineFieldScene.lua</code>), enregistré via
+<code>CTLDPlayerManager.deferMenuSection()</code>. Affiché uniquement lorsque le joueur est au sol et que des
+champs de mines sont à moins de <code>demineRadius</code> (150 m par défaut) ; masqué entièrement sinon.
+Rafraîchi à l'atterrissage/décollage et après chaque opération de déminage.</p>
+<div class="highlight"><pre><span></span><code>Mine Field
+├── Clear Mine Field (N mines, ~Xm)    [one entry per nearby mine set]
+└── [...]
+</code></pre></div>
+<h3 id="smoke-order80">Smoke (order=80)<a class="headerlink" href="#smoke-order80" title="Permanent link">&para;</a></h3>
+<p>Manager <code>CTLDCrateManager</code> (<code>src/CTLD_crate.lua</code>). Contrôle config <code>enableSmokeDrop = true</code>.</p>
+<div class="highlight"><pre><span></span><code>Smoke
+├── Drop Red Smoke
+├── Drop Blue Smoke
+├── Drop Orange Smoke
+├── Drop Green Smoke
+└── Smoke Auto-Resume [activate] / [deactivate]   (toggle command)
+</code></pre></div>
+<p>Avec <code>Smoke Auto-Resume</code> activé, les marqueurs de fumée sont redéployés automatiquement après leur
+extinction.</p>
+<h3 id="jtac-order90">JTAC (order=90)<a class="headerlink" href="#jtac-order90" title="Permanent link">&para;</a></h3>
+<p>Manager <code>CTLDJTACManager</code> (<code>src/CTLD_jtac.lua</code>). Contrôle config <code>JTAC_jtacStatusF10 = true</code>.</p>
+<div class="highlight"><pre><span></span><code>JTAC
+├── Request JTAC Equipment  (submenu)  [SOL — if JTAC_dropEnabled + in LGZ]
+│   ├── Air JTAC Type1    (drone, spawnAs = "AIRPLANE")
+│   ├── Ground JTAC Type2 (vehicle)
+│   └── [...]
+├── JTAC Status  (command)
+├── [JTAC Name 1]  (submenu — per active JTAC, same coalition)
+│   ├── Lasing [activate] / [deactivate]        [if JTAC_allowStandbyMode]
+│   ├── Spot Corrections [activate/deactivate]  [if JTAC_laseSpotCorrections ≠ nil]
+│   ├── Request Smoke on Target                 [if JTAC_allowSmokeRequest]
+│   └── Request 9-Line                          [if JTAC_allow9Line]
+└── [JTAC Name 2]
+    └── [...]
+</code></pre></div>
+<p>Un submenu par JTAC est présent dans tous les états sauf <code>DEAD</code> (SPAWNED, IDLE, LASING, ORBITING,
+IN_TRANSIT l'affichent tous ; DEAD le supprime). <code>toggleStandby()</code> / <code>toggleSpotCorrections()</code>
+appellent <code>_rebuildJTACCommandBranch()</code>, effaçant et reconstruisant le submenu par JTAC pour tous
+les joueurs de la coalition. Indicateurs de config affectant le menu :</p>
+<table>
+<thead>
+<tr>
+<th>Indicateur</th>
+<th>Effet sur le menu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>JTAC_dropEnabled</code></td>
+<td>Affiche/masque « Request JTAC Equipment »</td>
+</tr>
+<tr>
+<td><code>JTAC_allowStandbyMode</code></td>
+<td>Affiche/masque « Lasing [toggle] »</td>
+</tr>
+<tr>
+<td><code>JTAC_laseSpotCorrections</code></td>
+<td>Affiche/masque « Spot Corrections [toggle] »</td>
+</tr>
+<tr>
+<td><code>JTAC_allowSmokeRequest</code></td>
+<td>Affiche/masque « Request Smoke on Target »</td>
+</tr>
+<tr>
+<td><code>JTAC_allow9Line</code></td>
+<td>Affiche/masque « Request 9-Line »</td>
+</tr>
+</tbody>
+</table>
+<h2 id="adding-a-menu-section-to-a-new-module">Ajouter une section de menu à un nouveau module<a class="headerlink" href="#adding-a-menu-section-to-a-new-module" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Dans le <code>getInstance()</code> de votre manager (ou, pour une scène chargée tôt, au niveau supérieur du
+   module via <code>CTLDPlayerManager.deferMenuSection</code>), appelez
+   <code>CTLDPlayerManager.getInstance():registerMenuSection(sectionDef)</code> avec une <code>key</code> unique, votre
+   instance <code>manager</code>, le nom de <code>method</code>, et un <code>order</code>. Ajoutez un <code>configKey</code> si la section est
+   conditionnée par la config, et un <code>refreshMethod</code> si elle a besoin d'être rafraîchie à
+   l'atterrissage/au décollage.</li>
+<li>Implémentez <code>Manager:buildMenuSection(playerObj, menu)</code> — construisez votre sous-arbre avec
+   <code>menu:addSubMenu</code> / <code>menu:addCommand</code>, en assignant <code>order</code> pour contrôler la position.</li>
+<li>Implémentez <code>Manager:refreshMenuSection(playerObj)</code> (ou votre <code>refreshMethod</code> enregistré) —
+   mettez à jour le contenu dynamique via <code>clearBranch</code> + ré-ajout, ou basculez la visibilité avec
+   <code>setBranchEnabled</code>. Ne ré-enregistrez pas directement de commandes DCS.</li>
+<li>Déclenchez <code>CTLDPlayerManager.getInstance():refreshForUnit(unitName)</code> sur tout changement d'état
+   qui affecte la visibilité de votre section.</li>
+</ol>
+<h2 id="dcs-api-constraints-and-limits">Contraintes et limites de l'API DCS<a class="headerlink" href="#dcs-api-constraints-and-limits" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Pas d'API de listing du menu</strong> — DCS ne peut pas rapporter les items de menu existants ; l'arbre
+  en mémoire est l'unique source de vérité, validé localement avant tout appel DCS.</li>
+<li><strong>Rafraîchissement tout ou rien</strong> — pas de mise à jour par item ; accumulez les changements, puis
+  appliquez un seul <code>refresh()</code>.</li>
+<li><strong>Pagination manuelle</strong> — DCS ne pagine pas automatiquement ; <code>_rebuildPagedChildren</code> s'en charge.</li>
+<li><strong>Pas d'introspection des callbacks</strong> — les signatures de fonctions Lua ne peuvent pas être
+  validées à l'exécution ; la signature attendue est documentée et les échecs sont isolés avec
+  <code>pcall</code>.</li>
+<li><strong><code>Group.getByID()</code> est indisponible</strong> — les group ids sont résolus en noms en itérant sur les
+  coalitions.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Limite</th>
+<th>Valeur</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Créneaux programmeur par niveau de menu</td>
+<td>10 (F1–F10 ; F11 = Previous Page, F12 = Quit, les deux DCS)</td>
+</tr>
+<tr>
+<td>Enfants visibles avant pagination</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Profondeur de menu</td>
+<td>Illimitée (rester &lt; 5 niveaux pour l'utilisabilité)</td>
+</tr>
+<tr>
+<td>Menus simultanés</td>
+<td>Illimité (un par groupe)</td>
+</tr>
+<tr>
+<td>Fréquence de rafraîchissement</td>
+<td>Débouncée à 0.15 s ; rester bien en dessous d'1 refresh/s par groupe</td>
+</tr>
+</tbody>
+</table>
+<h2 id="design-decisions">Décisions de conception<a class="headerlink" href="#design-decisions" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Arbre en mémoire avant application DCS</strong> — permet des reconstructions atomiques, tout ou rien,
+  et garde le modèle comme référence.</li>
+<li><strong>Pagination recalculée à chaque rafraîchissement</strong> — aucun état de page en cache à invalider ;
+  les mises à jour dynamiques restent simples.</li>
+<li><strong><code>order</code> + <code>enabled</code> explicites</strong> — les positions sont déclaratives et stables quel que soit
+  l'ordre d'initialisation, et les fonctionnalités peuvent être masquées sans perdre leur créneau.</li>
+<li><strong>Rafraîchissement débouncé</strong> — absorbe les rafales pour que les joueurs ne soient pas éjectés du
+  menu en pleine navigation.</li>
+<li><strong>Tables de statut, pas d'exceptions</strong> — Lua 5.1 n'a pas de gestion d'exceptions ; les retours
+  <code>{ success, message }</code> sont plus robustes dans un moteur mono-thread.</li>
+</ul>
+<h2 id="differences-from-v1">Différences avec la v1<a class="headerlink" href="#differences-from-v1" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>v1 (<code>old/CTLD_menus.lua</code>)</th>
+<th>v2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Un <code>addTransportF10MenuOptions()</code> monolithique</td>
+<td>Chaque manager enregistre sa propre section via <code>registerMenuSection</code></td>
+</tr>
+<tr>
+<td>Fonctions globales (<code>ctld.checkTroopStatus</code>, <code>ctld.loadTroopsFromZone</code>, …)</td>
+<td>Méthodes OOP sur des instances de manager</td>
+</tr>
+<tr>
+<td>Menu statique construit une seule fois à l'entrée du joueur</td>
+<td>Sections dynamiques reconstruites à l'atterrissage/décollage et sur les événements de cargaison</td>
+</tr>
+<tr>
+<td>Aucun contrôle d'ordre</td>
+<td>Champ <code>order</code> explicite par nœud</td>
+</tr>
+<tr>
+<td>Nommage de zones PKZ / EXZ</td>
+<td>Nommage de zones TRZ (voir la documentation des zones de troops)</td>
+</tr>
+<tr>
+<td>Pas d'intégration menu du véhicule entier</td>
+<td>Feature Q : véhicules entiers proposés dans Request Equipment</td>
+</tr>
+</tbody>
+</table>
+<h2 id="related-subsystems">Sous-systèmes liés<a class="headerlink" href="#related-subsystems" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../players/">Suivi des joueurs</a> — l'entité <code>CTLDPlayer</code> et le cycle de vie de <code>CTLDPlayerManager</code>
+  qui possède ce menu.</li>
+<li><a href="../../events/">Événements</a> — les événements de cargaison/FOB qui pilotent les rafraîchissements du
+  menu.</li>
+<li><a href="../../architecture/">Architecture</a> — l'idiome manager/singleton utilisé par <code>CTLDPlayerManager</code>.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": {"default": "dev", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

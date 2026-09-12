@@ -1,0 +1,2460 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Combined Transport and Logistics Dispatcher for DCS World — modular rewrite.">
+      
+      
+      
+        <link rel="canonical" href="https://veaf.github.io/CTLD/2.0.0-rc9/developer/subsystems/crates/">
+      
+      
+        <link rel="prev" href="../scenes/">
+      
+      
+        <link rel="next" href="../troops-jtac/">
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+          <link rel="alternate" href="../../../fr/developer/subsystems/crates/" hreflang="fr">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Crate spawn pipeline - CTLD</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#crate-spawn-pipeline" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="CTLD" class="md-header__button md-logo" aria-label="CTLD" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CTLD
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Crate spawn pipeline
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../fr/developer/subsystems/crates/" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/VEAF/CTLD" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    VEAF/CTLD
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../pilot/" class="md-tabs__link">
+          
+  
+  
+  Pilot
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../mission-maker/" class="md-tabs__link">
+          
+  
+  
+  Mission Maker
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+  Developer
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="CTLD" class="md-nav__button md-logo" aria-label="CTLD" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CTLD
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/VEAF/CTLD" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    VEAF/CTLD
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pilot
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pilot
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/troop-transport/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troop transport
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/crates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/vehicles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vehicles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/slingload/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sling-load
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/parachute/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parachute
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/jtac/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JTAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/recon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recon
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/beacons/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Beacons
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/smoke/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Smoke
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/pack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pack
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission Maker
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mission Maker
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/ctld-tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configure with ctld-tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/zones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zone setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/scenes-fob/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scenes & FOB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/crates-catalogue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crate catalogue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/minefield/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minefield
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/asset-validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validating your config
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/translations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Translations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/legacy-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Legacy API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subsystems
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Subsystems
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scene engine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crate spawn pipeline
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crate spawn pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-ctldcrate-entity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The CTLDCrate entity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-pre-processing-_processspawnablecrates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration pre-processing: _processSpawnableCrates
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-menu-to-ground-spawncrate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From menu to ground: spawnCrate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lifecycle-transitions-on-the-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lifecycle transitions on the manager
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-unpack-pipeline-_spawnunpacked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The unpack pipeline: _spawnUnpacked
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#descriptor-fields-driving-the-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descriptor fields driving the pipeline
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Descriptor fields driving the pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jtac-detection-rules-do-not-invert" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JTAC detection rules (do not invert)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f10-menu-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F10 menu integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troops-jtac/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troop + JTAC lifecycle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zone management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vehicles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vehicle system
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beacons/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Beacon system
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recon system
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../menu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    F10 menu system
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../players/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Player tracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AA system assembly
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Internationalisation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building-and-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Building & testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../integration-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integration testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../migration-v1-v2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migration v1 → v2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-spec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design spec
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-ctldcrate-entity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The CTLDCrate entity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-pre-processing-_processspawnablecrates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration pre-processing: _processSpawnableCrates
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-menu-to-ground-spawncrate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From menu to ground: spawnCrate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lifecycle-transitions-on-the-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lifecycle transitions on the manager
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-unpack-pipeline-_spawnunpacked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The unpack pipeline: _spawnUnpacked
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#descriptor-fields-driving-the-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descriptor fields driving the pipeline
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Descriptor fields driving the pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jtac-detection-rules-do-not-invert" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JTAC detection rules (do not invert)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f10-menu-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F10 menu integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="crate-spawn-pipeline">Crate spawn pipeline<a class="headerlink" href="#crate-spawn-pipeline" title="Permanent link">&para;</a></h1>
+<p>Crates are the physical currency of CTLD logistics: a transport requests equipment as a
+crate (or a set of crates), flies it to a destination, drops or slingloads it, and unpacks
+it into a vehicle, a JTAC, or a scene. The whole domain lives in <code>src/CTLD_crate.lua</code>, which
+defines the <code>CTLDCrate</code> entity and the <code>CTLDCrateManager</code> singleton.</p>
+<p>This page follows a crate from configuration to deployed contents. For the manager's public
+method signatures see the <a href="../../api-reference/">API reference</a>; for the events it publishes see
+<a href="../../events/">Events</a>; for the scenes and vehicles it feeds, see <a href="../scenes/">Scenes</a> and
+<a href="../vehicles/">Vehicles</a>.</p>
+<h2 id="the-ctldcrate-entity">The <code>CTLDCrate</code> entity<a class="headerlink" href="#the-ctldcrate-entity" title="Permanent link">&para;</a></h2>
+<p><code>CTLDCrate = class()</code> models one cargo static and its lifecycle. A crate is created with
+<code>CTLDCrate:new(data)</code> (never <code>CTLDCrateManager</code> internals directly) and carries its descriptor,
+position, coalition, spawn method, and the DCS <code>StaticObject</code> handle.</p>
+<p>The lifecycle is a small state machine held in <code>crate.state</code>, drawn from <code>CTLDCrate.STATE</code>:</p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>spawned</code></td>
+<td>On the ground, freshly created, never moved</td>
+</tr>
+<tr>
+<td><code>loaded</code></td>
+<td>Inside / attached to a transport</td>
+</tr>
+<tr>
+<td><code>falling</code></td>
+<td>In the air, descending (drop or parachute)</td>
+</tr>
+<tr>
+<td><code>landed</code></td>
+<td>On the ground after a transport cycle</td>
+</tr>
+<tr>
+<td><code>unpacked</code></td>
+<td>Contents deployed — terminal state</td>
+</tr>
+</tbody>
+</table>
+<p>Transitions are driven by entity methods, each of which sets <code>state</code> and the relevant fields:
+<code>load(transport)</code>, <code>unload(position)</code>, <code>drop(position)</code>, <code>startParachute(altitude)</code>,
+<code>land(position)</code>, and <code>unpack()</code>. <code>destroy()</code> removes the backing DCS static.</p>
+<p>Two predicates gate menu actions. <code>isOnGround()</code> returns true only in <code>spawned</code> or <code>landed</code>
+state <strong>and</strong> verifies <code>dcsStatic:isExist()</code> when a static handle is present — this guards
+against crates destroyed by combat before an <code>S_EVENT_DEAD</code> could unregister them.
+<code>canUnpack()</code> combines <code>isOnGround()</code> with the <code>canBeUnpacked</code> flag. <code>isLoadedByCTLD()</code> returns
+true whenever the crate is <code>loaded</code>, covering both CTLD-menu loads and DCS-native loads migrated
+into CTLD; use <code>loadedByDCSNative</code> to distinguish the two.</p>
+<p>Each crate records its origin in <code>crate.spawnMethod</code>, one of <code>CTLDCrate.SPAWN_METHOD</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Origin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>crate_spawn</code></td>
+<td>Spawned from the F10 Request Equipment menu</td>
+</tr>
+<tr>
+<td><code>vehicle_pack</code></td>
+<td>Result of packing a vehicle</td>
+</tr>
+<tr>
+<td><code>mission_maker</code></td>
+<td>Pre-placed by the mission maker (detected via INIT-B)</td>
+</tr>
+<tr>
+<td><code>menu_ctld</code></td>
+<td>Spawned via a CTLD menu action</td>
+</tr>
+</tbody>
+</table>
+<h2 id="configuration-pre-processing-_processspawnablecrates">Configuration pre-processing: <code>_processSpawnableCrates</code><a class="headerlink" href="#configuration-pre-processing-_processspawnablecrates" title="Permanent link">&para;</a></h2>
+<p><code>CTLDCrateManager.getInstance()</code> calls <code>_processSpawnableCrates()</code> once at first access. It reads
+the raw <code>ctld.gs("spawnableCrates")</code> config and transforms it into two internal structures the menu
+builder and every descriptor lookup rely on:</p>
+<ul>
+<li><code>self._processedCrates[category] = { singleCrates = { {singleCrate, singleTypeSet?}, … }, mixedSets = { … } }</code></li>
+<li><code>self._weightIndex[weight] = descriptor</code> — an O(1) index used by all <code>findDescriptorBy*</code> methods
+  (single crates only; mixed sets have no <code>weight</code> field).</li>
+</ul>
+<p>The AA system part/repair crate entries are plain catalogue entries in <code>CTLD_config.yaml</code> (see
+<a href="../aa/">AA system assembly</a>), so they flow through the same passes as any other crate — nothing
+injects them at runtime. The transform runs in three passes per category:</p>
+<ol>
+<li><strong>Separation.</strong> Each entry with a <code>weight</code> field becomes a single crate (indexed into a
+   per-category <code>catWeightIdx</code> and into <code>self._weightIndex</code>); each entry with a <code>mixedSet</code> field
+   becomes a mixed set. Entries with neither are logged as a warning and skipped.</li>
+<li><strong><code>singleTypeSet</code> generation.</strong> For each single crate whose <code>cratesRequired &gt; 1</code>, when
+   <code>enableAllCrates</code> is not <code>false</code> and the crate's <code>showSets</code> is not <code>false</code>, an auto-generated
+   <code>singleTypeSet</code> is stored next to it: <code>multiple</code> is the weight repeated <code>cratesRequired</code> times,
+   and <code>desc</code> is the crate description plus an i18n-aware <code>" - " .. ctld.tr("All crates")</code> suffix.
+   Setting <code>showSets = false</code> on a crate suppresses this entry even when <code>enableAllCrates</code> is on.</li>
+<li><strong>Mixed-set validation.</strong> Every weight in a <code>mixedSet</code> is checked against the per-category index.
+   Any unresolved weight invalidates the entire set (excluded from the menu) and queues a
+   mission-maker warning shown via <code>trigger.action.outText</code> at startup. Valid sets are copied with
+   <code>mixedSet</code> aliased to <code>multiple</code> for spawn compatibility.</li>
+</ol>
+<p>Scene crates registered before init are merged in afterward via <code>_injectSceneCrate</code>; scenes
+registered later are injected incrementally by <code>CTLDSceneManager:registerSceneModel</code>. Weight
+collisions during injection are resolved by walking to the next free slot in the same <code>1001.xx</code>
+range and logging a <code>WARN</code>. Scenes disabled by the mod audit are purged by <code>_purgeDisabledScenes</code>.</p>
+<h2 id="from-menu-to-ground-spawncrate">From menu to ground: <code>spawnCrate</code><a class="headerlink" href="#from-menu-to-ground-spawncrate" title="Permanent link">&para;</a></h2>
+<p>A spawn request funnels through <code>spawnCrate(descriptor, position, coalitionId, spawnedBy,
+spawnMethod, countryId, modelKey)</code>. It delegates static creation to <code>_spawnStatic</code>, which:</p>
+<ul>
+<li>resolves the crate model from <code>ctld.gs("spawnableCratesModels")</code> by <code>modelKey</code>, falling back to
+  <code>"load"</code>;</li>
+<li>derives the country from the coalition when <code>countryId</code> is nil;</li>
+<li>builds a sanitised unique name (<code>CTLD_&lt;label&gt;_&lt;uid&gt;</code> or <code>CTLD_Crate_&lt;uid&gt;</code>); and</li>
+<li>calls <code>ctld.utils.dynAddStatic</code> (never <code>coalition.addStaticObject</code> directly) inside a <code>pcall</code>,
+  returning the name and the <code>StaticObject</code> handle.</li>
+</ul>
+<p><code>spawnCrate</code> then wraps the static in a <code>CTLDCrate</code>, registers it, publishes <code>OnCrateSpawned</code>, and
+schedules a near-immediate <code>_refreshNearbyPlayers</code> so nearby transports see the new crate in their
+Load Crate submenu. <code>spawnCratesAligned</code> is the batch entry point: it picks a random spawn axis
+(front sector for standard transports, rear sector for native-cargo-capable ones), computes
+non-overlapping positions avoiding other dynamic-cargo aircraft bounding boxes, and calls
+<code>spawnCrate</code> for each descriptor. The model key is chosen by <code>_crateModelKey</code>: <code>"sling"</code> when
+<code>slingLoad</code> is set, <code>"dynamic"</code> for native-cargo-capable transports, otherwise <code>"load"</code>.</p>
+<h2 id="lifecycle-transitions-on-the-manager">Lifecycle transitions on the manager<a class="headerlink" href="#lifecycle-transitions-on-the-manager" title="Permanent link">&para;</a></h2>
+<p>The manager mirrors the entity transitions and owns event publication:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Transition</th>
+<th>Publishes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>loadCrate(crateName, transport)</code></td>
+<td><code>spawned</code>/<code>landed</code> → <code>loaded</code> (destroys the static)</td>
+<td><code>OnCrateLoaded</code>, <code>OnCrateCleared</code></td>
+</tr>
+<tr>
+<td><code>unloadCrate(crateName, position, method)</code></td>
+<td><code>loaded</code> → <code>landed</code> (respawns the static)</td>
+<td><code>OnCrateUnloaded</code>, <code>OnCrateSpawned</code></td>
+</tr>
+<tr>
+<td><code>unpackCrate(crateName, unpacker)</code></td>
+<td><code>spawned</code>/<code>landed</code> → <code>unpacked</code> (destroys + unregisters)</td>
+<td><code>OnCrateUnpacked</code>, <code>OnCrateCleared</code></td>
+</tr>
+<tr>
+<td><code>destroyCrate(crateName)</code></td>
+<td>destroy + unregister</td>
+<td><code>OnCrateCleared</code></td>
+</tr>
+</tbody>
+</table>
+<p>Loading and unloading both call <code>ctld.utils.updateTransportWeight</code> so the transport's mass reflects
+its cargo. Because the DCS static is destroyed on load, <code>unloadCrate</code> recreates it via
+<code>_respawnStatic</code>, which mints a fresh unique name and re-indexes <code>self.crates</code> under it.</p>
+<h2 id="the-unpack-pipeline-_spawnunpacked">The unpack pipeline: <code>_spawnUnpacked</code><a class="headerlink" href="#the-unpack-pipeline-_spawnunpacked" title="Permanent link">&para;</a></h2>
+<p>Every unpack outcome — ground vehicle, air JTAC, or static — is deployed through a single
+three-step pipeline in <code>_spawnUnpacked(desc, pos, coa, cId, playerName)</code>:</p>
+<div class="highlight"><pre><span></span><code>_spawnUnpacked(desc, pos, coa, cId, playerName)
+  ├── spawnAs ≠ "GROUND"/"STATIC" (air) + JTAC_dropEnabled == false → skip
+  ├── desc.isJTAC → CTLDJTACManager:_consumeJTACSlot(coa)   ← quota gate (definitive)
+  │     └── limit reached → notify player + return (no spawn)
+  ├── ctld.utils.buildGroupUnitDef(desc, pos, gname, gid, uid)
+  │     ├── spawnAs == "GROUND"   → minimal {name, task, units[{x,y,heading}]}
+  │     └── spawnAs == "AIRPLANE" → full {groupId, units[{alt,speed}], route[orbit+EPLRS]}
+  │           (orbit + EPLRS embedded only when isJTAC = true)
+  ├── ctld.utils.spawnFromDescriptor(desc, cId, unitDef)
+  │     ├── spawnAs == "STATIC"   → coalition.addStaticObject
+  │     └── otherwise             → coalition.addGroup(Group.Category[spawnAs])
+  └── _dispatchPostSpawn(desc, gname)
+        └── isJTAC = true → CTLDJTACManager:startLase(gname)
+</code></pre></div>
+<p>Ground spawns additionally publish <code>OnGroundUnitSpawned</code>. On success, when a <code>playerName</code> is
+supplied, the vehicle spawner's load and pack submenus are refreshed.</p>
+<p><strong>Key rules:</strong></p>
+<ul>
+<li><code>coalition.addGroup</code> and <code>coalition.addStaticObject</code> must only be reached via
+  <code>ctld.utils.spawnFromDescriptor</code> — never called directly.</li>
+<li><code>ctld.utils.buildGroupUnitDef</code> is the single builder for GROUND and AIR unit definitions.
+  STATIC objects use a separate schema and go straight to <code>addStaticObject</code>.</li>
+<li>Post-spawn role activation belongs exclusively in <code>_dispatchPostSpawn</code>. That method starts JTAC
+  lasing for <code>isJTAC</code> descriptors and registers both JTAC and plain ground vehicles with
+  <code>CTLDVehicleSpawner</code> so the Load/Unload menu can track them. Do not add role logic elsewhere in
+  the unpack path.</li>
+<li>The JTAC quota (<code>JTAC_LIMIT_RED</code>/<code>JTAC_LIMIT_BLUE</code>) is consumed <strong>before</strong> spawn, both here and in
+  the Request Equipment path (<code>spawnJTACFromDescriptor</code>). The quota is definitive — it is never
+  refilled when a JTAC is killed. Mission-maker JTACs and infantry JTAC soldiers do not consume it.</li>
+</ul>
+<h2 id="descriptor-fields-driving-the-pipeline">Descriptor fields driving the pipeline<a class="headerlink" href="#descriptor-fields-driving-the-pipeline" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Effect on pipeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>spawnAs</code> (string, default <code>"GROUND"</code>)</td>
+<td>Selects the <code>addGroup</code> category or routes to <code>addStaticObject</code></td>
+</tr>
+<tr>
+<td><code>isJTAC</code> (boolean)</td>
+<td><strong>Source of truth for the JTAC role.</strong> Adds the orbit route to an air unit definition and triggers <code>startLase</code> post-spawn. The unit type name (<code>unit</code>) is never used for JTAC detection in the OOP stack.</td>
+</tr>
+<tr>
+<td><code>specificParams</code> (table)</td>
+<td><strong>Ignored on a crate.</strong> Drone JTAC orbit geometry comes from the <code>JTAC_droneAltitude</code> / <code>JTAC_droneRadiusNoLase</code> / <code>JTAC_droneRadiusOnLase</code> / <code>JTAC_droneSpeed</code> settings. A crate still carrying the field produces a startup <code>NOTICE</code> naming the crates concerned. (Unrelated to <code>specificParams.task</code> on <code>loadableGroups</code> templates, which is live — see <a href="../troops-jtac/">Troop + JTAC lifecycle</a>.)</td>
+</tr>
+<tr>
+<td><code>cratesRequired</code> (number)</td>
+<td>Guards unpack — the count must be met before the pipeline runs</td>
+</tr>
+<tr>
+<td><code>showSets</code> (boolean, default <code>true</code>)</td>
+<td>When <code>false</code>, suppresses the auto-generated "All crates" <code>singleTypeSet</code> entry even if <code>enableAllCrates</code> is on</td>
+</tr>
+</tbody>
+</table>
+<h3 id="jtac-detection-rules-do-not-invert">JTAC detection rules (do not invert)<a class="headerlink" href="#jtac-detection-rules-do-not-invert" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Context</th>
+<th>Rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Request Equipment menu population</td>
+<td><code>getJTACDescriptors(coalition)</code> iterates <code>_processedCrates</code> and returns single-crate entries with <code>isJTAC = true</code> for the player's coalition (or <code>side = nil</code>)</td>
+</tr>
+<tr>
+<td>Request Equipment spawn</td>
+<td><code>CTLDVehicleSpawner:spawnJTACFromDescriptor(desc, spawner, zone)</code> — quota check → ground: <code>spawnVehicleForTransport</code> + <code>startLase</code>; air: <code>deployAirJTAC</code></td>
+</tr>
+<tr>
+<td>Post-unpack activation</td>
+<td><code>_dispatchPostSpawn</code>: <code>if desc.isJTAC → CTLDJTACManager:startLase()</code></td>
+</tr>
+<tr>
+<td>Pre-placed MM group detection</td>
+<td>Group name contains <code>"jtac"</code> (case-insensitive) — unit type not used</td>
+</tr>
+<tr>
+<td>Troop deploy with JTAC soldier</td>
+<td><code>tmpl.hasJtac == true</code> (computed from <code>jtac &gt; 0</code>) → <code>startLase</code> after deploy</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Do not add new JTAC detection paths. If a new unit type needs JTAC behaviour, set <code>isJTAC = true</code>
+on its crate descriptor — never add it to a type-name list. <code>JTAC_unitTypeNames</code> has been removed:
+the crate catalogue is the single source of truth for both the crate menu and the Request
+Equipment menu.</p>
+</blockquote>
+<h2 id="f10-menu-integration">F10 menu integration<a class="headerlink" href="#f10-menu-integration" title="Permanent link">&para;</a></h2>
+<p><code>buildMenuSection(playerObj, menu)</code> builds the <strong>Request Equipment</strong> submenu (<code>order = 25</code>, between
+Troop and Vehicle commands) and the <strong>Crate Commands</strong> submenu (<code>order = 40</code>), gated on the
+player's <code>capabilitiesByType[typeName].cratesEnabled</code>. The dynamic submenus are rebuilt on demand:</p>
+<ul>
+<li><code>refreshRequestEquipmentSection</code> renders each category's <code>singleCrates</code> (each immediately followed
+  by its <code>singleTypeSet</code> when visible) then its <code>mixedSets</code>, with per-player coalition/JTAC filtering
+  and a stable order counter.</li>
+<li><code>refreshLoadCrateSection</code> groups crates within 50 m by descriptor type with a count; loading picks
+  the nearest matching crate and enforces the transport's <code>maxCratesOnboard</code>.</li>
+<li><code>refreshUnpackSection</code> lists assembleable sets (count ≥ <code>cratesRequired</code>) within 300 m, delegating
+  AA sets to <code>CTLDCrateAssemblyManager:tryUnpackOrRepair</code> and scene crates to
+  <code>CTLDSceneManager:playScene</code> (or a model's own <code>crate.unpack</code>), and standard vehicles to
+  <code>_spawnUnpacked</code>.</li>
+<li><code>refreshPackEquiptSection</code> shows the unified <strong>Pack Equipt</strong> submenu (FARP scenes and packable
+  vehicles) only on the ground, when <code>enableFARPRepack</code> or <code>enablePackingVehicles</code> is set.</li>
+</ul>
+<p>A ground-position poller (10 s) refreshes Request Equipment only when the player's logistic-zone set
+changes, avoiding a fixed-cadence rebuild that would eject players from open sub-menus. Crate spawn
+and clear events refresh the Load Crate and Unpack submenus for every transport within range.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "dev", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

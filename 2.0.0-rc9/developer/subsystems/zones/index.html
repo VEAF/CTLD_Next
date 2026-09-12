@@ -1,0 +1,3197 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Combined Transport and Logistics Dispatcher for DCS World — modular rewrite.">
+      
+      
+      
+        <link rel="canonical" href="https://veaf.github.io/CTLD/2.0.0-rc9/developer/subsystems/zones/">
+      
+      
+        <link rel="prev" href="../troops-jtac/">
+      
+      
+        <link rel="next" href="../vehicles/">
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+          <link rel="alternate" href="../../../fr/developer/subsystems/zones/" hreflang="fr">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Zone management - CTLD</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#zone-management" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="CTLD" class="md-header__button md-logo" aria-label="CTLD" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CTLD
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Zone management
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../fr/developer/subsystems/zones/" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/VEAF/CTLD" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    VEAF/CTLD
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../pilot/" class="md-tabs__link">
+          
+  
+  
+  Pilot
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../mission-maker/" class="md-tabs__link">
+          
+  
+  
+  Mission Maker
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+  Developer
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="CTLD" class="md-nav__button md-logo" aria-label="CTLD" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CTLD
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/VEAF/CTLD" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    VEAF/CTLD
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pilot
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pilot
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/troop-transport/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troop transport
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/crates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/vehicles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vehicles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/slingload/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sling-load
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/parachute/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parachute
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/jtac/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JTAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/recon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recon
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/beacons/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Beacons
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/smoke/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Smoke
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/pack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pack
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mission Maker
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mission Maker
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/ctld-tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configure with ctld-tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/zones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zone setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/scenes-fob/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scenes & FOB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/crates-catalogue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crate catalogue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/minefield/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Minefield
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/asset-validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validating your config
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/translations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Translations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/legacy-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Legacy API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Subsystems
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Subsystems
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scene engine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crate spawn pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troops-jtac/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troop + JTAC lifecycle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zone management
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zone management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#zone-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zone types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trz-naming-convention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TRZ naming convention
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TRZ naming convention">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#field-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Field semantics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zone-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zone roles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parser-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parser validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#discovery-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Discovery algorithm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Discovery algorithm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#legacy-fallback-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Legacy fallback details
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ctldtroopzone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CTLDTroopZone
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CTLDTroopZone">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#role-predicates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Role predicates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Geometry
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stock-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stock management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ai-per-template-per-type-stock-feature-t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AI per-template / per-type stock (Feature T)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objective
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ctldlogisticzone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CTLDLogisticZone
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#smoke-scheduler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Smoke scheduler
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Events
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#query-api-troop-zones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query API — troop zones
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#query-api-logistic-zones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query API — logistic zones
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtime-registration-and-legacy-compatible-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime registration and legacy-compatible API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unload-priority-extract-before-rtb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unload priority: extract before RTB
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f10-menu-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F10 menu behaviour
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zone-name-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zone-name validation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vehicles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vehicle system
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beacons/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Beacon system
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recon system
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../menu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    F10 menu system
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../players/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Player tracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AA system assembly
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Internationalisation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building-and-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Building & testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../integration-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integration testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../migration-v1-v2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migration v1 → v2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-spec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design spec
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#zone-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zone types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trz-naming-convention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TRZ naming convention
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TRZ naming convention">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#field-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Field semantics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zone-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zone roles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parser-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parser validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#discovery-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Discovery algorithm
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Discovery algorithm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#legacy-fallback-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Legacy fallback details
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ctldtroopzone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CTLDTroopZone
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CTLDTroopZone">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#role-predicates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Role predicates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Geometry
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stock-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stock management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ai-per-template-per-type-stock-feature-t" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AI per-template / per-type stock (Feature T)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objective
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ctldlogisticzone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CTLDLogisticZone
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#smoke-scheduler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Smoke scheduler
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Events
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#query-api-troop-zones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query API — troop zones
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#query-api-logistic-zones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query API — logistic zones
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtime-registration-and-legacy-compatible-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Runtime registration and legacy-compatible API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unload-priority-extract-before-rtb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unload priority: extract before RTB
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f10-menu-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F10 menu behaviour
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zone-name-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zone-name validation
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="zone-management">Zone management<a class="headerlink" href="#zone-management" title="Permanent link">&para;</a></h1>
+<p><strong>Source:</strong> <code>src/CTLD_zone.lua</code>
+<strong>Entities:</strong> <code>CTLDTroopZone</code>, <code>CTLDLogisticZone</code>
+<strong>Singleton:</strong> <code>CTLDZoneManager</code></p>
+<p>Zones are the spatial anchors of CTLD: where troops board and deploy, where mission
+objectives are counted, where crates and vehicles can be serviced, and where AI transports
+pick up and drop off cargo. A single manager owns every zone; entities carry the per-zone
+state and geometry tests.</p>
+<p><code>CTLDZoneManager</code> follows the singleton idiom described in
+<a href="../../architecture/">Architecture</a> — <code>CTLDZoneManager = class()</code>, a private <code>_instance</code>, and a
+<code>getInstance()</code> factory that runs <code>init()</code> on first access. The two entity classes are plain
+<code>class()</code> types instantiated with <code>:new(data)</code>.</p>
+<h2 id="zone-types">Zone types<a class="headerlink" href="#zone-types" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Prefix / source</th>
+<th>Entity</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TRZ</td>
+<td><code>TRZ_</code> DCS trigger zone</td>
+<td><code>CTLDTroopZone</code></td>
+<td>Troop pickup, extract objective, mixed, or inert marker</td>
+</tr>
+<tr>
+<td>WPZ</td>
+<td><code>WPZ_</code> DCS trigger zone</td>
+<td><code>CTLDTroopZone</code> (<code>isWaypoint</code>)</td>
+<td>March destination for deployed troops</td>
+</tr>
+<tr>
+<td>LGZ</td>
+<td><code>LGZ_</code> DCS trigger zone</td>
+<td><code>CTLDLogisticZone</code></td>
+<td>Crate / vehicle logistic services</td>
+</tr>
+<tr>
+<td>AIZ</td>
+<td><code>aiZones</code> config table</td>
+<td><code>CTLDTroopZone</code> (<code>isAIPickup</code> / <code>isAIDropoff</code>)</td>
+<td>AI-transport-only pickup / dropoff (Feature S/T)</td>
+</tr>
+<tr>
+<td>Legacy</td>
+<td><code>troopZones</code> / <code>wpZones</code> / <code>logisticUnits</code> config</td>
+<td><code>CTLDTroopZone</code> / <code>CTLDLogisticZone</code></td>
+<td>Backward-compat for the old PKZ/IAZ/WPZ/EXZ conventions</td>
+</tr>
+<tr>
+<td>Type discovery</td>
+<td><code>logisticUnitTypes</code> / <code>troopZoneShipTypes</code> config</td>
+<td><code>CTLDLogisticZone</code> / <code>CTLDTroopZone</code></td>
+<td>Every mission object of a listed DCS type, anchored to it</td>
+</tr>
+<tr>
+<td>EXZ (dynamic)</td>
+<td><code>createExtractZone()</code> at runtime</td>
+<td><code>CTLDTroopZone</code></td>
+<td>Extract zone created from a mission <code>DO SCRIPT</code></td>
+</tr>
+<tr>
+<td>TRZ (dynamic, any object)</td>
+<td><code>createTroopZoneAtObject()</code> at runtime</td>
+<td><code>CTLDTroopZone</code></td>
+<td>Pickup-capable TRZ created from a <code>DO SCRIPT</code>, on a trigger zone, unit, static, group, or airbase/FARP</td>
+</tr>
+</tbody>
+</table>
+<p>TRZ, WPZ and LGZ are discovered by scanning <code>env.mission.triggers.zones</code> at init. AIZ zones
+are loaded from <code>ctld.gs("aiZones")</code> and reference an existing Mission Editor trigger zone by
+name (<code>dcsZoneName</code>), resolved via <code>trigger.misc.getZone</code>. Legacy zones come from the
+<code>ctld.gs(...)</code> config tables and are loaded last so that a modern <code>TRZ_</code>/<code>LGZ_</code> definition
+always wins: <strong>existing entries are never overwritten</strong>.</p>
+<h2 id="trz-naming-convention">TRZ naming convention<a class="headerlink" href="#trz-naming-convention" title="Permanent link">&para;</a></h2>
+<p>A troop zone encodes all of its behaviour in the trigger-zone name — a strict positional
+scheme with <strong>all five fields required</strong>:</p>
+<div class="highlight"><pre><span></span><code>TRZ_&lt;name&gt;_&lt;A|R|B|N&gt;_&lt;stock&gt;_&lt;flag&gt;_&lt;target&gt;
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Position</th>
+<th>Field</th>
+<th>Type</th>
+<th>Values</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>TRZ_</code></td>
+<td>prefix</td>
+<td>literal</td>
+<td>Zone type identifier</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>name</code></td>
+<td>string</td>
+<td>any, no underscores, not a reserved word</td>
+<td>Zone identifier (<code>zoneName</code>)</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>coalition</code></td>
+<td>enum</td>
+<td><code>A</code> <code>R</code> <code>B</code> <code>N</code></td>
+<td><strong>A</strong>=all, <strong>R</strong>=RED, <strong>B</strong>=BLUE, <strong>N</strong>=NEUTRAL</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>stock</code></td>
+<td>integer 0–999</td>
+<td><code>0</code>=no pickup, <code>1–998</code>=limited, <code>999</code>=unlimited</td>
+<td>Troop boarding capacity</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>flag</code></td>
+<td>string</td>
+<td>DCS flag name, or <code>nil</code></td>
+<td>Objective flag incremented on extract; <code>nil</code>=no objective</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>target</code></td>
+<td>integer ≥0</td>
+<td><code>0</code>=no win condition, <code>N≥1</code>=soldier threshold</td>
+<td>Soldiers needed to complete the objective</td>
+</tr>
+</tbody>
+</table>
+<p>Reserved words that may not be used as <code>name</code>: <code>nil</code>, <code>A</code>, <code>R</code>, <code>B</code>, <code>N</code>.</p>
+<h3 id="field-semantics">Field semantics<a class="headerlink" href="#field-semantics" title="Permanent link">&para;</a></h3>
+<p>The parser maps the on-screen field values to internal storage that intentionally differs, so
+that <code>nil</code> can mean "capability absent":</p>
+<table>
+<thead>
+<tr>
+<th><code>stock</code> value</th>
+<th>Internal <code>pickMaxStock</code></th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td><code>nil</code></td>
+<td>Zone cannot board troops</td>
+</tr>
+<tr>
+<td><code>1–998</code></td>
+<td><code>1–998</code></td>
+<td>Limited stock, decrements on load</td>
+</tr>
+<tr>
+<td><code>999</code></td>
+<td><code>0</code></td>
+<td>Unlimited pickup</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><code>flag</code> value</th>
+<th>Internal <code>objectiveFlag</code></th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nil</code></td>
+<td><code>nil</code></td>
+<td>No objective flag</td>
+</tr>
+<tr>
+<td>any string</td>
+<td>the string</td>
+<td>DCS flag name, incremented by soldier count on extract</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><code>target</code> value</th>
+<th>Internal <code>objectiveTarget</code></th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td><code>nil</code></td>
+<td>No win threshold defined</td>
+</tr>
+<tr>
+<td><code>N≥1</code></td>
+<td><code>N</code></td>
+<td>Soldier count required for objective completion</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Use <code>999</code> for unlimited pickup — <strong>not</strong> <code>0</code>. <code>0</code> means "this zone cannot board troops".</p>
+</blockquote>
+<p>For coalition, <code>A→0</code>, <code>R→coalition.side.RED</code> (1), <code>B→coalition.side.BLUE</code> (2),
+<code>N→coalition.side.NEUTRAL</code> (0). <code>A</code> and <code>N</code> both store <code>0</code>; internally CTLD treats <code>0</code> as
+"accept all coalitions", and DCS multiplayer has no NEUTRAL players, so the two behave
+identically.</p>
+<h3 id="zone-roles">Zone roles<a class="headerlink" href="#zone-roles" title="Permanent link">&para;</a></h3>
+<p>A TRZ can act as any combination of:</p>
+<ul>
+<li><strong>Pickup</strong> (<code>stock &gt; 0</code>): troops board here; boarding decrements stock.</li>
+<li><strong>Extract</strong> (<code>flag ≠ nil</code>): troops deployed here increment the objective flag by the soldier
+  count.</li>
+<li><strong>Mixed</strong> (both): supports boarding and objective extract.</li>
+<li><strong>Inert</strong> (<code>stock=0</code>, <code>flag=nil</code>): parsed but functionless — a named marker.</li>
+</ul>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Zone name</th>
+<th>Role</th>
+<th>Boarding</th>
+<th>Objective</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TRZ_base_B_50_nil_0</code></td>
+<td>Pickup</td>
+<td>50 soldiers</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>TRZ_depot_A_999_nil_0</code></td>
+<td>Pickup ∞</td>
+<td>unlimited</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>TRZ_exfil_R_0_rescue_0</code></td>
+<td>Extract</td>
+<td>—</td>
+<td>flag <code>rescue</code>, no threshold</td>
+</tr>
+<tr>
+<td><code>TRZ_lz_B_0_secure_100</code></td>
+<td>Extract</td>
+<td>—</td>
+<td>flag <code>secure</code>, 100 soldiers</td>
+</tr>
+<tr>
+<td><code>TRZ_fob_N_30_defend_50</code></td>
+<td>Mixed</td>
+<td>30 soldiers</td>
+<td>flag <code>defend</code>, 50 soldiers</td>
+</tr>
+<tr>
+<td><code>TRZ_marker_B_0_nil_0</code></td>
+<td>Inert</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code>TRZ  _  fob  _  N   _  30     _  defend  _  50
+ │       │      │      │          │          │
+ │       │      │      │          │          └─ target: 50 soldiers for the objective
+ │       │      │      │          └──────────── flag: "defend" (DCS flag name)
+ │       │      │      └─────────────────────── stock: 30 troops max (limited)
+ │       │      └────────────────────────────── coalition: NEUTRAL
+ │       └───────────────────────────────────── name: "fob"
+ └───────────────────────────────────────────── prefix TRZ
+</code></pre></div>
+<h3 id="parser-validation">Parser validation<a class="headerlink" href="#parser-validation" title="Permanent link">&para;</a></h3>
+<p><code>CTLDZoneManager:_parseTRZ(name)</code> returns a parsed table on success, or <code>nil</code> plus an error
+string on failure:</p>
+<table>
+<thead>
+<tr>
+<th>Violation</th>
+<th>Error message</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prefix ≠ TRZ</td>
+<td><code>"not a TRZ"</code></td>
+</tr>
+<tr>
+<td>Missing or empty name</td>
+<td><code>"missing zoneName"</code></td>
+</tr>
+<tr>
+<td>Name is a reserved word</td>
+<td><code>"zoneName cannot be a reserved word: &lt;word&gt;"</code></td>
+</tr>
+<tr>
+<td>Missing coalition</td>
+<td><code>"missing coalition (A|R|B|N)"</code></td>
+</tr>
+<tr>
+<td>Coalition not A/R/B/N</td>
+<td><code>"invalid coalition '&lt;x&gt;' — expected A, R, B or N"</code></td>
+</tr>
+<tr>
+<td>Stock missing / non-integer / outside 0–999</td>
+<td><code>"invalid stock '&lt;x&gt;' — expected integer 0-999 …"</code></td>
+</tr>
+<tr>
+<td>Missing flag</td>
+<td><code>"missing flag (DCS flag name or 'nil')"</code></td>
+</tr>
+<tr>
+<td>Flag is a number</td>
+<td><code>"flag must be a string or 'nil', not a number"</code></td>
+</tr>
+<tr>
+<td>Target missing / negative / non-integer</td>
+<td><code>"invalid target '&lt;x&gt;' — expected integer ≥0 …"</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>WPZ_</code> and <code>LGZ_</code> use the simpler <code>&lt;PREFIX&gt;_&lt;name&gt;_[R|B|N]</code> form (coalition optional, default
+<code>0</code>); <code>_parseWPZ</code> shares <code>_parseSimpleZone</code> and <code>_parseLGZ</code> is standalone.</p>
+<h2 id="discovery-algorithm">Discovery algorithm<a class="headerlink" href="#discovery-algorithm" title="Permanent link">&para;</a></h2>
+<p><code>CTLDZoneManager:init()</code> registers <code>S_EVENT_DEAD</code> on the DCS event bridge, then runs the
+following phases <strong>in this order</strong>:</p>
+<ol>
+<li><code>_validateZoneNames()</code> — scans every trigger zone and the <code>aiZones</code> config, accumulates
+   errors and warnings (see below), and reports them once to the DCS log and on-screen.</li>
+<li><code>_discoverTRZ()</code> — for each trigger zone starting with <code>TRZ_</code>, parse the name with
+   <code>_parseTRZ</code>; on success construct a <code>CTLDTroopZone</code> (geometry from the trigger zone,
+   <code>smoke</code> from <code>troopZoneSmokeColor[coalition]</code>) and reset any <code>objectiveFlag</code> to 0.</li>
+<li><code>_loadAIZonesFromConfig()</code> — reads <code>ctld.gs("aiZones")</code>; each valid entry becomes a
+   <code>CTLDTroopZone</code> marked <code>isAIPickup</code> / <code>isAIDropoff</code>, with per-template/per-type stock.</li>
+<li><code>_discoverWPZ()</code> — trigger zones starting with <code>WPZ_</code> become waypoint troop zones
+   (<code>isWaypoint = true</code>).</li>
+<li><code>_discoverLGZ()</code> — trigger zones starting with <code>LGZ_</code> become <code>CTLDLogisticZone</code> objects
+   (radius from <code>dynamicZoneRadius</code>, default 200 m).</li>
+<li><code>_discoverTroopZoneShipTypes()</code> — every mission <strong>unit</strong> whose <code>getTypeName()</code> is listed in
+   <code>troopZoneShipTypes</code> becomes a <code>CTLDTroopZone</code> anchored to it (<code>linkedUnit</code>, 200 m radius,
+   unlimited stock).</li>
+<li><code>_discoverLogisticUnitTypes()</code> — every mission unit <strong>and static</strong> whose <code>getTypeName()</code> is
+   listed in <code>logisticUnitTypes</code> becomes a <code>CTLDLogisticZone</code> anchored to it (<code>linkedUnit</code>,
+   radius from <code>maximumDistanceLogistic</code>). Both are skipped entirely when their list is empty.</li>
+<li><code>_loadLegacyZones()</code> — backward-compat pass over the <code>troopZones</code>, <code>wpZones</code> and
+   <code>logisticUnits</code> config tables.</li>
+<li><code>_scheduleSmoke()</code> — starts the recurring smoke refresh loop.</li>
+</ol>
+<p>Finally <code>init()</code> publishes an initial <code>OnLogisticZoneUpdated</code> and logs the zone counts. Each
+discovery phase guards on <code>if not self._troopZones[name]</code> / <code>_logisticZones[name]</code>, so the
+precedence order above is what makes modern definitions win over legacy ones.</p>
+<p>The loser of that race is not always obvious, because the key is the <strong>registered</strong> name, not the
+Mission Editor name: a <code>TRZ_</code> zone registers under its parsed name, so <code>TRZ_dropzone1_B_0_nil_0</code>
+occupies <code>dropzone1</code> and an <code>aiZones</code> entry on a different ME zone genuinely called <code>dropzone1</code>
+collides with it. <code>_loadAIZonesFromConfig</code> reports that case to the startup report as
+<code>AIZ[i] ERROR '&lt;name&gt;': name already taken by zone '&lt;holder&gt;' — entry ignored</code>, at the skip site
+rather than in <code>_validateZoneNames</code>, which runs before discovery and would have to predict what
+discovery is going to claim.</p>
+<h3 id="legacy-fallback-details">Legacy fallback details<a class="headerlink" href="#legacy-fallback-details" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>troopZones</code> entries support both DCS trigger zones and <strong>ship unit names</strong> — if
+  <code>trigger.misc.getZone</code> misses, the loader falls back to <code>Unit.getByName</code> and passes the ship as
+  the zone's <code>linkedUnit</code>, with v1's hardcoded <strong>200 m</strong> radius. The zone rides the ship: its
+  centre is resolved on every <code>getCenter()</code>, and the point captured at init is only the last-known
+  value used once the ship is gone. Legacy troop zones auto-derive a <code>stockFlagName</code> of
+  <code>&lt;zoneName&gt;_count</code>, mirroring <code>pickCurrentStock</code> to that DCS flag.</li>
+<li><code>logisticUnits</code> entries resolve via <code>StaticObject.getByName</code> or <code>Unit.getByName</code> and become
+  <strong>dynamic</strong> logistic zones linked to that object (radius from <code>maximumDistanceLogistic</code>,
+  default 200 m). An entry that resolves to nothing is a WARN — it names one object, so its
+  absence is a mistake. <code>logisticUnitTypes</code> is the type-keyed counterpart and stays silent for a
+  type the mission does not hold.</li>
+</ul>
+<h2 id="ctldtroopzone"><code>CTLDTroopZone</code><a class="headerlink" href="#ctldtroopzone" title="Permanent link">&para;</a></h2>
+<p>Constructed from a <code>data</code> table. Required: <code>dcsName</code>, <code>zoneName</code>, <code>coalition</code>, <code>center</code>
+(vec3), <code>radius</code>. Optional: <code>verticies</code>, <code>pickMaxStock</code>, <code>objectiveFlag</code>, <code>objectiveTarget</code>,
+<code>stockFlagName</code>, <code>smoke</code> (a <code>trigger.smokeColor.*</code> value or <code>-1</code>), <code>active</code>, the role flags
+<code>isWaypoint</code> / <code>isDropoff</code> / <code>isAIPickup</code> / <code>isAIDropoff</code>, and the AI fields <code>aiDropMode</code>,
+<code>aiCargoType</code>, <code>troopTemplates</code>, <code>vehicleTypes</code>, <code>_aiTroopStock</code>, <code>_aiVehicleStock</code>.</p>
+<h3 id="role-predicates">Role predicates<a class="headerlink" href="#role-predicates" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>True when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>zone:hasPickup()</code></td>
+<td><code>pickMaxStock ~= nil</code></td>
+</tr>
+<tr>
+<td><code>zone:hasExtract()</code></td>
+<td><code>objectiveFlag ~= nil</code></td>
+</tr>
+<tr>
+<td><code>zone:hasWaypoint()</code></td>
+<td><code>isWaypoint == true</code></td>
+</tr>
+<tr>
+<td><code>zone:hasDropoff()</code></td>
+<td><code>isDropoff == true</code> (IAZ legacy auto-drop)</td>
+</tr>
+<tr>
+<td><code>zone:hasAIPickup()</code></td>
+<td><code>isAIPickup == true</code> (AIZ P role)</td>
+</tr>
+<tr>
+<td><code>zone:hasAIDropoff()</code></td>
+<td><code>isAIDropoff == true</code> (AIZ D role)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="geometry">Geometry<a class="headerlink" href="#geometry" title="Permanent link">&para;</a></h3>
+<p><code>zone:isInZone(point)</code> tests polygonal zones (<code>verticies</code> with ≥3 corners) via a Jordan
+ray-cast on the private static <code>CTLDTroopZone._raycast</code>, otherwise falls back to a circular
+radius test. Note that <code>verticies[i].x/.y</code> are mission-file coordinates where mission <code>Y</code>
+equals world <code>Z</code>. <code>zone:getCenter()</code> resolves the live centre in the same order as
+<code>CTLDLogisticZone</code>: <code>linkedUnit</code> (a ship-backed zone) → <code>trigger.misc.getZone(dcsName)</code> (a Moving
+Zone) → the stored <code>center</code>.</p>
+<h3 id="stock-management">Stock management<a class="headerlink" href="#stock-management" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nv">zone</span><span class="p">:</span><span class="nf">consumeStock</span><span class="p">(</span><span class="nv">n</span><span class="p">)</span><span class="w">   </span><span class="c1">-- decrement pickCurrentStock by n; true on success, unlimited always true</span>
+<span class="nv">zone</span><span class="p">:</span><span class="nf">restoreStock</span><span class="p">(</span><span class="nv">n</span><span class="p">)</span><span class="w">   </span><span class="c1">-- restore up to pickMaxStock; no-op for unlimited or non-pickup zones</span>
+</code></pre></div>
+<p>Both call <code>_syncStockFlag()</code>, which writes <code>pickCurrentStock</code> to <code>stockFlagName</code> via
+<code>trigger.action.setUserFlag</code> when that flag is set. Unlimited stock (<code>pickMaxStock == 0</code>) means
+<code>consumeStock</code> always succeeds and <code>restoreStock</code> is a no-op.</p>
+<h3 id="ai-per-template-per-type-stock-feature-t">AI per-template / per-type stock (Feature T)<a class="headerlink" href="#ai-per-template-per-type-stock-feature-t" title="Permanent link">&para;</a></h3>
+<p>AIZ zones can carry granular stock instead of a single count. <code>_aiTroopStock</code> and
+<code>_aiVehicleStock</code> are tables of the shape <code>{ isAll = bool, init = {name=N}, current = {name=N} }</code>,
+where <code>N = -1</code> means unlimited. The special config key <code>"All"</code> sets <code>isAll = true</code> (every
+template/type, unlimited).</p>
+<div class="highlight"><pre><span></span><code><span class="nv">zone</span><span class="p">:</span><span class="nf">aiPickTroopTemplate</span><span class="p">(</span><span class="nv">teams</span><span class="p">,</span><span class="w"> </span><span class="nv">typeName</span><span class="p">,</span><span class="w"> </span><span class="nv">unitName</span><span class="p">,</span><span class="w"> </span><span class="nv">tm</span><span class="p">)</span><span class="w">  </span><span class="c1">-- best eligible template, or nil</span>
+<span class="nv">zone</span><span class="p">:</span><span class="nf">aiConsumeTroopStock</span><span class="p">(</span><span class="nv">templateName</span><span class="p">)</span><span class="w">                   </span><span class="c1">-- decrement one troop unit</span>
+<span class="nv">zone</span><span class="p">:</span><span class="nf">aiRestoreTroopStock</span><span class="p">(</span><span class="nv">templateName</span><span class="p">,</span><span class="w"> </span><span class="nv">n</span><span class="p">)</span><span class="w">                </span><span class="c1">-- restore n (default 1), capped at init</span>
+<span class="nv">zone</span><span class="p">:</span><span class="nf">aiPickVehicleEntry</span><span class="p">()</span><span class="w">                                </span><span class="c1">-- { type, isScene, isAASystem } or nil</span>
+<span class="nv">zone</span><span class="p">:</span><span class="nf">aiConsumeVehicleStock</span><span class="p">(</span><span class="nv">typeName</span><span class="p">)</span><span class="w">                     </span><span class="c1">-- decrement one vehicle</span>
+<span class="nv">zone</span><span class="p">:</span><span class="nf">aiRestoreVehicleStock</span><span class="p">(</span><span class="nv">typeName</span><span class="p">)</span><span class="w">                     </span><span class="c1">-- restore one, capped at init</span>
+</code></pre></div>
+<p><code>aiPickTroopTemplate</code> filters templates that are in stock <strong>and</strong> fit the transport's capacity
+(<code>tm:_canEmbark</code>), then prefers the highest current stock, choosing randomly among ties.
+<code>aiPickVehicleEntry</code> resolves each type's provider in priority order
+<code>CTLDSceneManager</code> (scene) &gt; <code>CTLDCrateAssemblyManager</code> (AA system) &gt; DCS native, returning
+<code>nil</code> when <code>isAll</code> is set (the caller then uses the legacy physical-scan path).</p>
+<h3 id="objective">Objective<a class="headerlink" href="#objective" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nv">zone</span><span class="p">:</span><span class="nf">incrementObjective</span><span class="p">(</span><span class="nv">soldierCount</span><span class="p">)</span><span class="w">  </span><span class="c1">-- → incremented(bool), valueBefore, valueAfter</span>
+</code></pre></div>
+<p>Adds <code>soldierCount</code> to <code>objectiveFlag</code> (mode: <strong>+N per soldier</strong>, not per group or per
+operation) and logs an <code>INFO</code> line when <code>objectiveTarget</code> is reached. CTLD only ever
+increments the flag; it resets <code>objectiveFlag</code> to 0 once at discovery, and the mission maker
+defines the win condition in the DCS Editor with a trigger such as <code>if flag &gt;= target → victory</code>.</p>
+<p><code>zone:activate()</code> / <code>zone:deactivate()</code> toggle the <code>active</code> flag.</p>
+<h2 id="ctldlogisticzone"><code>CTLDLogisticZone</code><a class="headerlink" href="#ctldlogisticzone" title="Permanent link">&para;</a></h2>
+<p>Constructed from <code>data</code>. Required: <code>name</code>, <code>coalition</code>, <code>center</code>, <code>radius</code> (default 200).
+Optional: <code>linkedUnit</code> (the zone then follows this DCS unit/static), <code>active</code>, and a <code>services</code>
+table which defaults to <code>{ cratesPickup = true, cratesDropoff = true, vehicleSpawn = true }</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>zone:getCenter()</code></td>
+<td>Linked unit's live point if it still exists, else the stored center</td>
+</tr>
+<tr>
+<td><code>zone:isDynamic()</code></td>
+<td>True if anchored to a moving DCS unit (<code>_linkedUnit ~= nil</code>)</td>
+</tr>
+<tr>
+<td><code>zone:isAlive()</code></td>
+<td>True unless the linked unit no longer exists (always true for static)</td>
+</tr>
+<tr>
+<td><code>zone:isInZone(point)</code></td>
+<td>Circular radius test only — logistic zones are always circular</td>
+</tr>
+<tr>
+<td><code>zone:activate()</code> / <code>zone:deactivate()</code></td>
+<td>Toggle <code>active</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="smoke-scheduler">Smoke scheduler<a class="headerlink" href="#smoke-scheduler" title="Permanent link">&para;</a></h2>
+<p><code>_scheduleSmoke()</code> re-arms itself every <code>smokeRefreshInterval</code> seconds (default 300). When
+<code>disableAllSmoke</code> is set it re-schedules without doing anything. Otherwise it smokes every
+active troop zone whose <code>smoke &gt;= 0</code> and every active logistic zone that has a colour in
+<code>logisticZoneSmokeColor[coalition]</code>, then publishes <code>OnZoneSmokeRefreshed</code> with a snapshot of
+both zone sets (positions, stock, objective progress, colours).</p>
+<h2 id="events">Events<a class="headerlink" href="#events" title="Permanent link">&para;</a></h2>
+<p>Published through <code>EventDispatcher</code> (see <a href="../../architecture/">Architecture</a>):</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Published when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OnZoneSmokeRefreshed</code></td>
+<td>Every <code>smokeRefreshInterval</code> seconds by the smoke loop</td>
+</tr>
+<tr>
+<td><code>OnLogisticZoneUpdated</code></td>
+<td>At init, on dynamic-unit death, and on FOB / logistic register / unregister / (de)activate</td>
+</tr>
+</tbody>
+</table>
+<p>The manager registers <code>onDead</code> for <code>S_EVENT_DEAD</code> via <code>CTLDDCSEventBridge</code>: when a dynamic
+logistic zone's linked unit dies, the zone is removed and an <code>OnLogisticZoneUpdated</code> is
+published with the removal.</p>
+<h2 id="query-api-troop-zones">Query API — troop zones<a class="headerlink" href="#query-api-troop-zones" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="nv">zm</span><span class="p">:</span><span class="nf">getTroopZone</span><span class="p">(</span><span class="nv">zoneName</span><span class="p">)</span><span class="w">                     </span><span class="c1">-- → CTLDTroopZone | nil</span>
+<span class="nv">zm</span><span class="p">:</span><span class="nf">getTroopZonesForCoalition</span><span class="p">(</span><span class="nv">coalition</span><span class="p">)</span><span class="w">       </span><span class="c1">-- active zones for coalition (0 = both)</span>
+<span class="nv">zm</span><span class="p">:</span><span class="nf">getTroopZoneAtPoint</span><span class="p">(</span><span class="nv">point</span><span class="p">,</span><span class="w"> </span><span class="nv">coalition</span><span class="p">)</span><span class="w">      </span><span class="c1">-- containing zone; excludes AI-only pickup zones</span>
+<span class="nv">zm</span><span class="p">:</span><span class="nf">getTroopZoneForUnit</span><span class="p">(</span><span class="nv">unitName</span><span class="p">)</span><span class="w">              </span><span class="c1">-- zone under a live unit's position</span>
+<span class="nv">zm</span><span class="p">:</span><span class="nf">getWaypointZoneAt</span><span class="p">(</span><span class="nv">point</span><span class="p">,</span><span class="w"> </span><span class="nv">coalition</span><span class="p">)</span><span class="w">        </span><span class="c1">-- active WPZ containing point</span>
+<span class="nv">zm</span><span class="p">:</span><span class="nf">getNearestWaypointZone</span><span class="p">(</span><span class="nv">point</span><span class="p">,</span><span class="w"> </span><span class="nv">coalition</span><span class="p">)</span><span class="w">   </span><span class="c1">-- nearest WPZ (point need not be inside)</span>
+<span class="nv">zm</span><span class="p">:</span><span class="nf">getDropoffZoneAt</span><span class="p">(</span><span class="nv">point</span><span class="p">,</span><span class="w"> </span><span class="nv">coalition</span><span class="p">)</span><span class="w">         </span><span class="c1">-- active IAZ-legacy auto-drop zone at point</span>
+<span class="nv">zm</span><span class="p">:</span><span class="nf">getAIPickupZoneAt</span><span class="p">(</span><span class="nv">point</span><span class="p">,</span><span class="w"> </span><span class="nv">coalition</span><span class="p">)</span><span class="w">        </span><span class="c1">-- active AIZ P zone at point (smallest radius wins)</span>
+<span class="nv">zm</span><span class="p">:</span><span class="nf">getAIDropoffZoneAt</span><span class="p">(</span><span class="nv">point</span><span class="p">,</span><span class="w"> </span><span class="nv">coalition</span><span class="p">)</span><span class="w">       </span><span class="c1">-- active AIZ D zone at point (smallest radius wins)</span>
+</code></pre></div>
+<p>Coalition filtering everywhere follows the same rule: a zone matches when
+<code>coalition == 0</code> (caller accepts all), or <code>zone.coalition == 0</code> (zone serves all), or the two
+sides are equal. <code>getNearestWaypointZone</code> backs Feature I (<code>gotoNearestWPZ</code>), and the AI
+pickup/dropoff getters back the AI transport loop (<code>_checkAIStatus</code>).</p>
+<h2 id="query-api-logistic-zones">Query API — logistic zones<a class="headerlink" href="#query-api-logistic-zones" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="nv">zm</span><span class="p">:</span><span class="nf">getLogisticZone</span><span class="p">(</span><span class="nv">name</span><span class="p">)</span><span class="w">                             </span><span class="c1">-- → CTLDLogisticZone | nil</span>
+<span class="nv">zm</span><span class="p">:</span><span class="nf">getLogisticZonesForCoalition</span><span class="p">(</span><span class="nv">coalition</span><span class="p">)</span><span class="w">           </span><span class="c1">-- active + alive zones for coalition</span>
+<span class="nv">zm</span><span class="p">:</span><span class="nf">getLogisticZoneAtPoint</span><span class="p">(</span><span class="nv">point</span><span class="p">,</span><span class="w"> </span><span class="nv">coalition</span><span class="p">)</span><span class="w">          </span><span class="c1">-- first containing zone</span>
+<span class="nv">zm</span><span class="p">:</span><span class="nf">getLogisticZoneForUnit</span><span class="p">(</span><span class="nv">unitName</span><span class="p">)</span><span class="w">                  </span><span class="c1">-- zone under a unit / static</span>
+<span class="nv">zm</span><span class="p">:</span><span class="nf">getLogisticZonesAtPoint</span><span class="p">(</span><span class="nv">point</span><span class="p">,</span><span class="w"> </span><span class="nv">coalition</span><span class="p">,</span><span class="w"> </span><span class="nv">key</span><span class="p">)</span><span class="w">    </span><span class="c1">-- ALL containing zones; optional services filter</span>
+</code></pre></div>
+<p><code>getLogisticZonesAtPoint</code> returns every matching zone (not just the first). The optional
+<code>serviceKey</code> (e.g. <code>"cratesPickup"</code>) keeps only zones where <code>zone.services[key]</code> is not
+<code>false</code>.</p>
+<h2 id="runtime-registration-and-legacy-compatible-api">Runtime registration and legacy-compatible API<a class="headerlink" href="#runtime-registration-and-legacy-compatible-api" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="nv">zm</span><span class="p">:</span><span class="nf">registerFOBAsLogistic</span><span class="p">(</span><span class="nv">fobName</span><span class="p">,</span><span class="w"> </span><span class="nv">point</span><span class="p">,</span><span class="w"> </span><span class="nv">radius</span><span class="p">,</span><span class="w"> </span><span class="nv">coalitionId</span><span class="p">)</span><span class="w">  </span><span class="c1">-- add a built FOB as an LGZ</span>
+<span class="nv">zm</span><span class="p">:</span><span class="nf">unregisterLogistic</span><span class="p">(</span><span class="nv">name</span><span class="p">)</span><span class="w">                                     </span><span class="c1">-- remove a dynamic LGZ (FOB destroyed)</span>
+<span class="nv">zm</span><span class="p">:</span><span class="nf">registerFOBAsTroopZone</span><span class="p">(</span><span class="nv">fobName</span><span class="p">,</span><span class="w"> </span><span class="nv">point</span><span class="p">,</span><span class="w"> </span><span class="nv">radius</span><span class="p">,</span><span class="w"> </span><span class="nv">coalitionId</span><span class="p">)</span><span class="w">  </span><span class="c1">-- add a built FOB as an unlimited-stock TRZ</span>
+<span class="nv">zm</span><span class="p">:</span><span class="nf">unregisterTroopZone</span><span class="p">(</span><span class="nv">name</span><span class="p">)</span><span class="w">                                    </span><span class="c1">-- remove a dynamic TRZ (FOB destroyed)</span>
+<span class="nv">zm</span><span class="p">:</span><span class="nf">deactivateLogisticZone</span><span class="p">(</span><span class="nv">name</span><span class="p">)</span><span class="w">                                 </span><span class="c1">-- reversible disable (capture / loss)</span>
+<span class="nv">zm</span><span class="p">:</span><span class="nf">activateLogisticZone</span><span class="p">(</span><span class="nv">name</span><span class="p">)</span><span class="w">                                   </span><span class="c1">-- re-enable</span>
+<span class="nv">zm</span><span class="p">:</span><span class="nf">setTroopZoneActive</span><span class="p">(</span><span class="nv">zoneName</span><span class="p">,</span><span class="w"> </span><span class="nv">active</span><span class="p">)</span><span class="w">                         </span><span class="c1">-- enable / disable a TRZ</span>
+
+<span class="c1">-- Legacy-compatible (called by the legacy API wrappers):</span>
+<span class="nv">zm</span><span class="p">:</span><span class="nf">isUnitInZone</span><span class="p">(</span><span class="nv">unitName</span><span class="p">,</span><span class="w"> </span><span class="nv">zoneType</span><span class="p">)</span><span class="w">     </span><span class="c1">-- zoneType: "extract" | "pickup" | nil (any active zone)</span>
+<span class="nv">zm</span><span class="p">:</span><span class="nf">createExtractZone</span><span class="p">(</span><span class="nv">zoneName</span><span class="p">,</span><span class="w"> </span><span class="nv">flag</span><span class="p">,</span><span class="w"> </span><span class="nv">smoke</span><span class="p">)</span><span class="w">   </span><span class="c1">-- runtime EXZ from a DCS trigger zone</span>
+<span class="nv">zm</span><span class="p">:</span><span class="nf">removeExtractZone</span><span class="p">(</span><span class="nv">zoneName</span><span class="p">,</span><span class="w"> </span><span class="nv">flag</span><span class="p">)</span><span class="w">          </span><span class="c1">-- flag accepted but ignored</span>
+<span class="nv">zm</span><span class="p">:</span><span class="nf">createTroopZoneAtObject</span><span class="p">(</span><span class="nv">objectName</span><span class="p">,</span><span class="w"> </span><span class="nv">trzName</span><span class="p">)</span><span class="w">  </span><span class="c1">-- runtime pickup TRZ on any named object</span>
+<span class="nv">zm</span><span class="p">:</span><span class="nf">parseTRZ</span><span class="p">(</span><span class="nv">name</span><span class="p">)</span><span class="w">                             </span><span class="c1">-- parse a TRZ_ name without registering anything</span>
+<span class="nv">zm</span><span class="p">:</span><span class="nf">activateWaypointZone</span><span class="p">(</span><span class="nv">zoneName</span><span class="p">)</span><span class="w">             </span><span class="c1">-- delegates to setTroopZoneActive(…, true)</span>
+<span class="nv">zm</span><span class="p">:</span><span class="nf">deactivateWaypointZone</span><span class="p">(</span><span class="nv">zoneName</span><span class="p">)</span><span class="w">           </span><span class="c1">-- delegates to setTroopZoneActive(…, false)</span>
+<span class="nv">zm</span><span class="p">:</span><span class="nf">changeRemainingGroups</span><span class="p">(</span><span class="nv">zoneName</span><span class="p">,</span><span class="w"> </span><span class="nv">amount</span><span class="p">)</span><span class="w">    </span><span class="c1">-- adjust pickCurrentStock by ±amount (floored at 0)</span>
+</code></pre></div>
+<p>Deactivated logistic zones are ignored by every getter until reactivated, which lets a mission
+simulate a captured or temporarily lost resupply point without destroying it.</p>
+<p><code>createTroopZoneAtObject</code> resolves <code>objectName</code> against a DCS trigger zone, a unit, a static, a
+group, or an airbase/FARP — whichever matches first — and anchors the zone to it when it can
+move (<code>dcsName</code> for a trigger zone that's a Moving Zone, <code>linkedUnit</code> for a unit/static/group);
+an airbase/FARP match is fixed. A trigger zone's own radius is used; every other match gets a
+200 m default. For example, to add a pickup zone on a FARP placed in the Mission Editor:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">zm</span><span class="p">:</span><span class="nf">createTroopZoneAtObject</span><span class="p">(</span><span class="s2">"FARP Alpha"</span><span class="p">,</span><span class="w"> </span><span class="s2">"TRZ_farpAlpha_B_999_nil_0"</span><span class="p">)</span>
+</code></pre></div>
+<p><code>parseTRZ</code> is what both this method and the init-time TRZ discovery use to turn a <code>TRZ_…</code>
+string into <code>{zoneName, coalition, pickMaxStock, objectiveFlag, objectiveTarget}</code> (or <code>nil</code> plus
+a reason) — see <a href="#trz-naming-convention">TRZ naming convention</a> above.</p>
+<h2 id="unload-priority-extract-before-rtb">Unload priority: extract before RTB<a class="headerlink" href="#unload-priority-extract-before-rtb" title="Permanent link">&para;</a></h2>
+<p>When a player unloads troops, the containing zone is evaluated in this order (handled by the
+troop subsystem, not the zone manager itself):</p>
+<ol>
+<li>TRZ with <code>objectiveFlag</code> → <strong>extract</strong> (deploy troops, increment the flag).</li>
+<li>TRZ with pickup only → <strong>RTB</strong> (troops return, stock restored).</li>
+<li>Otherwise → <strong>combat deploy</strong> (troops deployed, no flag, no stock change).</li>
+</ol>
+<p>This ordering ensures a mixed zone triggers its objective when used as an extract point rather
+than merely returning the troops to stock.</p>
+<h2 id="f10-menu-behaviour">F10 menu behaviour<a class="headerlink" href="#f10-menu-behaviour" title="Permanent link">&para;</a></h2>
+<p>The troop-command menu is rebuilt on <code>S_EVENT_LAND</code> / <code>S_EVENT_TAKEOFF</code> from the player's
+current position and cargo state:</p>
+<ul>
+<li>In flight: the "Troop Commands" submenu is empty.</li>
+<li>On the ground inside a pickup TRZ: a "Load from <code>&lt;zoneName&gt;</code>" option appears.</li>
+<li>On the ground with troops onboard: an "Unload / Extract" option appears.</li>
+<li>On the ground outside any TRZ: no load options.</li>
+</ul>
+<h2 id="zone-name-validation">Zone-name validation<a class="headerlink" href="#zone-name-validation" title="Permanent link">&para;</a></h2>
+<p><code>_validateZoneNames()</code> runs first in <code>init()</code> and produces a single grouped report
+(<code>trigger.action.outText</code> + DCS log + <code>env.warning</code>). It covers:</p>
+<ul>
+<li><strong>TRZ / WPZ / LGZ</strong>: any trigger zone with the prefix that fails its parser is reported as an
+  error.</li>
+<li><strong>AIZ config (Features S/T)</strong>: per-entry checks accumulate errors and warnings, keyed by
+  <code>dcsZoneName</code> so that only invalid entries are skipped in <code>_loadAIZonesFromConfig</code>.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Severity</th>
+<th>Condition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>—</td>
+<td>error</td>
+<td>missing <code>dcsZoneName</code>, duplicate <code>dcsZoneName</code>, zone absent from the Mission Editor, or missing/invalid <code>coalition</code></td>
+</tr>
+<tr>
+<td>G1</td>
+<td>error</td>
+<td>neither <code>isPickup</code> nor <code>isDropoff</code> — the zone would do nothing</td>
+</tr>
+<tr>
+<td>G5</td>
+<td>error</td>
+<td>vehicle <code>cargoType</code> (<code>V</code>/<code>TV</code>) on a pickup zone but no aircraft has <code>canTransportWholeVehicle</code></td>
+</tr>
+<tr>
+<td>—</td>
+<td>warn</td>
+<td>invalid <code>cargoType</code> (defaults to <code>T</code>) or invalid <code>aiDropMode</code> (defaults to <code>GP</code>)</td>
+</tr>
+<tr>
+<td>G3</td>
+<td>warn</td>
+<td>pickup + troop cargo but <code>troopStock</code> undefined — troop pickup disabled</td>
+</tr>
+<tr>
+<td>G6</td>
+<td>warn</td>
+<td>pickup + vehicle cargo but <code>vehicleStock</code> undefined — vehicle pickup disabled</td>
+</tr>
+<tr>
+<td>G2</td>
+<td>warn</td>
+<td>every entry in <code>troopTemplates</code> is unknown (per-name warnings also emitted)</td>
+</tr>
+<tr>
+<td>G4</td>
+<td>warn</td>
+<td>every entry in <code>vehicleTypes</code> is unknown in the loadable-vehicle lists</td>
+</tr>
+<tr>
+<td>—</td>
+<td>warn</td>
+<td>a pickup zone overlaps a dropoff zone of the same coalition — risk of an instant pickup/dropoff loop</td>
+</tr>
+</tbody>
+</table>
+<p>When there are no findings it logs <code>CTLDZoneManager: zone config valid</code> instead.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "dev", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

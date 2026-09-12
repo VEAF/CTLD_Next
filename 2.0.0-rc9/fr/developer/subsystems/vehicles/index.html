@@ -1,0 +1,2700 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Combined Transport and Logistics Dispatcher for DCS World — modular rewrite.">
+      
+      
+      
+        <link rel="canonical" href="https://veaf.github.io/CTLD/2.0.0-rc9/fr/developer/subsystems/vehicles/">
+      
+      
+        <link rel="prev" href="../zones/">
+      
+      
+        <link rel="next" href="../beacons/">
+      
+      
+        
+          <link rel="alternate" href="../../../../developer/subsystems/vehicles/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="fr">
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Système de véhicules - CTLD</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#vehicle-system" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../../" title="CTLD" class="md-header__button md-logo" aria-label="CTLD" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CTLD
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Système de véhicules
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Sélectionner la langue">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../../../developer/subsystems/vehicles/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="fr" class="md-select__link">
+              Français
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/VEAF/CTLD" title="Aller au dépôt" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    VEAF/CTLD
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Accueil
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../pilot/" class="md-tabs__link">
+          
+  
+  
+  Pilote
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../mission-maker/" class="md-tabs__link">
+          
+  
+  
+  Concepteur de mission (mission maker)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+  Développeur
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../" title="CTLD" class="md-nav__button md-logo" aria-label="CTLD" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    CTLD
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/VEAF/CTLD" title="Aller au dépôt" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    VEAF/CTLD
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pilote
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pilote
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue d'ensemble
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/troop-transport/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transport de troupes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/crates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Caisses (crates)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/vehicles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Véhicules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/slingload/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Élingue (sling-load)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/parachute/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parachute
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/jtac/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JTAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/recon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reconnaissance (recon)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/beacons/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Balises (beacons)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/smoke/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fumigène (smoke)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pilot/pack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pack
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepteur de mission (mission maker)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Concepteur de mission (mission maker)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue d'ensemble
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/ctld-tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurer avec ctld-tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/zones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration des zones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/scenes-fob/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scènes & FOB
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/crates-catalogue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Catalogue de caisses (crates)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/minefield/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Champ de mines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/asset-validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Valider votre configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/translations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Traductions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mission-maker/legacy-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API historique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Développeur
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Développeur
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue d'ensemble
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow de développement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sous-systèmes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sous-systèmes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vue d'ensemble
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Moteur de scènes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pipeline de spawn des caisses (crates)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troops-jtac/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cycle de vie troupes + JTAC (troops)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestion des zones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Système de véhicules
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Système de véhicules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#state-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Machine à états
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#load-and-unload-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Méthodes de chargement et déchargement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-a-waiting-vehicle-comes-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D'où vient un véhicule WAITING
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="D&#39;où vient un véhicule WAITING">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spawnvehiclefortransport" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        spawnVehicleForTransport
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#load-pipeline-loadvehiclevehicle-transport-player-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline de chargement — loadVehicle(vehicle, transport, player, method)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unload-pipeline-unloadvehiclevehicle-transport-player-method-rearsector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline de déchargement — unloadVehicle(vehicle, transport, player, method, rearSector)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spawn-positioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Positionnement au spawn
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dcs-native-whole-vehicle-loading-_checknativeloading-1-s-tick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chargement de véhicule entier natif DCS — _checkNativeLoading (tick 1 s)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loadable-filtering-findloadablevehicles-_istypeloadable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filtrage des chargeables — findLoadableVehicles / _isTypeLoadable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transport-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capacités de transport
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packing-a-vehicle-back-into-crates-packvehicle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packing d'un véhicule en crates — packVehicle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parachute-drop-parachutevehicle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Largage en parachute — parachuteVehicle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cargo-weight" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Poids de cargo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f10-menu-buildmenusection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Menu F10 — buildMenuSection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dcs-event-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gestion des événements DCS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#events-published" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Événements publiés
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../beacons/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Système de balises (beacons)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Système de reconnaissance (recon)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../menu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Système de menu F10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../players/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Suivi des joueurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assemblage des systèmes AA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Événements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../i18n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Internationalisation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building-and-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Build et tests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../integration-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tests d'intégration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../migration-v1-v2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migration v1 → v2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Référence de l'API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-spec/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Spécification de conception
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#state-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Machine à états
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#load-and-unload-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Méthodes de chargement et déchargement
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-a-waiting-vehicle-comes-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D'où vient un véhicule WAITING
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="D&#39;où vient un véhicule WAITING">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spawnvehiclefortransport" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        spawnVehicleForTransport
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#load-pipeline-loadvehiclevehicle-transport-player-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline de chargement — loadVehicle(vehicle, transport, player, method)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unload-pipeline-unloadvehiclevehicle-transport-player-method-rearsector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline de déchargement — unloadVehicle(vehicle, transport, player, method, rearSector)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spawn-positioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Positionnement au spawn
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dcs-native-whole-vehicle-loading-_checknativeloading-1-s-tick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chargement de véhicule entier natif DCS — _checkNativeLoading (tick 1 s)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loadable-filtering-findloadablevehicles-_istypeloadable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filtrage des chargeables — findLoadableVehicles / _isTypeLoadable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transport-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capacités de transport
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packing-a-vehicle-back-into-crates-packvehicle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packing d'un véhicule en crates — packVehicle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parachute-drop-parachutevehicle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Largage en parachute — parachuteVehicle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cargo-weight" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Poids de cargo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f10-menu-buildmenusection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Menu F10 — buildMenuSection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dcs-event-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gestion des événements DCS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#events-published" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Événements publiés
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="vehicle-system">Système de véhicules<a class="headerlink" href="#vehicle-system" title="Permanent link">&para;</a></h1>
+<p>Le système de véhicules transporte des <strong>unités terrestres entières</strong> par voie aérienne : un
+transport récupère un véhicule pilotable dans une zone logistique, le convoie, et le repose sur
+le terrain — sans jamais le décomposer en crates. C'est le pendant du pipeline de crates (voir
+<a href="../crates/">crates</a>), et il sous-tend également le spawn des JTAC terrestres (voir
+<a href="../troops-jtac/">Cycle de vie Troop + JTAC</a>).</p>
+<p><strong>Source :</strong> <code>src/CTLD_vehicle.lua</code>
+<strong>Entité :</strong> <code>CTLDVehicle</code>
+<strong>Singleton :</strong> <code>CTLDVehicleSpawner</code></p>
+<p><code>CTLDVehicleSpawner</code> suit l'idiome de manager standard (<code>X = class()</code> + <code>getInstance()</code> — voir
+<a href="../../architecture/">Architecture</a>) : une unique <code>_instance</code>, allouée paresseusement au premier
+appel de <code>CTLDVehicleSpawner.getInstance()</code>. <code>CTLDVehicle</code> est une simple entité créée avec
+<code>:new(data)</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">CTLDVehicle</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="nf">class</span><span class="p">()</span>
+<span class="nv">CTLDVehicleSpawner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">class</span><span class="p">()</span>
+<span class="nv">CTLDVehicleSpawner</span><span class="p">.</span><span class="py">_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">nil</span>
+
+<span class="kr">function</span><span class="w"> </span><span class="nc">CTLDVehicleSpawner</span><span class="p">.</span><span class="nf">getInstance</span><span class="p">()</span>
+<span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">CTLDVehicleSpawner</span><span class="p">.</span><span class="py">_instance</span><span class="w"> </span><span class="kr">then</span>
+<span class="w">        </span><span class="kd">local</span><span class="w"> </span><span class="nv">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">setmetatable</span><span class="p">({},</span><span class="w"> </span><span class="nv">CTLDVehicleSpawner</span><span class="p">)</span>
+<span class="w">        </span><span class="nv">o</span><span class="p">:</span><span class="nf">init</span><span class="p">()</span>
+<span class="w">        </span><span class="nv">CTLDVehicleSpawner</span><span class="p">.</span><span class="py">_instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">o</span>
+<span class="w">    </span><span class="kr">end</span>
+<span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="nv">CTLDVehicleSpawner</span><span class="p">.</span><span class="py">_instance</span>
+<span class="kr">end</span>
+</code></pre></div>
+<p>À l'<code>init()</code>, le singleton enregistre sa section du menu F10 (<code>order = 30</code>), s'abonne au pont DCS
+<code>S_EVENT_DEAD</code>, s'abonne à plusieurs événements du bus, et démarre trois timers périodiques
+(détection de chargement natif, rafraîchissement de l'atterrissage pour packing, indice de vol
+stationnaire).</p>
+<h2 id="state-machine">Machine à états<a class="headerlink" href="#state-machine" title="Permanent link">&para;</a></h2>
+<p><code>CTLDVehicle.STATE</code> déclare trois états :</p>
+<table>
+<thead>
+<tr>
+<th>État</th>
+<th>Signification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WAITING</code></td>
+<td>Au sol, suivi, prêt à être chargé</td>
+</tr>
+<tr>
+<td><code>LOADED</code></td>
+<td>Transporté par un transport (unité DCS détruite pour <code>menu_ctld</code>, ou physiquement liée pour <code>dcs_native</code>)</td>
+</tr>
+<tr>
+<td><code>DELIVERED</code></td>
+<td>Déclaré mais <strong>actuellement non assigné</strong> — réservé à un futur état de livraison dédié</td>
+</tr>
+</tbody>
+</table>
+<p>Les transitions réellement effectuées par le code actuel sont :</p>
+<div class="highlight"><pre><span></span><code>        spawn / register              loadVehicle
+   (none) ───────────────► WAITING ──────────────► LOADED
+                              ▲                        │
+                              │      unloadVehicle     │
+                              └────────────────────────┘
+                              │   parachuteVehicle
+                              └─── (drop, then respawn) ─► WAITING
+</code></pre></div>
+<p><code>unloadVehicle</code> comme <code>parachuteVehicle</code> ramènent le véhicule à <code>WAITING</code> (et non <code>DELIVERED</code>)
+afin qu'il puisse être rechargé une fois de retour au sol. <code>setState(newState)</code> n'effectue aucune
+validation — la correction incombe aux appelants.</p>
+<h2 id="load-and-unload-methods">Méthodes de chargement et déchargement<a class="headerlink" href="#load-and-unload-methods" title="Permanent link">&para;</a></h2>
+<p>Le chargement et le déchargement portent chacun une chaîne <code>method</code> :</p>
+<table>
+<thead>
+<tr>
+<th>Sens</th>
+<th>Méthode</th>
+<th>Déclencheur</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Load</td>
+<td><code>menu_ctld</code></td>
+<td>Le joueur choisit un véhicule dans le sous-menu F10 <strong>Load / Extract Vehicles</strong> ; l'unité DCS est détruite au chargement</td>
+</tr>
+<tr>
+<td>Load</td>
+<td><code>dcs_native</code></td>
+<td>Un véhicule entier entre dans la bounding box d'un transport à cargo natif (classe C-130 / Il-76) ; DCS garde l'unité physiquement liée</td>
+</tr>
+<tr>
+<td>Unload</td>
+<td><code>menu_ctld</code></td>
+<td>Le joueur choisit un véhicule dans <strong>Unload Vehicles</strong> ; l'unité est respawnée près du transport</td>
+</tr>
+<tr>
+<td>Unload</td>
+<td><code>dcs_native</code></td>
+<td>DCS a déjà posé l'unité au sol ; CTLD ne récupère que la référence vivante</td>
+</tr>
+<tr>
+<td>Unload</td>
+<td><code>parachute</code></td>
+<td>Largage en vol via <strong>Parachute Vehicle</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="where-a-waiting-vehicle-comes-from">D'où vient un véhicule <code>WAITING</code><a class="headerlink" href="#where-a-waiting-vehicle-comes-from" title="Permanent link">&para;</a></h2>
+<p>Un <code>CTLDVehicle</code> chargeable en état <code>WAITING</code> est enregistré par l'un de ces chemins :</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Mécanisme</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Véhicule pré-placé par le MM</td>
+<td>INIT-D <code>scanMMVehicles()</code> scanne les groupes <code>Group.Category.GROUND</code> des deux coalitions et appelle <code>_registerMMVehicleUnit(unit)</code> pour chaque unité <strong>vivante</strong> dont le type possède un descripteur de crate CTLD (<code>findDescriptorByUnitType</code>)</td>
+</tr>
+<tr>
+<td>Activation retardée</td>
+<td><code>S_EVENT_BIRTH</code> → <code>onBirth</code> diffère d'une frame → <code>_onBirthDeferred</code> → <code>_registerMMVehicleUnit</code> (ou rattache une référence d'unité vivante à un véhicule existant après un déchargement)</td>
+</tr>
+<tr>
+<td>Spawn programmatique</td>
+<td><code>spawnVehicleForTransport(vehicleType, spawner, logisticZone)</code> spawne une unité neuve près d'un transport et l'enregistre <code>WAITING</code></td>
+</tr>
+<tr>
+<td>Unpack de crate</td>
+<td><code>spawnVehicleAt(spawnData, position)</code> / <code>registerJTACVehicle(...)</code> enregistrent une unité produite par le flux d'unpack de crate/JTAC</td>
+</tr>
+</tbody>
+</table>
+<p><code>_registerMMVehicleUnit</code> est idempotent : il ignore une unité déjà présente dans la table de
+recherche inverse <code>_unitToVehicle</code>.</p>
+<h3 id="spawnvehiclefortransport"><code>spawnVehicleForTransport</code><a class="headerlink" href="#spawnvehiclefortransport" title="Permanent link">&para;</a></h3>
+<p>Spawne une unité pilotable dans le <strong>secteur avant</strong> du transport via <code>ctld.utils.dynAdd</code>, crée le
+<code>CTLDVehicle</code> en <code>WAITING</code>, et publie <code>OnVehicleSpawnedForTransport</code>. Les noms de groupe et d'unité
+sont attribués sous la forme <code>CTLD_VEH_&lt;type&gt;_&lt;id&gt;</code> (les espaces et slashes étant remplacés par
+<code>_</code>), et conservés dans <code>spawnData</code> afin que l'unité réapparaisse sous le même nom après tout
+déchargement ultérieur. Le chemin JTAC terrestre (<code>spawnJTACFromDescriptor</code>) appelle cette méthode,
+puis <code>CTLDJTACManager:startLase(...)</code>.</p>
+<blockquote>
+<p>La branche Feature-Q « Request Equipment spawns a whole vehicle » existe dans
+<code>CTLDCrateManager:refreshRequestEquipmentSection</code> mais est actuellement inerte : le constructeur
+de menu fixe <code>spawnAsVehicle = false</code> pour chaque entrée, de sorte que <strong>Request Equipment
+(order 25) ne spawne jamais que des crates</strong>. Le chargement de véhicules entiers est piloté par
+le menu Vehicle Commands dédié, à l'encontre de véhicules déjà <code>WAITING</code>.</p>
+</blockquote>
+<h2 id="load-pipeline-loadvehiclevehicle-transport-player-method">Pipeline de chargement — <code>loadVehicle(vehicle, transport, player, method)</code><a class="headerlink" href="#load-pipeline-loadvehiclevehicle-transport-player-method" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Rejeter sauf si le véhicule est <code>WAITING</code>.</li>
+<li>Garde-fou de capacité <code>menu_ctld</code> : lire <code>caps.maxWholeVehiclesOnboard</code> (défaut <code>1</code>) depuis
+   l'entrée <code>capabilitiesByType</code> du transport, compter <code>findLoadedVehicles(transport)</code>, et refuser
+   avec un message au joueur si la soute est pleine. (La capacité <code>dcs_native</code> est laissée à DCS.)</li>
+<li>Si le véhicule est un JTAC enregistré, suspendre le lasing (<code>setJTACInTransit</code>).</li>
+<li><code>menu_ctld</code> : détruire l'unité DCS, publier <code>OnGroundUnitRemoved</code> (<code>reason = "loaded"</code>), et
+   vider la recherche inverse. <code>dcs_native</code> : garder l'unité vivante mais la retirer de la recherche
+   inverse afin qu'un <code>S_EVENT_DEAD</code> obsolète ne se déclenche pas à tort.</li>
+<li>Enregistrer <code>loadMethod</code>, <code>loadTransportName</code>, <code>loadTime</code> ; passer à l'état <code>LOADED</code>.</li>
+<li><code>menu_ctld</code> uniquement : recalculer le poids de cargo interne du transport (<code>_updateVehicleCargo</code>)
+   et envoyer un message de confirmation.</li>
+<li>Publier <code>OnVehicleLoaded</code>.</li>
+</ol>
+<p>La distance de ramassage maximale n'est <strong>pas</strong> appliquée dans <code>loadVehicle</code> ; elle l'est en amont
+dans <code>findLoadableVehicles</code> (≤ <code>maximumDistancePackableUnitsSearch</code>, défaut 200 m).</p>
+<h2 id="unload-pipeline-unloadvehiclevehicle-transport-player-method-rearsector">Pipeline de déchargement — <code>unloadVehicle(vehicle, transport, player, method, rearSector)</code><a class="headerlink" href="#unload-pipeline-unloadvehiclevehicle-transport-player-method-rearsector" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Rejeter sauf si le véhicule est <code>LOADED</code>.</li>
+<li>Calculer une position de spawn avec <code>_computeSpawnPosition(transport, rearSector)</code>.</li>
+<li><code>menu_ctld</code> / <code>parachute</code> : respawner l'unité près du transport avec <code>ctld.utils.dynAdd</code>, en
+   réutilisant <code>spawnData.groupName</code> / <code>spawnData.unitName</code>. <code>dcs_native</code> : récupérer l'unité vivante
+   que DCS a déjà posée via <code>Group.getByName(spawnData.groupName)</code>.</li>
+<li>Repasser à l'état <code>WAITING</code> ; ré-enregistrer la recherche inverse.</li>
+<li>Non-<code>dcs_native</code> : recalculer le poids de cargo. Reprendre le lasing JTAC le cas échéant.</li>
+<li><code>menu_ctld</code> uniquement : envoyer un message de confirmation.</li>
+<li>Publier <code>OnVehicleUnloaded</code>.</li>
+</ol>
+<blockquote>
+<p>Le brouillon du guide développeur décrivait le déchargement comme un respawn via
+<code>CTLDObjectRegistry.spawnObject</code> ; le code actuel respawne via <code>ctld.utils.dynAdd</code> et n'utilise
+pas l'object registry ici.</p>
+</blockquote>
+<h2 id="spawn-positioning">Positionnement au spawn<a class="headerlink" href="#spawn-positioning" title="Permanent link">&para;</a></h2>
+<p><code>_computeSpawnPosition(transport, rearSector)</code> (wrapper public <code>computeSafeDropPos</code>) place l'unité
+dans un secteur de ±45° par rapport au cap du transport — le secteur <strong>avant</strong> par défaut, ou le
+secteur <strong>arrière</strong> (<code>hdg + π</code>) quand <code>rearSector</code> vaut vrai, ce qui dégage le drop de la
+trajectoire de décollage d'un hélicoptère IA. Le décalage radial provient de <code>_secureOffset</code>, la
+diagonale de la bounding box <code>sqrt(halfLen² + halfWid²) × 2 + 10</code> m, avec un repli à 60 m lorsque
+<code>getDesc().box</code> est indisponible.</p>
+<h2 id="dcs-native-whole-vehicle-loading-_checknativeloading-1-s-tick">Chargement de véhicule entier natif DCS — <code>_checkNativeLoading</code> (tick 1 s)<a class="headerlink" href="#dcs-native-whole-vehicle-loading-_checknativeloading-1-s-tick" title="Permanent link">&para;</a></h2>
+<p>Pour les transports à cargo natif, le chargement est détecté géométriquement plutôt que via un
+menu. À chaque tick :</p>
+<ul>
+<li>Collecter les véhicules <code>WAITING</code> avec unités vivantes et les véhicules <code>LOADED</code> dont
+  <code>loadMethod == "dcs_native"</code>.</li>
+<li>Itérer sur les groupes <code>Group.Category.AIRPLANE</code> des deux coalitions ; pour chaque unité qui est
+  <code>_isNativeCargoCapable</code> (son entrée <code>capabilitiesByType</code> fixe <code>canTransportWholeVehicle == true</code>),
+  lire <code>getTransformation()</code> et <code>getDesc().box</code>.</li>
+<li>Pour chaque véhicule <code>WAITING</code>, convertir sa position monde dans le repère local du transport
+  (<code>_worldToLocal</code>) et la tester contre la box (<code>_isInBbox</code>). À l'entrée, appeler
+  <code>loadVehicle(veh, transport, nil, "dcs_native")</code> et enregistrer le transport dans <code>_nativeTracked</code>
+  pour éviter un double déclenchement.</li>
+</ul>
+<p>La branche de <strong>sortie</strong> de bbox est présente mais actuellement inopérante (la position de l'unité
+chargée ne peut plus être interrogée une fois détruite) ; le déchargement natif est géré via le
+chemin de déchargement <code>dcs_native</code> plutôt que par cette boucle.</p>
+<h2 id="loadable-filtering-findloadablevehicles-_istypeloadable">Filtrage des chargeables — <code>findLoadableVehicles</code> / <code>_isTypeLoadable</code><a class="headerlink" href="#loadable-filtering-findloadablevehicles-_istypeloadable" title="Permanent link">&para;</a></h2>
+<p><code>findLoadableVehicles(transport)</code> retourne les véhicules <code>WAITING</code> qu'un transport donné peut
+charger, en appliquant trois filtres par-dessus la porte de capacité :</p>
+<ul>
+<li>L'entrée <code>capabilitiesByType</code> du transport doit fixer <code>canTransportWholeVehicle</code>, sinon <code>{}</code>.</li>
+<li><strong>Coalition (GAP-Q1) :</strong> <code>veh.spawnData.coalitionId</code> doit être égal à la coalition du transport.</li>
+<li><strong>Type (GAP-Q2) :</strong> <code>_isTypeLoadable</code> exige que <code>veh.vehicleType</code> figure dans la liste
+  <code>loadableVehiclesRED</code> (coalition 1) ou <code>loadableVehiclesBLUE</code> (coalition 2) du transport.</li>
+<li><strong>Distance :</strong> ≤ <code>maximumDistancePackableUnitsSearch</code>.</li>
+</ul>
+<p>Les références d'unité des véhicules sont résolues paresseusement dans la boucle (<code>Group.getByName</code>
+peut avoir une frame de retard sur <code>coalition.addGroup</code>).</p>
+<h2 id="transport-capabilities">Capacités de transport<a class="headerlink" href="#transport-capabilities" title="Permanent link">&para;</a></h2>
+<p>Le comportement des véhicules entiers est piloté par l'entrée <code>capabilitiesByType</code> du transport
+(<code>ctld.gs("capabilitiesByType")</code>), plus le flag par joueur <code>canCarryVehicles</code> :</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Effet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>canTransportWholeVehicle</code></td>
+<td>Active le chargement/déchargement de véhicule entier pour ce type</td>
+</tr>
+<tr>
+<td><code>maxWholeVehiclesOnboard</code></td>
+<td>Capacité simultanée en véhicules entiers (<code>0</code> = aucune)</td>
+</tr>
+<tr>
+<td><code>loadableVehiclesRED</code> / <code>loadableVehiclesBLUE</code></td>
+<td>Noms de type DCS que cet appareil peut charger, par coalition</td>
+</tr>
+<tr>
+<td><code>canParachuteDrop</code></td>
+<td>Active l'entrée <strong>Parachute Vehicle</strong></td>
+</tr>
+<tr>
+<td><code>useNativeDcsCargoSystem</code></td>
+<td>Marque le type comme porteur à cargo natif</td>
+</tr>
+</tbody>
+</table>
+<h2 id="packing-a-vehicle-back-into-crates-packvehicle">Packing d'un véhicule en crates — <code>packVehicle</code><a class="headerlink" href="#packing-a-vehicle-back-into-crates-packvehicle" title="Permanent link">&para;</a></h2>
+<p><code>findPackableVehicles(transport)</code> liste les véhicules <code>WAITING</code> gérés par CTLD situés à moins de
+<code>maximumDistancePackableUnitsSearch</code> (uniquement les véhicules suivis — jamais des props de scène
+arbitraires). <code>packVehicle(transportUnitName, packableUnitName, playerObj)</code> :</p>
+<ol>
+<li>Résoudre le descripteur pour le type d'unité (<code>findDescriptorByUnitType</code>) ; refuser s'il n'y en
+   a aucun.</li>
+<li>Désenregistrer silencieusement tout JTAC sur l'unité, puis la <code>destroy()</code> et publier
+   <code>OnGroundUnitRemoved</code> (<code>reason = "packed"</code>).</li>
+<li>Spawner <code>descriptor.cratesRequired</code> crates via <code>CTLDCrateManager:spawnCratesAligned(...)</code> avec
+   <code>CTLDCrate.SPAWN_METHOD.VEHICLE_PACK</code>, dans le secteur avant (hélicoptère) ou le secteur arrière
+   (appareil à cargo natif).</li>
+<li>Publier <code>OnVehiclePacked</code>, puis reconstruire le menu du joueur une frame plus tard (pour éviter
+   la frame de retard de <code>coalition.getGroups()</code> après <code>destroy()</code>).</li>
+</ol>
+<p>Le rafraîchissement du menu de pack déclenché à l'atterrissage (<code>_checkPackingLanding</code>, tick 3 s)
+est conditionné à <code>ctld.gs("enablePackingVehicles")</code>.</p>
+<h2 id="parachute-drop-parachutevehicle">Largage en parachute — <code>parachuteVehicle</code><a class="headerlink" href="#parachute-drop-parachutevehicle" title="Permanent link">&para;</a></h2>
+<p>Requiert <code>caps.canParachuteDrop</code>. Vérifie l'AGL par rapport à <code>parachuteMinAltitudeVehicles</code>
+(défaut 30 m) et refuse si trop bas. Résout le véhicule (id explicite, sinon le premier véhicule
+chargé sur ce transport), calcule le point d'atterrissage avec <code>ctld.utils.calcDropPosition</code> en
+utilisant <code>parachuteDescentRateVehicles</code> (défaut 8 m/s), repasse le véhicule à <code>WAITING</code>, publie
+<code>OnVehicleParachuting</code>, et après le délai de descente le respawne à la position d'atterrissage et
+publie <code>OnVehicleParachuteLanded</code> (en reprenant le lasing JTAC le cas échéant).</p>
+<h2 id="cargo-weight">Poids de cargo<a class="headerlink" href="#cargo-weight" title="Permanent link">&para;</a></h2>
+<p><code>getLoadedVehicleWeight(transportUnitName)</code> somme <code>ctld.gs("groundVehicleWeights")</code> pour les
+véhicules <code>LOADED</code> en <code>menu_ctld</code> uniquement (défaut 2500 kg par type inconnu) ; le poids
+<code>dcs_native</code> est laissé à DCS. <code>_updateVehicleCargo</code> délègue à <code>ctld.utils.updateTransportWeight</code>,
+qui agrège troops, crates et véhicules en un unique appel <code>setUnitInternalCargo</code>.</p>
+<h2 id="f10-menu-buildmenusection">Menu F10 — <code>buildMenuSection</code><a class="headerlink" href="#f10-menu-buildmenusection" title="Permanent link">&para;</a></h2>
+<p>Ajouté uniquement lorsque l'unité du joueur possède <code>canCarryVehicles</code>. Il crée <strong>Vehicle Commands</strong>
+(<code>order = 30</code>) avec trois branches dynamiques :</p>
+<ul>
+<li><strong>Load / Extract Vehicles</strong> — reconstruit par <code>refreshLoadSection</code> ; désactivé en vol ; liste le
+  résultat de <code>findLoadableVehicles</code>. Sélectionner une entrée appelle
+  <code>loadVehicle(..., "menu_ctld")</code>.</li>
+<li><strong>Unload Vehicles</strong> — reconstruit par <code>refreshUnloadSection</code> ; masqué quand rien n'est chargé,
+  affiche « Land to unload vehicles » en vol, sinon liste les véhicules chargés.</li>
+<li><strong>Parachute Vehicle</strong> — présent uniquement quand <code>caps.canParachuteDrop</code> ; activé uniquement en
+  vol avec un véhicule chargé.</li>
+</ul>
+<p>Les rafraîchissements sont pilotés par le détecteur d'atterrissage (<code>_checkPackingLanding</code>), les
+événements de bus de spawn/retrait d'unité terrestre (<code>OnGroundUnitSpawned</code> / <code>OnGroundUnitRemoved</code>),
+et les événements de load/unload eux-mêmes. Un timer d'indice de vol stationnaire
+(<code>_checkVehicleHoverHint</code>, tick 5 s, cooldown de 30 s par joueur) incite un porteur en vol
+stationnaire à se poser au-dessus d'un véhicule <code>WAITING</code> voisin.</p>
+<h2 id="dcs-event-handling">Gestion des événements DCS<a class="headerlink" href="#dcs-event-handling" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong><code>onDead</code> (<code>S_EVENT_DEAD</code>)</strong> — si l'unité morte est un véhicule suivi, la retirer et publier
+  <code>OnVehicleDead</code> + <code>OnGroundUnitRemoved</code>. Sinon, s'il s'agit d'un transport qui portait des
+  véhicules <code>LOADED</code>, chaque véhicule transporté est considéré perdu : son JTAC est désenregistré et
+  <code>OnVehicleDead</code> est publié pour lui.</li>
+<li><strong><code>onBirth</code> (<code>S_EVENT_BIRTH</code>)</strong> — voir la source d'activation retardée ci-dessus.</li>
+</ul>
+<h2 id="events-published">Événements publiés<a class="headerlink" href="#events-published" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Événement</th>
+<th>Quand</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OnVehicleSpawnedForTransport</code></td>
+<td><code>spawnVehicleForTransport</code> a créé un véhicule <code>WAITING</code></td>
+</tr>
+<tr>
+<td><code>OnVehicleLoaded</code></td>
+<td>Véhicule chargé dans un transport</td>
+</tr>
+<tr>
+<td><code>OnVehicleUnloaded</code></td>
+<td>Véhicule déchargé / largué d'un transport</td>
+</tr>
+<tr>
+<td><code>OnVehicleDead</code></td>
+<td>Véhicule suivi détruit, ou perdu avec son transport</td>
+</tr>
+<tr>
+<td><code>OnVehiclePacked</code></td>
+<td>Véhicule packé en crates</td>
+</tr>
+<tr>
+<td><code>OnVehicleParachuting</code></td>
+<td>Largage en parachute démarré</td>
+</tr>
+<tr>
+<td><code>OnVehicleParachuteLanded</code></td>
+<td>Véhicule parachuté arrivé au sol</td>
+</tr>
+<tr>
+<td><code>OnGroundUnitSpawned</code> / <code>OnGroundUnitRemoved</code></td>
+<td>Une unité terrestre suivie est apparue / a disparu (pilote le rafraîchissement du menu)</td>
+</tr>
+</tbody>
+</table>
+<p>Voir <a href="../../events/">Events</a> pour le catalogue complet du bus et la forme des payloads.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "search.suggest", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": {"default": "dev", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
