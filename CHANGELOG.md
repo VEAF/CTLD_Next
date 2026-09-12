@@ -8,6 +8,28 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Fixed — CTLD.lua 2.0.0-rc8 did not load at all (FIX-BUILT-FILE-DOES-NOT-LOAD)
+
+- **The released `CTLD.lua` aborted while loading**, two thirds of the way through its own main
+  chunk. Reported against VEAF Tools 6.22.0, the first release to vendor rc8
+  ([VEAF-Mission-Creation-Tools issue #957](https://github.com/VEAF/VEAF-Mission-Creation-Tools/issues/957)).
+- Cause: the five scene files self-register during the main chunk, long before
+  `ctld.initialize()`. `CTLDSceneManager:_init` logs as it does so, and `ctld.utils.log` read
+  `ctld.gs("debugScreenLog")` unguarded — which the new `getSetting` guard (see below) rightly
+  refuses at that point. The error, raised from the logger, killed the whole file.
+- `ctld.utils.log` now guards that read with `pcall`, exactly as `CTLD_i18n.lua`'s `_activeLang()`
+  already guarded its own very-early read. Logging is infrastructure: it is called *from*
+  initialization, so it cannot require initialization to have finished. The `getSetting` guard is
+  unchanged — it found a real defect. Screen-logging behaviour after init is unchanged.
+- **For mission makers using VEAF Tools:** the symptom was much wider than CTLD. VEAF emits its
+  loading trigger as one concatenated Lua chunk with CTLD ahead of the VEAF framework, so the
+  raise took the framework down with it — a mission that booted, was playable, and had **no F10
+  radio menu at all**. One `Mission script error` line naming CTLD was the only clue.
+- Also added: a CI job that **loads the built `CTLD.lua`** under Lua 5.1 with the repository's DCS
+  stubs and fails if it raises or comes up incomplete. Nothing executed the deliverable before —
+  `lua-lint` checks `src/` syntax per module, `busted` loads a config first and never loads
+  `src/scenes/`, and the build job only checked the file was non-empty. rc8 passed all three.
+
 ### Fixed — reading config before ctld.initialize() now fails clearly, not on arithmetic (FIX-CONFIG-NOT-LOADED-GUARD)
 
 - **A CTLD manager touched before `ctld.initialize()` used to crash on an unreadable arithmetic
